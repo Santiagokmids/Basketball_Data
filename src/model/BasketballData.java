@@ -1,8 +1,8 @@
 package model;
 
-public class BaskedballData {
+public class BasketballData {
 	
-	public BaskedballData() {}
+	public BasketballData() {}
 	
 	public void searchPlayer() {}
 	

@@ -26,11 +26,11 @@ public class Main extends Application{
 		fxmlLoader.setController(basketData);
 		
 		Parent root = fxmlLoader.load();
-		//Image icon= new Image("/images/logo.png");
+		Image icon = new Image("/images/icon.png");
 		Scene scene = new Scene(root);
-		//scene.getStylesheets().add("/images/logo.png");
+		scene.getStylesheets().add("/images/logo.png");
 		primaryStage.setScene(scene);
-		//primaryStage.getIcons().add(icon);
+		primaryStage.getIcons().add(icon);
 		primaryStage.setTitle("Basketball Data");
 		primaryStage.setResizable(false);
 		primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -38,22 +38,7 @@ public class Main extends Application{
 		basketData.loadApp();
 	}
 
-
-	/*
-	//Clase Nodo
-public class NodoArbolAVL {
-	int dato, fe;
-	NodoArbolAVL izdo, dcho;
-
-	public NodoArbolAVL(int dato){
-		this.dato = dato;
-		fe = 0;
-		izdo = null;
-		dcho = null;
-	}
-}
-
-//Clase arbol AVL
+/*Clase arbol AVL
 public class ArbolAVL {
 	private NodoArbolAVL raiz;
 

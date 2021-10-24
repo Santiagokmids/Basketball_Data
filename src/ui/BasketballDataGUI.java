@@ -11,10 +11,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import model.BasketballData;
 
 public class BasketballDataGUI {
 	
-	//public BasketballData basketData;
+	public BasketballData basketData;
 	
     @FXML
     private BorderPane mainPane;
