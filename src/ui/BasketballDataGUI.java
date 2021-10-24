@@ -67,6 +67,13 @@ public class BasketballDataGUI {
 
     @FXML
     private ImageView imgExit;
+    
+    @FXML
+    private AnchorPane anchorBack;
+
+    @FXML
+    private ImageView imgBack;
+
 	
 	@FXML
 	public void loadApp() throws IOException, InterruptedException{
@@ -89,6 +96,9 @@ public class BasketballDataGUI {
 		imgImp.setImage(importP);
 		Image end = new Image("/images/end.png");
 		imgExit.setImage(end);
+		
+		Image ball = new Image("/images/back.png");
+		imgBack.setImage(ball);
 
 		mainPane.setTop(load);
 	}
