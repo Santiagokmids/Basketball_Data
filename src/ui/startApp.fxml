@@ -30,8 +30,10 @@
          <children>
             <Pane prefHeight="199.0" prefWidth="276.0">
                <children>
-                  <ImageView fitHeight="55.0" fitWidth="283.0" layoutX="21.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imgTitle" fitHeight="55.0" fitWidth="283.0" layoutX="21.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgTitle" fitHeight="55.0" fitWidth="283.0" layoutX="21.0" layoutY="72.0" onMouseClicked="#openning" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
                </children>
             </Pane>
             <Button fx:id="btnPlayers" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleClicks" onMouseEntered="#color" onMouseExited="#normalColor" prefHeight="66.0" prefWidth="343.0" style="-fx-background-color: #D54939;" text="     Jugadores" textFill="WHITE">

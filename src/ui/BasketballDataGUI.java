@@ -19,7 +19,7 @@ import model.BasketballData;
 public class BasketballDataGUI {
 
 	//public BasketballData basketData;
-
+	
 	@FXML
 	private BorderPane mainPane;
 
@@ -110,6 +110,12 @@ public class BasketballDataGUI {
 
 		mainPane.setTop(load);
 	}
+	
+
+    @FXML
+    public void openning(MouseEvent event) {
+    	changeAllButton();
+    }
 
 	@FXML
 	public void handleClicks(ActionEvent event) {
@@ -118,12 +124,8 @@ public class BasketballDataGUI {
 		String s = button.getText();
 		String style = "-fx-background-color: #D63320;";
 		DropShadow dropShadow = new DropShadow();
-		btnPlayersVerify = btnAddVerify = btnDeleteVerify = btnSearchVerify = btnImportVerify = true;
-		changeStyle(btnPlayers.getText());
-		changeStyle(btnAdd.getText());
-		changeStyle(btnDelete.getText());
-		changeStyle(btnSearch.getText());
-		changeStyle(btnImport.getText());
+		
+		changeAllButton();
 		
 		switch (s) {
 		case "     Jugadores":
@@ -154,6 +156,16 @@ public class BasketballDataGUI {
 		default:
 			break;
 		}
+	}
+
+
+	private void changeAllButton() {
+		btnPlayersVerify = btnAddVerify = btnDeleteVerify = btnSearchVerify = btnImportVerify = true;
+		changeStyle(btnPlayers.getText());
+		changeStyle(btnAdd.getText());
+		changeStyle(btnDelete.getText());
+		changeStyle(btnSearch.getText());
+		changeStyle(btnImport.getText());
 	}
 
 	@FXML
