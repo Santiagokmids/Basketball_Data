@@ -130,18 +130,25 @@ public class BasketballDataGUI {
     @FXML
     public void openning(MouseEvent event) {
     	changeAllButton();
-    	changeVisibilityMainAnchor();
     	changeVisibilityAnchor();
+    	changeVisibilityMainAnchor();
     }
 
 
 	private void changeVisibilityMainAnchor() {
 		anchorBack.setVisible(true);
     	anchorBack.setDisable(false);
+    	imgBack.setVisible(true);
+    	imgBack.setDisable(false);
 	}
 
 
 	private void changeVisibilityAnchor() {
+		anchorBack.setVisible(false);
+    	anchorBack.setDisable(true);
+    	imgBack.setVisible(false);
+    	imgBack.setDisable(true);
+		
 		anchorPlayers.setVisible(false);
     	anchorPlayers.setDisable(true);
     	
@@ -167,33 +174,43 @@ public class BasketballDataGUI {
 		DropShadow dropShadow = new DropShadow();
 		
 		changeAllButton();
+		changeVisibilityAnchor();
 		
 		switch (s) {
 		case "     Jugadores":
 			btnPlayers.setStyle(style);
 			btnPlayers.setEffect(dropShadow);
 			btnPlayersVerify = false;
-			
+			anchorPlayers.setVisible(true);
+	    	anchorPlayers.setDisable(false);
 			break;
 		case "  Agregar":
 			btnAdd.setStyle(style);
 			btnAdd.setEffect(dropShadow);
 			btnAddVerify = false;
+			anchorAdd.setVisible(true);
+	    	anchorAdd.setDisable(false);
 			break;
 		case "  Eliminar":
 			btnDelete.setStyle(style);
 			btnDelete.setEffect(dropShadow);
 			btnDeleteVerify = false;
+			anchorDelete.setVisible(true);
+	    	anchorDelete.setDisable(false);
 			break;
 		case "Buscar":
 			btnSearch.setStyle(style);
 			btnSearch.setEffect(dropShadow);
 			btnSearchVerify = false;
+			anchorSearch.setVisible(true);
+	    	anchorSearch.setDisable(false);
 			break;
 		case "   Importar":
 			btnImport.setStyle(style);
 			btnImport.setEffect(dropShadow);
 			btnImportVerify = false;
+			anchorImport.setVisible(true);
+	    	anchorImport.setDisable(false);
 			break;
 		default:
 			break;
