@@ -61,7 +61,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnDelete" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseEntered="#color" onMouseExited="#normalColor" prefHeight="67.0" prefWidth="374.0" style="-fx-background-color: #D54939;" text="  Eliminar" textFill="WHITE">
+            <Button fx:id="btnDelete" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleClicks" onMouseEntered="#color" onMouseExited="#normalColor" prefHeight="67.0" prefWidth="374.0" style="-fx-background-color: #D54939;" text="  Eliminar" textFill="WHITE">
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>
@@ -76,7 +76,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnSearch" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" mnemonicParsing="false" onMouseEntered="#color" onMouseExited="#normalColor" prefHeight="65.0" prefWidth="408.0" style="-fx-background-color: #D54939;" text="Buscar" textFill="WHITE">
+            <Button fx:id="btnSearch" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" mnemonicParsing="false" onAction="#handleClicks" onMouseEntered="#color" onMouseExited="#normalColor" prefHeight="65.0" prefWidth="408.0" style="-fx-background-color: #D54939;" text="Buscar" textFill="WHITE">
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>
@@ -91,7 +91,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnImport" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" mnemonicParsing="false" onMouseEntered="#color" onMouseExited="#normalColor" prefHeight="65.0" prefWidth="379.0" style="-fx-background-color: #D54939;" text="   Importar" textFill="WHITE">
+            <Button fx:id="btnImport" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" mnemonicParsing="false" onAction="#handleClicks" onMouseEntered="#color" onMouseExited="#normalColor" prefHeight="65.0" prefWidth="379.0" style="-fx-background-color: #D54939;" text="   Importar" textFill="WHITE">
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>
