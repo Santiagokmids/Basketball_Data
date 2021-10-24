@@ -12,6 +12,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import model.BasketballData;
 
 public class BasketballDataGUI {
 
@@ -50,6 +51,8 @@ public class BasketballDataGUI {
 	boolean btnSearchVerify = true;
 	boolean btnImportVerify = true;
 
+	public BasketballData basketData;
+	
 	@FXML
 	public void loadApp() throws IOException, InterruptedException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("startApp.fxml"));
