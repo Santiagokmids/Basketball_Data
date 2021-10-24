@@ -28,9 +28,10 @@ public class Main extends Application{
 		Parent root = fxmlLoader.load();
 		Image icon = new Image("/images/icon.png");
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add("/images/logo.png");
+		scene.getStylesheets().add("/images/icon.png");
 		primaryStage.setScene(scene);
 		primaryStage.getIcons().add(icon);
+		
 		primaryStage.setTitle("Basketball Data");
 		primaryStage.setResizable(false);
 		primaryStage.initStyle(StageStyle.UNDECORATED);

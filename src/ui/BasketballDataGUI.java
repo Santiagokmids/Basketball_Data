@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -53,12 +55,48 @@ public class BasketballDataGUI {
 
 	public BasketballData basketData;
 	
+    @FXML
+    private ImageView imgTitle;
+    
+    @FXML
+    private ImageView imgPlayers;
+
+    @FXML
+    private ImageView imgAdd;
+    
+    @FXML
+    private ImageView imgDel;
+
+    @FXML
+    private ImageView imgSearch;
+    
+    @FXML
+    private ImageView imgImp;
+
+    @FXML
+    private ImageView imgExit;
+	
 	@FXML
 	public void loadApp() throws IOException, InterruptedException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("startApp.fxml"));
 		loader.setController(this);
 		Parent load = loader.load();
 		mainPane.getChildren().clear();
+		
+		Image title = new Image("/images/title.png");
+		imgTitle.setImage(title);
+		Image add = new Image("/images/addPlayer.png");
+		imgAdd.setImage(add);
+		Image delete = new Image("/images/deletePlayer.png");
+		imgDel.setImage(delete);
+		Image search = new Image("/images/searchPlayer.png");
+		imgSearch.setImage(search);
+		Image players = new Image("/images/players.png");
+		imgPlayers.setImage(players);
+		Image importP = new Image("/images/importPlayer.png");
+		imgImp.setImage(importP);
+		Image end = new Image("/images/end.png");
+		imgExit.setImage(end);
 
 		mainPane.setTop(load);
 	}
