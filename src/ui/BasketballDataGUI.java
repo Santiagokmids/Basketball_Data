@@ -17,36 +17,44 @@ import javafx.scene.layout.BorderPane;
 import model.BasketballData;
 
 public class BasketballDataGUI {
-	
+
+	//public BasketballData basketData;
+
+	@FXML
+	private BorderPane mainPane;
+
+	@FXML
+	private AnchorPane anch;
+
+	@FXML
+	private TableView<?> table;
+
+	@FXML
+	private AnchorPane two;
+
+	@FXML
+	private Button btnPlayers;
+
+	@FXML
+	private Button btnAdd;
+
+	@FXML
+	private Button btnDelete;
+
+	@FXML
+	private Button btnSearch;
+
+	@FXML
+	private Button btnImport;
+
+	boolean btnPlayersVerify = true;
+	boolean btnAddVerify = true;
+	boolean btnDeleteVerify = true;
+	boolean btnSearchVerify = true;
+	boolean btnImportVerify = true;
+
 	public BasketballData basketData;
 	
-    @FXML
-    private BorderPane mainPane;
-
-    @FXML
-    private AnchorPane anch;
-    
-    @FXML
-    private TableView<?> table;
-
-    @FXML
-    private AnchorPane two;
-    
-    @FXML
-    private Button btnPlayers;
-
-    @FXML
-    private Button btnAdd;
-
-    @FXML
-    private Button btnDelete;
-
-    @FXML
-    private Button btnSearch;
-
-    @FXML
-    private Button btnImport;
-    
     @FXML
     private ImageView imgTitle;
     
@@ -102,97 +110,144 @@ public class BasketballDataGUI {
 
 		mainPane.setTop(load);
 	}
-	
+
 	@FXML
 	public void handleClicks(ActionEvent event) {
-		anch.setVisible(false);
-		anch.setDisable(true);
-		two.setVisible(false);
-		two.setDisable(true);
-		Button button = (Button) event.getSource();
-		String butt = button.getText();
-		
-		switch(butt) {
-		case "a":
-			anch.setVisible(true);
-			anch.setDisable(false);
-			break;
-		case "s":
-			two.setVisible(true);
-			two.setDisable(false);
-			break;
-		}
-	}
-	
-	@FXML
-    public void closeApp(MouseEvent event) {
-		System.exit(0);
-    }
-	
 
-    @FXML
-    void color(MouseEvent event) {
-    	
-    	Button button = (Button) event.getSource();
+		Button button = (Button) event.getSource();
 		String s = button.getText();
 		String style = "-fx-background-color: #D63320;";
 		DropShadow dropShadow = new DropShadow();
+		btnPlayersVerify = btnAddVerify = btnDeleteVerify = btnSearchVerify = btnImportVerify = true;
+		changeStyle(btnPlayers.getText());
+		changeStyle(btnAdd.getText());
+		changeStyle(btnDelete.getText());
+		changeStyle(btnSearch.getText());
+		changeStyle(btnImport.getText());
 		
 		switch (s) {
 		case "     Jugadores":
 			btnPlayers.setStyle(style);
 			btnPlayers.setEffect(dropShadow);
+			btnPlayersVerify = false;
 			break;
 		case "  Agregar":
 			btnAdd.setStyle(style);
 			btnAdd.setEffect(dropShadow);
+			btnAddVerify = false;
 			break;
 		case "  Eliminar":
 			btnDelete.setStyle(style);
 			btnDelete.setEffect(dropShadow);
+			btnDeleteVerify = false;
 			break;
 		case "Buscar":
 			btnSearch.setStyle(style);
 			btnSearch.setEffect(dropShadow);
+			btnSearchVerify = false;
 			break;
 		case "   Importar":
 			btnImport.setStyle(style);
 			btnImport.setEffect(dropShadow);
+			btnImportVerify = false;
 			break;
 		default:
 			break;
 		}
-    }
-    
-    @FXML
-    void normalColor(MouseEvent event) {
-    	Button button = (Button) event.getSource();
+	}
+
+	@FXML
+	public void closeApp(MouseEvent event) {
+		System.exit(0);
+	}
+
+	@FXML
+	public void color(MouseEvent event) {
+
+		Button button = (Button) event.getSource();
 		String s = button.getText();
-		String style = "-fx-background-color: #D54939;";
-		
+		String style = "-fx-background-color: #D63320;";
+		DropShadow dropShadow = new DropShadow();
+
 		switch (s) {
 		case "     Jugadores":
-			btnPlayers.setStyle(style);
-			btnPlayers.setEffect(null);
+			if(btnPlayersVerify) {
+				btnPlayers.setStyle(style);
+				btnPlayers.setEffect(dropShadow);
+			}
 			break;
 		case "  Agregar":
-			btnAdd.setStyle(style);
-			btnAdd.setEffect(null);
+			if(btnAddVerify) {
+				btnAdd.setStyle(style);
+				btnAdd.setEffect(dropShadow);
+			}
 			break;
 		case "  Eliminar":
-			btnDelete.setStyle(style);
-			btnDelete.setEffect(null);
+			if(btnDeleteVerify) {
+				btnDelete.setStyle(style);
+				btnDelete.setEffect(dropShadow);
+			}
 			break;
 		case "Buscar":
-			btnSearch.setStyle(style);
-			btnSearch.setEffect(null);
+			if(btnSearchVerify) {
+				btnSearch.setStyle(style);
+				btnSearch.setEffect(dropShadow);
+			}
 			break;
 		case "   Importar":
-			btnImport.setStyle(style);
-			btnImport.setEffect(null);
+			if(btnImportVerify) {
+				btnImport.setStyle(style);
+				btnImport.setEffect(dropShadow);	
+			}
 			break;
 		default:
 			break;
 		}
-    }
+	}
+
+	@FXML
+	public void normalColor(MouseEvent event) {
+		Button button = (Button) event.getSource();
+		String s = button.getText();
+		changeStyle(s);
+	}
+
+	private void changeStyle(String s) {
+		
+		String style = "-fx-background-color: #D54939;";
+		switch (s) {
+		case "     Jugadores":
+			if(btnPlayersVerify) {
+				btnPlayers.setStyle(style);
+				btnPlayers.setEffect(null);
+			}
+			break;
+		case "  Agregar":
+			if(btnAddVerify) {
+				btnAdd.setStyle(style);
+				btnAdd.setEffect(null);
+			}
+			break;
+		case "  Eliminar":
+			if(btnDeleteVerify) {
+				btnDelete.setStyle(style);
+				btnDelete.setEffect(null);	
+			}
+			break;
+		case "Buscar":
+			if(btnSearchVerify) {
+				btnSearch.setStyle(style);
+				btnSearch.setEffect(null);	
+			}
+			break;
+		case "   Importar":
+			if(btnImportVerify) {
+				btnImport.setStyle(style);
+				btnImport.setEffect(null);	
+			}
+			break;
+		default:
+			break;
+		}
+	}
 } 
