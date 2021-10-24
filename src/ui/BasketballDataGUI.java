@@ -21,6 +21,21 @@ public class BasketballDataGUI {
 	//public BasketballData basketData;
 	
 	@FXML
+    private AnchorPane anchorImport;
+
+    @FXML
+    private AnchorPane anchorSearch;
+
+    @FXML
+    private AnchorPane anchorDelete;
+
+    @FXML
+    private AnchorPane anchorAdd;
+
+    @FXML
+    private AnchorPane anchorPlayers;
+
+	@FXML
 	private BorderPane mainPane;
 
 	@FXML
@@ -115,7 +130,33 @@ public class BasketballDataGUI {
     @FXML
     public void openning(MouseEvent event) {
     	changeAllButton();
+    	changeVisibilityMainAnchor();
+    	changeVisibilityAnchor();
     }
+
+
+	private void changeVisibilityMainAnchor() {
+		anchorBack.setVisible(true);
+    	anchorBack.setDisable(false);
+	}
+
+
+	private void changeVisibilityAnchor() {
+		anchorPlayers.setVisible(false);
+    	anchorPlayers.setDisable(true);
+    	
+    	anchorAdd.setVisible(false);
+    	anchorAdd.setDisable(true);
+    	
+    	anchorDelete.setVisible(false);
+    	anchorDelete.setDisable(true);
+    	
+    	anchorSearch.setVisible(false);
+    	anchorSearch.setDisable(true);
+    	
+    	anchorImport.setVisible(false);
+    	anchorImport.setDisable(true);
+	}
 
 	@FXML
 	public void handleClicks(ActionEvent event) {
@@ -132,6 +173,7 @@ public class BasketballDataGUI {
 			btnPlayers.setStyle(style);
 			btnPlayers.setEffect(dropShadow);
 			btnPlayersVerify = false;
+			
 			break;
 		case "  Agregar":
 			btnAdd.setStyle(style);
