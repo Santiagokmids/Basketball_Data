@@ -19,6 +19,21 @@ import model.BasketballData;
 public class BasketballDataGUI {
 
 	//public BasketballData basketData;
+	
+	@FXML
+    private AnchorPane anchorImport;
+
+    @FXML
+    private AnchorPane anchorSearch;
+
+    @FXML
+    private AnchorPane anchorDelete;
+
+    @FXML
+    private AnchorPane anchorAdd;
+
+    @FXML
+    private AnchorPane anchorPlayers;
 
 	@FXML
 	private BorderPane mainPane;
@@ -110,6 +125,45 @@ public class BasketballDataGUI {
 
 		mainPane.setTop(load);
 	}
+	
+
+    @FXML
+    public void openning(MouseEvent event) {
+    	changeAllButton();
+    	changeVisibilityAnchor();
+    	changeVisibilityMainAnchor();
+    }
+
+
+	private void changeVisibilityMainAnchor() {
+		anchorBack.setVisible(true);
+    	anchorBack.setDisable(false);
+    	imgBack.setVisible(true);
+    	imgBack.setDisable(false);
+	}
+
+
+	private void changeVisibilityAnchor() {
+		anchorBack.setVisible(false);
+    	anchorBack.setDisable(true);
+    	imgBack.setVisible(false);
+    	imgBack.setDisable(true);
+		
+		anchorPlayers.setVisible(false);
+    	anchorPlayers.setDisable(true);
+    	
+    	anchorAdd.setVisible(false);
+    	anchorAdd.setDisable(true);
+    	
+    	anchorDelete.setVisible(false);
+    	anchorDelete.setDisable(true);
+    	
+    	anchorSearch.setVisible(false);
+    	anchorSearch.setDisable(true);
+    	
+    	anchorImport.setVisible(false);
+    	anchorImport.setDisable(true);
+	}
 
 	@FXML
 	public void handleClicks(ActionEvent event) {
@@ -118,42 +172,59 @@ public class BasketballDataGUI {
 		String s = button.getText();
 		String style = "-fx-background-color: #D63320;";
 		DropShadow dropShadow = new DropShadow();
-		btnPlayersVerify = btnAddVerify = btnDeleteVerify = btnSearchVerify = btnImportVerify = true;
-		changeStyle(btnPlayers.getText());
-		changeStyle(btnAdd.getText());
-		changeStyle(btnDelete.getText());
-		changeStyle(btnSearch.getText());
-		changeStyle(btnImport.getText());
+		
+		changeAllButton();
+		changeVisibilityAnchor();
 		
 		switch (s) {
 		case "     Jugadores":
 			btnPlayers.setStyle(style);
 			btnPlayers.setEffect(dropShadow);
 			btnPlayersVerify = false;
+			anchorPlayers.setVisible(true);
+	    	anchorPlayers.setDisable(false);
 			break;
 		case "  Agregar":
 			btnAdd.setStyle(style);
 			btnAdd.setEffect(dropShadow);
 			btnAddVerify = false;
+			anchorAdd.setVisible(true);
+	    	anchorAdd.setDisable(false);
 			break;
 		case "  Eliminar":
 			btnDelete.setStyle(style);
 			btnDelete.setEffect(dropShadow);
 			btnDeleteVerify = false;
+			anchorDelete.setVisible(true);
+	    	anchorDelete.setDisable(false);
 			break;
 		case "Buscar":
 			btnSearch.setStyle(style);
 			btnSearch.setEffect(dropShadow);
 			btnSearchVerify = false;
+			anchorSearch.setVisible(true);
+	    	anchorSearch.setDisable(false);
 			break;
 		case "   Importar":
 			btnImport.setStyle(style);
 			btnImport.setEffect(dropShadow);
 			btnImportVerify = false;
+			anchorImport.setVisible(true);
+	    	anchorImport.setDisable(false);
 			break;
 		default:
 			break;
 		}
+	}
+
+
+	private void changeAllButton() {
+		btnPlayersVerify = btnAddVerify = btnDeleteVerify = btnSearchVerify = btnImportVerify = true;
+		changeStyle(btnPlayers.getText());
+		changeStyle(btnAdd.getText());
+		changeStyle(btnDelete.getText());
+		changeStyle(btnSearch.getText());
+		changeStyle(btnImport.getText());
 	}
 
 	@FXML
