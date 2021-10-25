@@ -10,8 +10,9 @@ public class Players {
 	String assistance;
 	String theft;
 	String block;
+	String points;
 	
-	public Players(String name, String lastName, int age, String team, String bounce, String assistance, String theft, String block) {
+	public Players(String name, String lastName, int age, String team, String bounce, String assistance, String theft, String block, String points) {
 		this.name = name;
 		this.lastName = lastName;
 		this.age = age;
@@ -20,6 +21,7 @@ public class Players {
 		this.assistance = assistance;
 		this.theft = theft;
 		this.block = block;
+		this.points = points;
 	}
 
 	public String getName() {
@@ -84,5 +86,13 @@ public class Players {
 
 	public void setBlock(String block) {
 		this.block = block;
+	}
+
+	public String getPoints() {
+		return points;
+	}
+
+	public void setPoints(String points) {
+		this.points = points;
 	}
 }

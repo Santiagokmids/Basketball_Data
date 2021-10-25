@@ -2,12 +2,18 @@ package ui;
 
 import java.io.IOException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,13 +21,41 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import model.BasketballData;
+import model.Players;
 
 public class BasketballDataGUI {
 
 	//public BasketballData basketData;
 	
 	@FXML
-    private TableView<?> tvPlayers;
+    private TableColumn<Players, String> tcName;
+
+    @FXML
+    private TableColumn<Players, String> tcLastName;
+
+    @FXML
+    private TableColumn<Players, Integer> tcAge;
+
+    @FXML
+    private TableColumn<Players, String> tcBlock;
+
+    @FXML
+    private TableColumn<Players, String> tcAssistance;
+
+    @FXML
+    private TableColumn<Players, String> tcTeam;
+
+    @FXML
+    private TableColumn<Players, String> tcTheft;
+
+    @FXML
+    private TableColumn<Players, String> tcBounce;
+
+    @FXML
+    private TableColumn<Players, String> tcPoints;
+	
+	@FXML
+    private TableView<Players> tvPlayers;
 	
 	@FXML
     private AnchorPane anchorImport;
@@ -114,7 +148,24 @@ public class BasketballDataGUI {
 
     @FXML
     private ImageView titleAnchPlayers;
-
+    
+    public static ObservableList<Players> listPlayers;
+    
+    public void inicializateTableView() {
+    	
+    	listPlayers = FXCollections.observableArrayList();
+    	
+    	tvPlayers.setItems(listPlayers);
+    	tcName.setCellValueFactory(new PropertyValueFactory<Players, String>("name"));
+    	tcLastName.setCellValueFactory(new PropertyValueFactory<Players, String>("lastName"));
+    	tcAge.setCellValueFactory(new PropertyValueFactory<Players, Integer>("age"));
+    	tcBlock.setCellValueFactory(new PropertyValueFactory<Players, String>("block"));
+    	tcAssistance.setCellValueFactory(new PropertyValueFactory<Players, String>("assistance"));
+    	tcTeam.setCellValueFactory(new PropertyValueFactory<Players, String>("team"));
+    	tcTheft.setCellValueFactory(new PropertyValueFactory<Players, String>("theft"));
+    	tcBounce.setCellValueFactory(new PropertyValueFactory<Players, String>("bounce"));
+    	tcPoints.setCellValueFactory(new PropertyValueFactory<Players, String>("points"));
+    }
 	
 	@FXML
 	public void loadApp() throws IOException, InterruptedException{
@@ -206,7 +257,7 @@ public class BasketballDataGUI {
 	    	
 	    	Image title = new Image("/images/listPlayersT.png");
 			titleAnchPlayers.setImage(title);
-	    	
+			inicializateTableView();
 			break;
 		case "  Agregar":
 			
@@ -372,6 +423,24 @@ public class BasketballDataGUI {
 	
 	@FXML
     public void btnModify(ActionEvent event) {
-
+		
+		Players players = (Players) this.tvPlayers.getSelectionModel().getSelectedItem();
+		
+		if(players == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Es necesario seleccionar un jugador");
+			alert.showAndWait();
+		}else {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
+				
+				Parent root = loader.load();
+				
+				
+			} catch (IOException e) {
+			}
+		}
     }
 } 
