@@ -21,6 +21,9 @@ public class BasketballDataGUI {
 	//public BasketballData basketData;
 	
 	@FXML
+    private TableView<?> tvPlayers;
+	
+	@FXML
     private AnchorPane anchorImport;
 
     @FXML
@@ -122,7 +125,7 @@ public class BasketballDataGUI {
 		
 		Image ball = new Image("/images/back.png");
 		imgBack.setImage(ball);
-
+		
 		mainPane.setTop(load);
 	}
 	
