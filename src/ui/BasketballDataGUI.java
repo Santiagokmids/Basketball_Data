@@ -182,6 +182,9 @@ public class BasketballDataGUI {
     @FXML
     private ImageView titleAnchPlayers;
     
+    @FXML
+    private ImageView iconImport;
+    
     public static ObservableList<Players> listPlayers;
     
     public void inicializateTableView() {
@@ -342,6 +345,8 @@ public class BasketballDataGUI {
 	    	
 	    	Image imp = new Image("/images/importPlayerT.png");
 			titleImpP.setImage(imp);
+			Image iconImp = new Image("/images/iconImport.png");
+	    	iconImport.setImage(iconImp);
 	    	
 			break;
 		default:
