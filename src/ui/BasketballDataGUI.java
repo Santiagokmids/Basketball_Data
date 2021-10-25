@@ -96,6 +96,21 @@ public class BasketballDataGUI {
 
     @FXML
     private ImageView imgBack;
+    
+    @FXML
+    private ImageView titleImpP;
+
+    @FXML
+    private ImageView titleSearchP;
+
+    @FXML
+    private ImageView titleDeleteP;
+
+     @FXML
+    private ImageView titleAddPlayers;
+
+    @FXML
+    private ImageView titleAnchPlayers;
 
 	
 	@FXML
@@ -178,39 +193,69 @@ public class BasketballDataGUI {
 		
 		switch (s) {
 		case "     Jugadores":
+			
 			btnPlayers.setStyle(style);
 			btnPlayers.setEffect(dropShadow);
 			btnPlayersVerify = false;
+			
 			anchorPlayers.setVisible(true);
 	    	anchorPlayers.setDisable(false);
+	    	
+	    	Image title = new Image("/images/listPlayersT.png");
+			titleAnchPlayers.setImage(title);
+	    	
 			break;
 		case "  Agregar":
+			
 			btnAdd.setStyle(style);
 			btnAdd.setEffect(dropShadow);
 			btnAddVerify = false;
+			
 			anchorAdd.setVisible(true);
 	    	anchorAdd.setDisable(false);
+	    	
+	    	Image add = new Image("/images/addPlayersT.png");
+	    	titleAddPlayers.setImage(add);
+			
 			break;
 		case "  Eliminar":
+			
 			btnDelete.setStyle(style);
 			btnDelete.setEffect(dropShadow);
 			btnDeleteVerify = false;
+			
 			anchorDelete.setVisible(true);
 	    	anchorDelete.setDisable(false);
+	    	
+	    	Image delete = new Image("/images/deletePlayersT.png");
+			titleDeleteP.setImage(delete);
+	    	
 			break;
 		case "Buscar":
+			
 			btnSearch.setStyle(style);
 			btnSearch.setEffect(dropShadow);
 			btnSearchVerify = false;
+			
 			anchorSearch.setVisible(true);
 	    	anchorSearch.setDisable(false);
+	    	
+	    	Image search = new Image("/images/searchPlayersT.png");
+			titleSearchP.setImage(search);
+	    	
 			break;
 		case "   Importar":
+			
 			btnImport.setStyle(style);
 			btnImport.setEffect(dropShadow);
 			btnImportVerify = false;
+			
 			anchorImport.setVisible(true);
 	    	anchorImport.setDisable(false);
+	    	
+	    	Image imp = new Image("/images/importPlayerT.png");
+			titleImpP.setImage(imp);
+	    	
 			break;
 		default:
 			break;
