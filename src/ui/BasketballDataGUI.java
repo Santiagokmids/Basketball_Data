@@ -462,8 +462,6 @@ public class BasketballDataGUI {
 	@FXML
     public void btnModify(ActionEvent event) {
 		
-		
-		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
 			
