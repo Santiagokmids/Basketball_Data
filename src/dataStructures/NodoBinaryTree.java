@@ -1,32 +1,30 @@
 package dataStructures;
 
-public class NodoBinaryTree <T extends Comparable<T>> implements Comparable <NodoBinaryTree<T>> {
-	private NodoBinaryTree<T> left;
-	private NodoBinaryTree<T> right;
+public class NodoBinaryTree <T,K> {
+	private NodoBinaryTree<T,K> left;
+	private NodoBinaryTree<T,K> right;
 	private T value;
-	private NodoBinaryTree<T> parent;
+	private K key;
+	private NodoBinaryTree<T,K> parent;
 
 	public NodoBinaryTree() {}
 
-	public NodoBinaryTree<T> getLeft() {
+	public NodoBinaryTree<T,K> getLeft() {
 		return left;
 	}
 
-	public void setLeft(NodoBinaryTree<T> left) {
+	public void setLeft(NodoBinaryTree<T,K> left) {
 		this.left = left;
 	}
 
-	public NodoBinaryTree<T> getRight() {
+	public NodoBinaryTree<T,K> getRight() {
 		return right;
 	}
 
-	public void setRight(NodoBinaryTree<T> right) {
+	public void setRight(NodoBinaryTree<T,K> right) {
 		this.right = right;
 	}
 
-	public int compareTo(NodoBinaryTree<T> o) {
-		return getValue().compareTo(o.getValue());
-	}
 
 	public T getValue() {
 		return value;
@@ -36,11 +34,11 @@ public class NodoBinaryTree <T extends Comparable<T>> implements Comparable <Nod
 		this.value = value;
 	}
 
-	public NodoBinaryTree<T> getParent() {
+	public NodoBinaryTree<T,K> getParent() {
 		return parent;
 	}
 
-	public void setParent(NodoBinaryTree<T> parent) {
+	public void setParent(NodoBinaryTree<T,K> parent) {
 		this.parent = parent;
 	}
 

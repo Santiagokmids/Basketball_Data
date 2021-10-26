@@ -1,30 +1,23 @@
 package dataStructures;
 
-public class BinaryTree  <T> {
-	private NodoBinaryTree<Integer> root;
-
-	public void ArbolBinarioBusqueda(){}
-
-	
-	public boolean crearArbol(Integer numero) {
-
-		boolean verify = false;
-
-		root = new NodoBinaryTree<>();
-
-		if (root != null) {
-			root.setValue(numero);
-			verify = true;
-		}
-		return verify;
+public class BinaryTree  <T,K> {
+	private NodoBinaryTree<T,K> root;
+	public void ArbolBinarioBusqueda(){
+		crearArbol();
 	}
 
-	public boolean agregarNodo(Integer numero) {
+	
+	public void crearArbol() {
+
+		root = null;
+	}
+
+	public boolean agregarNodo(T value, K key) {
 
 		boolean verify = false;
 
-		NodoBinaryTree<Integer> nuevoNodo = new NodoBinaryTree<>();
-		nuevoNodo.setValue(numero);
+		NodoBinaryTree<T,K> nuevoNodo = new NodoBinaryTree<>();
+		nuevoNodo.setValue(value);
 
 		if (root == null) {
 			root = nuevoNodo;
@@ -36,9 +29,10 @@ public class BinaryTree  <T> {
 		return verify;
 	}
 
-	private void agregarNode(NodoBinaryTree<Integer> auxiliar, NodoBinaryTree<Integer> nuevo) {
-
-		if (nuevo.compareTo(auxiliar) == -1 || nuevo.compareTo(auxiliar) == 0) {
+	private void agregarNode(NodoBinaryTree<T,K> auxiliar, NodoBinaryTree<T,K> nuevo) {
+		int new1 = (int)nuevo.getValue();
+		int aux = (int) auxiliar.getValue();
+		if (new1 <= aux) {
 			if (auxiliar.getLeft() == null) {
 				auxiliar.setLeft(nuevo);
 				nuevo.setParent(auxiliar);
@@ -56,22 +50,22 @@ public class BinaryTree  <T> {
 	}
 
 	
-	public boolean eliminarNodo(Integer numero) {
+	public boolean eliminarNodo(K k) {
 
 		boolean verificar = false;
 
-		NodoBinaryTree<Integer> nodo = buscarNodo(numero);
+		NodoBinaryTree<T,K> nodo = buscarNodo(k);
 
 		eliminarNode(nodo);
 
-		if (buscarNodo(numero) == null) {
+		if (buscarNodo(k) == null) {
 			verificar = true;
 		}
 
 		return verificar;
 	}
 
-	private void eliminarNode(NodoBinaryTree<Integer> nodo) {
+	private void eliminarNode(NodoBinaryTree<T,K> nodo) {
 
 		if (nodo.getLeft() == null && nodo.getRight() == null) {
 
@@ -87,7 +81,7 @@ public class BinaryTree  <T> {
 			nodo.setParent(null);
 
 		} else if (nodo.getLeft() == null || nodo.getRight() == null) {
-			NodoBinaryTree<Integer> unicoHijo;
+			NodoBinaryTree<T,K> unicoHijo;
 
 			if (nodo.getLeft() != null) {
 				unicoHijo = nodo.getLeft();
@@ -111,13 +105,14 @@ public class BinaryTree  <T> {
 			nodo.setParent(null);
 
 		} else {
-			NodoBinaryTree<Integer> sucesor = min(nodo.getRight());
+			NodoBinaryTree<T,K> sucesor = min(nodo.getRight());
 			nodo.setValue(sucesor.getValue());
 			eliminarNode(sucesor);
 		}
 	}
 
-	private NodoBinaryTree<Integer> min(NodoBinaryTree<Integer> auxiliar) {
+
+	private NodoBinaryTree<T,K> min(NodoBinaryTree<T,K> auxiliar) {
 
 		if (auxiliar.getLeft() != null) {
 			return min(auxiliar.getLeft());
@@ -127,24 +122,26 @@ public class BinaryTree  <T> {
 		}
 	}
 
-	public NodoBinaryTree<Integer> buscarNodo(Integer numero) {
-		return buscarNode(root, numero);
+	public NodoBinaryTree<T,K> buscarNodo(K k) {
+		return buscarNode(root, k);
 	}
 
-	private NodoBinaryTree<Integer> buscarNode(NodoBinaryTree<Integer> auxiliar, Integer numero) {
+	private NodoBinaryTree<T,K> buscarNode(NodoBinaryTree<T,K> auxiliar, K k) {
 
-		if (auxiliar == null || auxiliar.getValue() == numero) {
+		if (auxiliar == null || auxiliar.getValue() == k) {
 			return auxiliar;
 		} else {
-			if (numero <= auxiliar.getValue()) {
-				return buscarNode(auxiliar.getLeft(), numero);
+			int value = (int) k ;
+			int valueAux = (int) auxiliar.getValue();
+			if ( value <= valueAux) {
+				return buscarNode(auxiliar.getLeft(), k);
 			} else {
-				return buscarNode(auxiliar.getRight(), numero);
+				return buscarNode(auxiliar.getRight(), k);
 			}
 		}
 	}
 
-	public String infoArbol(NodoBinaryTree<Integer> root) {
+	public String infoArbol(NodoBinaryTree<T,K> root) {
 		String message = "";
 
 		if (root != null) {
@@ -155,11 +152,11 @@ public class BinaryTree  <T> {
 		return message;
 	}
 
-	public NodoBinaryTree<Integer> getRoot() {
+	public NodoBinaryTree<T,K> getRoot() {
 		return root;
 	}
 
-	public void setRoot(NodoBinaryTree<Integer> root) {
+	public void setRoot(NodoBinaryTree<T,K> root) {
 		this.root = root;
 	}
 }
