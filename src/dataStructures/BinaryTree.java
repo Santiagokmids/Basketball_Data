@@ -8,7 +8,7 @@ public class BinaryTree  <T,K> {
 
 	
 	public void crearArbol() {
-
+		System.out.println();
 		root = null;
 	}
 
