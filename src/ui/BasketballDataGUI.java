@@ -195,6 +195,9 @@ public class BasketballDataGUI {
 	private Button btnSave;
 
 	@FXML
+	private ImageView imgWarning;
+
+	@FXML
 	private Button btnExit;
 
 	public static ObservableList<Players> listPlayers;
@@ -344,6 +347,8 @@ public class BasketballDataGUI {
 
 			Image search = new Image("/images/searchPlayersT.png");
 			titleSearchP.setImage(search);
+			Image info = new Image("/images/warning.png");
+			imgWarning.setImage(info);
 
 			break;
 
