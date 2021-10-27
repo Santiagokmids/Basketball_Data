@@ -1,19 +1,17 @@
 package dataStructures;
-
-public class BinaryTree  <T,K> {
+public class BinaryTree  <T,K>implements  IBinaryTree<T,K>{
 	private NodoBinaryTree<T,K> root;
-	public void ArbolBinarioBusqueda(){
-		crearArbol();
+	public void ArbolBinarioBusqueda() {
+		createTree();
 	}
 
-	
-	public void crearArbol() {
-		System.out.println();
+	@Override
+	public void createTree() {
 		root = null;
 	}
-
-	public boolean agregarNodo(T value, K key) {
-
+	
+	@Override
+	public boolean addNode(T value, K key) {
 		boolean verify = false;
 
 		NodoBinaryTree<T,K> nuevoNodo = new NodoBinaryTree<>();
@@ -24,12 +22,12 @@ public class BinaryTree  <T,K> {
 			verify = true;
 
 		} else {
-			agregarNode(root, nuevoNodo);
+			addNode(root, nuevoNodo);
 		}
 		return verify;
 	}
 
-	private void agregarNode(NodoBinaryTree<T,K> auxiliar, NodoBinaryTree<T,K> nuevo) {
+	private void addNode(NodoBinaryTree<T,K> auxiliar, NodoBinaryTree<T,K> nuevo) {
 		int new1 = (int)nuevo.getValue();
 		int aux = (int) auxiliar.getValue();
 		if (new1 <= aux) {
@@ -37,35 +35,37 @@ public class BinaryTree  <T,K> {
 				auxiliar.setLeft(nuevo);
 				nuevo.setParent(auxiliar);
 			} else {
-				agregarNode(auxiliar.getLeft(), nuevo);
+				addNode(auxiliar.getLeft(), nuevo);
 			}
 		} else {
 			if (auxiliar.getRight() == null) {
 				auxiliar.setRight(nuevo);
 				nuevo.setParent(auxiliar);
 			} else {
-				agregarNode(auxiliar.getRight(), nuevo);
+				addNode(auxiliar.getRight(), nuevo);
 			}
 		}
 	}
 
-	
-	public boolean eliminarNodo(K k) {
 
+
+	@Override
+	public boolean deleteNode(K k) {
 		boolean verificar = false;
 
-		NodoBinaryTree<T,K> nodo = buscarNodo(k);
+		NodoBinaryTree<T,K> nodo = searchNode(k);
 
-		eliminarNode(nodo);
+		deleteNode(nodo);
 
-		if (buscarNodo(k) == null) {
+		if (searchNode(k) == null) {
 			verificar = true;
 		}
 
 		return verificar;
 	}
+	
 
-	private void eliminarNode(NodoBinaryTree<T,K> nodo) {
+	private void deleteNode(NodoBinaryTree<T,K> nodo) {
 
 		if (nodo.getLeft() == null && nodo.getRight() == null) {
 
@@ -107,7 +107,7 @@ public class BinaryTree  <T,K> {
 		} else {
 			NodoBinaryTree<T,K> sucesor = min(nodo.getRight());
 			nodo.setValue(sucesor.getValue());
-			eliminarNode(sucesor);
+			deleteNode(sucesor);
 		}
 	}
 
@@ -122,11 +122,14 @@ public class BinaryTree  <T,K> {
 		}
 	}
 
-	public NodoBinaryTree<T,K> buscarNodo(K k) {
-		return buscarNode(root, k);
+	
+	
+	@Override
+	public NodoBinaryTree<T, K> searchNode(K k) {
+		return searchNode(root, k);
 	}
 
-	private NodoBinaryTree<T,K> buscarNode(NodoBinaryTree<T,K> auxiliar, K k) {
+	private NodoBinaryTree<T,K> searchNode(NodoBinaryTree<T,K> auxiliar, K k) {
 
 		if (auxiliar == null || auxiliar.getValue() == k) {
 			return auxiliar;
@@ -134,9 +137,9 @@ public class BinaryTree  <T,K> {
 			int value = (int) k ;
 			int valueAux = (int) auxiliar.getValue();
 			if ( value <= valueAux) {
-				return buscarNode(auxiliar.getLeft(), k);
+				return searchNode(auxiliar.getLeft(), k);
 			} else {
-				return buscarNode(auxiliar.getRight(), k);
+				return searchNode(auxiliar.getRight(), k);
 			}
 		}
 	}
@@ -159,4 +162,5 @@ public class BinaryTree  <T,K> {
 	public void setRoot(NodoBinaryTree<T,K> root) {
 		this.root = root;
 	}
+	
 }
