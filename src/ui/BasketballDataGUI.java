@@ -14,8 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,8 +29,32 @@ import model.Players;
 
 public class BasketballDataGUI {
 
-	//public BasketballData basketData;
+	@FXML
+	private TextField tfName;
 
+	@FXML
+	private TextField tfLastName;
+
+	@FXML
+	private TextField tfAge;
+
+	@FXML
+	private TextField tfPoints;
+
+	@FXML
+	private TextField tfBounces;
+
+	@FXML
+	private TextField tfAssistances;
+
+	@FXML
+	private TextField tfTheft;
+
+	@FXML
+	private TextField tfBlock;
+
+	@FXML
+	private TextField tfTeam;
 
 	@FXML
 	private TextField lblName;
@@ -58,7 +82,6 @@ public class BasketballDataGUI {
 
 	@FXML
 	private TextField lblPoints;
-
 
 	@FXML
 	private TableColumn<Players, String> tcName;
@@ -204,7 +227,7 @@ public class BasketballDataGUI {
 
 	public void inicializateTableView() {
 
-		listPlayers = FXCollections.observableArrayList();
+		listPlayers = FXCollections.observableArrayList(basketData.getPlayers());
 
 		tvPlayers.setItems(listPlayers);
 		tcName.setCellValueFactory(new PropertyValueFactory<Players, String>("name"));
@@ -351,7 +374,6 @@ public class BasketballDataGUI {
 			imgWarning.setImage(info);
 
 			break;
-
 		case "Volver":
 
 			Stage stage = (Stage) this.btnBack.getScene().getWindow();
@@ -368,7 +390,6 @@ public class BasketballDataGUI {
 			titleSearchP.setImage(search1);
 
 			break;
-
 		case "   Importar":
 
 			btnImport.setStyle(style);
@@ -496,7 +517,6 @@ public class BasketballDataGUI {
 
 	@FXML
 	public void btnModify(ActionEvent event) {
-
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
 
@@ -508,7 +528,6 @@ public class BasketballDataGUI {
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setScene(scene);
 			stage.showAndWait();
-
 		} catch (IOException e) {
 		}
 		/**
@@ -524,7 +543,7 @@ public class BasketballDataGUI {
 
 		}*/
 	}
-
+	
 	@FXML
 	public void btnInfo(MouseEvent event) {
 
@@ -545,16 +564,36 @@ public class BasketballDataGUI {
 
 		}
 	}
-
+	
 	@FXML
 	public void btnModifyExit(ActionEvent event) {
 		Stage stage = (Stage) this.btnExit.getScene().getWindow();
 		stage.close();
 	}
-
+	
 	@FXML
 	public void btnSave(ActionEvent event) {
 		Stage stage = (Stage) this.btnSave.getScene().getWindow();
 		stage.close();
 	}
-} 
+
+	@FXML
+	public void btnAdd(ActionEvent event) {
+
+		Alert alert = new Alert(AlertType.INFORMATION);
+
+		if(!tfName.getText().equals("") && !tfLastName.getText().equals("") && !tfTeam.getText().equals("") && !tfAge.getText().equals("") && !tfPoints.getText().equals("") && !tfBounces.getText().equals("") && !tfAssistances.getText().equals("") && !tfTheft.getText().equals("") && !tfBlock.getText().equals("")) {
+			if (basketData.searchPlayer() != null) {
+
+				alert.setTitle("EXCELENTE");
+				alert.setHeaderText("Se ha registrado exitosamente");
+				alert.setContentText("Se ha registradp");
+			}
+		}else {
+			alert.setTitle("ERROR");
+			alert.setHeaderText("No se pudo agregar el jugador");
+			alert.setContentText("Debe llenas todos los campos para crear al jugador");
+			alert.showAndWait();
+		}
+	} 
+}

@@ -326,12 +326,12 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="189.0" layoutY="263.0" prefHeight="32.0" prefWidth="189.0" promptText="Nombre">
+            <TextField fx:id="tfName" layoutX="189.0" layoutY="263.0" prefHeight="32.0" prefWidth="189.0" promptText="Nombre">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
             </TextField>
-            <Button layoutX="321.0" layoutY="536.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Agregar" textFill="WHITE">
+            <Button layoutX="321.0" layoutY="536.0" mnemonicParsing="false" onAction="#btnAdd" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Agregar" textFill="WHITE">
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>
@@ -339,7 +339,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <TextField layoutX="474.0" layoutY="263.0" prefHeight="32.0" prefWidth="189.0" promptText="Apellido">
+            <TextField fx:id="tfLastName" layoutX="474.0" layoutY="263.0" prefHeight="32.0" prefWidth="189.0" promptText="Apellido">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -349,7 +349,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="527.0" layoutY="312.0" prefHeight="32.0" prefWidth="49.0" promptText="Edad">
+            <TextField fx:id="tfAge" layoutX="527.0" layoutY="312.0" prefHeight="32.0" prefWidth="49.0" promptText="Edad">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -359,7 +359,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="180.0" layoutY="408.0" prefHeight="32.0" prefWidth="73.0" promptText="Puntos">
+            <TextField fx:id="tfPoints" layoutX="180.0" layoutY="408.0" prefHeight="32.0" prefWidth="73.0" promptText="Puntos">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -369,7 +369,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="356.0" layoutY="410.0" prefHeight="32.0" prefWidth="73.0" promptText="Rebotes">
+            <TextField fx:id="tfBounces" layoutX="356.0" layoutY="410.0" prefHeight="32.0" prefWidth="73.0" promptText="Rebotes">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -379,7 +379,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="548.0" layoutY="408.0" prefHeight="32.0" prefWidth="98.0" promptText="Asistencias">
+            <TextField fx:id="tfAssistances" layoutX="548.0" layoutY="408.0" prefHeight="32.0" prefWidth="98.0" promptText="Asistencias">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -389,7 +389,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="288.0" layoutY="461.0" prefHeight="32.0" prefWidth="59.0" promptText="Robos">
+            <TextField fx:id="tfTheft" layoutX="288.0" layoutY="461.0" prefHeight="32.0" prefWidth="59.0" promptText="Robos">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -399,7 +399,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="467.0" layoutY="461.0" prefHeight="32.0" prefWidth="83.0" promptText="Bloqueos">
+            <TextField fx:id="tfBlock" layoutX="467.0" layoutY="461.0" prefHeight="32.0" prefWidth="83.0" promptText="Bloqueos">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -419,7 +419,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="248.0" layoutY="310.0" prefHeight="32.0" prefWidth="189.0" promptText="Equipo">
+            <TextField fx:id="tfTeam" layoutX="248.0" layoutY="310.0" prefHeight="32.0" prefWidth="189.0" promptText="Equipo">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
