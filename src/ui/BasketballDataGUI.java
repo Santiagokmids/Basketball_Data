@@ -216,6 +216,15 @@ public class BasketballDataGUI {
 	@FXML
 	private ImageView iconImport;
 
+	@FXML
+	private Button btnSave;
+
+	@FXML
+	private ImageView imgWarning;
+
+	@FXML
+	private Button btnExit;
+
 	public static ObservableList<Players> listPlayers;
 	
 	public BasketballDataGUI(BasketballData basketballData) {
@@ -367,9 +376,14 @@ public class BasketballDataGUI {
 
 			Image search = new Image("/images/searchPlayersT.png");
 			titleSearchP.setImage(search);
+			Image info = new Image("/images/warning.png");
+			imgWarning.setImage(info);
 
 			break;
 		case "Volver":
+
+			Stage stage = (Stage) this.btnBack.getScene().getWindow();
+			stage.close();
 
 			btnSearch.setStyle(style);
 			btnSearch.setEffect(dropShadow);
@@ -559,12 +573,14 @@ public class BasketballDataGUI {
 	
 	@FXML
 	public void btnModifyExit(ActionEvent event) {
-
+		Stage stage = (Stage) this.btnExit.getScene().getWindow();
+		stage.close();
 	}
 	
 	@FXML
 	public void btnSave(ActionEvent event) {
-
+		Stage stage = (Stage) this.btnSave.getScene().getWindow();
+		stage.close();
 	}
 
 	@FXML

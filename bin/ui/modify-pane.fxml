@@ -8,18 +8,23 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="441.0" style="-fx-background-color: D44939;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="105.0" layoutY="605.0" mnemonicParsing="false" onAction="#btnSave" style="-fx-background-radius: 20; -fx-background-color: white;" text="Guardar">
+      <Button fx:id="btnSave" layoutX="96.0" layoutY="605.0" mnemonicParsing="false" onAction="#btnSave" style="-fx-background-radius: 20; -fx-background-color: white;" text="Guardar">
          <font>
             <Font name="MT Extra" size="22.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button layoutX="231.0" layoutY="605.0" mnemonicParsing="false" onAction="#btnModifyExit" prefHeight="42.0" prefWidth="109.0" style="-fx-background-radius: 20; -fx-background-color: white;" text="Salir">
+      <Button fx:id="btnExit" layoutX="231.0" layoutY="605.0" mnemonicParsing="false" onAction="#btnModifyExit" prefHeight="42.0" prefWidth="109.0" style="-fx-background-radius: 20; -fx-background-color: white;" text="Salir">
          <font>
             <Font name="MT Extra" size="22.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="53.0" layoutX="37.0" layoutY="45.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="INSIDE" style="-fx-arc-height: 100; -fx-arc-width: 55;" width="360.0">
          <cursor>
