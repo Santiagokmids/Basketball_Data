@@ -3,7 +3,9 @@ package model;
 import java.io.Serializable;
 
 public class Players implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
+	
 	String name;
 	String lastName;
 	int age;
@@ -14,7 +16,7 @@ public class Players implements Serializable{
 	int block;
 	int points;
 	
-	public Players(String name, String lastName, int age, String team, int bounce, int assistance, int theft, int block, int points) {
+	public Players(String name, String lastName,  String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		this.name = name;
 		this.lastName = lastName;
 		this.age = age;

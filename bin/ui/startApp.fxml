@@ -437,7 +437,7 @@
       <AnchorPane fx:id="anchorPlayers" disable="true" layoutX="317.0" layoutY="-5.0" prefHeight="692.0" prefWidth="731.0" visible="false">
          <children>
             <ImageView fx:id="titleAnchPlayers" fitHeight="106.0" fitWidth="633.0" layoutX="50.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
-            <TableView layoutX="32.0" layoutY="181.0" prefHeight="396.0" prefWidth="667.0">
+            <TableView fx:id="tvPlayers" layoutX="32.0" layoutY="181.0" prefHeight="396.0" prefWidth="667.0">
               <columns>
                 <TableColumn fx:id="tcName" editable="false" prefWidth="120.0" sortable="false" text="Nombre" />
                 <TableColumn fx:id="tcLastName" editable="false" prefWidth="106.0" sortable="false" text="Apellido" />
