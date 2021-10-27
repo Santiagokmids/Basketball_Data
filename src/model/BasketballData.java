@@ -3,12 +3,19 @@ package model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class BasketballData {
 	
-	public BasketballData() {}
+	private ArrayList<Players> players;
 	
-	public void searchPlayer() {}
+	public BasketballData() {
+		players = new ArrayList<>();
+	}
+	
+	public Players searchPlayer() {
+		return null;
+	}
 	
 	public void loadData() {}
 
@@ -20,12 +27,20 @@ public class BasketballData {
 		String line = br.readLine();
 		
 		while(line != null) {
-			String[] players = line.split(";");
+			//String[] dataPlayers = line.split(";");
 			
 			//createPlayer(players);
 			
 			line = br.readLine();
 		}
 		br.close();
+	}
+
+	public ArrayList<Players> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(ArrayList<Players> players) {
+		this.players = players;
 	}
 }

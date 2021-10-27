@@ -6,13 +6,13 @@ public class Players {
 	String lastName;
 	int age;
 	String team;
-	String bounce;
-	String assistance;
-	String theft;
-	String block;
-	String points;
+	int bounce;
+	int assistance;
+	int theft;
+	int block;
+	int points;
 	
-	public Players(String name, String lastName, int age, String team, String bounce, String assistance, String theft, String block, String points) {
+	public Players(String name, String lastName, int age, String team, int bounce, int assistance, int theft, int block, int points) {
 		this.name = name;
 		this.lastName = lastName;
 		this.age = age;
@@ -56,43 +56,43 @@ public class Players {
 		this.team = team;
 	}
 
-	public String getBounce() {
+	public int getBounce() {
 		return bounce;
 	}
 
-	public void setBounce(String bounce) {
+	public void setBounce(int bounce) {
 		this.bounce = bounce;
 	}
 
-	public String getAssistance() {
+	public int getAssistance() {
 		return assistance;
 	}
 
-	public void setAssistance(String assistance) {
+	public void setAssistance(int assistance) {
 		this.assistance = assistance;
 	}
 
-	public String getTheft() {
+	public int getTheft() {
 		return theft;
 	}
 
-	public void setTheft(String theft) {
+	public void setTheft(int theft) {
 		this.theft = theft;
 	}
 
-	public String getBlock() {
+	public int getBlock() {
 		return block;
 	}
 
-	public void setBlock(String block) {
+	public void setBlock(int block) {
 		this.block = block;
 	}
 
-	public String getPoints() {
+	public int getPoints() {
 		return points;
 	}
 
-	public void setPoints(String points) {
+	public void setPoints(int points) {
 		this.points = points;
 	}
 }
