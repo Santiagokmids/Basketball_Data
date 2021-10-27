@@ -1,5 +1,6 @@
 package dataStructures;
 
+
 public class NodoBinaryTree <T,K> {
 	private NodoBinaryTree<T,K> left;
 	private NodoBinaryTree<T,K> right;
