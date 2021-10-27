@@ -1,19 +1,40 @@
 package ui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.BasketballData;
 
 public class Main extends Application{
 	
-	private BasketballDataGUI basketData;
-
+	private BasketballData basketData;
+	private BasketballDataGUI basketDataGUI;
+	
 	public Main() {
-		basketData = new BasketballDataGUI(); 
+		
+		boolean loadInformation = true;
+		basketData = new BasketballData();
+		basketDataGUI = new BasketballDataGUI(basketData); 
+		try {
+			loadInformation = basketData.loadData();
+		} catch (ClassNotFoundException | IOException e) {
+			if (!loadInformation) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				
+			    alert.setTitle("Basket");
+			    alert.setContentText("Error cargando el archivo");
+			    alert.showAndWait();
+			}
+			loadInformation = false;
+		}
 	}
 	public static void main(String [] args) {
 		launch(args);
@@ -23,7 +44,7 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-pane.fxml"));
 		
-		fxmlLoader.setController(basketData);
+		fxmlLoader.setController(basketDataGUI);
 		
 		Parent root = fxmlLoader.load();
 		Image icon = new Image("/images/icon.png");
@@ -36,7 +57,7 @@ public class Main extends Application{
 		primaryStage.setResizable(false);
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.show();
-		basketData.loadApp();
+		basketDataGUI.loadApp();
 	}
 
 /*Clase arbol AVL

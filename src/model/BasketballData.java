@@ -21,8 +21,14 @@ public class BasketballData {
 	public static final String TREE_ASSISTANCE = "data/node_assistance.txt";
 	public static final String TREE_BLOCK = "data/node_block.txt";
 	public static final String TREE_POINTS = "data/node_points.txt";
+	
 	public BasketballData() {
 		players = new ArrayList<>();
+	}
+
+	public void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
+		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
+		players.add(newPlayers);
 	}
 
 	public void importData(String fileName) throws IOException {
@@ -48,12 +54,14 @@ public class BasketballData {
 		// ob.close();
 	}
 
-	public void loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
+	public boolean loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
+		
 		// File f = new File(NODE);
 		// if (f.exists()) {
 		// ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
 		// ARbol = (noooddooo ) ob.readObject();
 		// ob.close();
+		return false;
 	}
 
 	public ArrayList<Players> searchArrayMin(int code) {

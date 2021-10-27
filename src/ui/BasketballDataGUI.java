@@ -2,6 +2,8 @@ package ui;
 
 import java.io.IOException;
 
+import org.omg.PortableInterceptor.AdapterManagerIdHelper;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -91,7 +93,7 @@ public class BasketballDataGUI {
 	private TableColumn<Players, String> tcLastName;
 
 	@FXML
-	private TableColumn<Players, Integer> tcAge;
+	private TableColumn<Players, String> tcAge;
 
 	@FXML
 	private TableColumn<Players, String> tcBlock;
@@ -235,6 +237,10 @@ public class BasketballDataGUI {
 
 
 	public static ObservableList<Players> listPlayers;
+	
+	public BasketballDataGUI(BasketballData basketballData) {
+		this.basketData = basketballData;
+	}
 
 	public void inicializateTableView() {
 
@@ -243,7 +249,7 @@ public class BasketballDataGUI {
 		tvPlayers.setItems(listPlayers);
 		tcName.setCellValueFactory(new PropertyValueFactory<Players, String>("name"));
 		tcLastName.setCellValueFactory(new PropertyValueFactory<Players, String>("lastName"));
-		tcAge.setCellValueFactory(new PropertyValueFactory<Players, Integer>("age"));
+		tcAge.setCellValueFactory(new PropertyValueFactory<Players, String>("age"));
 		tcBlock.setCellValueFactory(new PropertyValueFactory<Players, String>("block"));
 		tcAssistance.setCellValueFactory(new PropertyValueFactory<Players, String>("assistance"));
 		tcTeam.setCellValueFactory(new PropertyValueFactory<Players, String>("team"));
@@ -605,12 +611,52 @@ public class BasketballDataGUI {
 		Alert alert = new Alert(AlertType.INFORMATION);
 
 		if(!tfName.getText().equals("") && !tfLastName.getText().equals("") && !tfTeam.getText().equals("") && !tfAge.getText().equals("") && !tfPoints.getText().equals("") && !tfBounces.getText().equals("") && !tfAssistances.getText().equals("") && !tfTheft.getText().equals("") && !tfBlock.getText().equals("")) {
-			if (basketData.searchPlayer() != null) {
-
+			
+			try {
+				int age = Integer.parseInt(tfAge.getText());
+				int points = Integer.parseInt(tfPoints.getText());
+				int bounce = Integer.parseInt(tfBounces.getText());
+				int assistance = Integer.parseInt(tfAssistances.getText());
+				int theft = Integer.parseInt(tfTheft.getText());
+				int block = Integer.parseInt(tfBlock.getText());
+				
+				basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
+				inicializateTableView();
+				
 				alert.setTitle("EXCELENTE");
 				alert.setHeaderText("Se ha registrado exitosamente");
-				alert.setContentText("Se ha registradp");
+				alert.setContentText("Se ha registrado a"+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
+				alert.showAndWait();
+
+				tfName.setText("");
+				tfLastName.setText("");
+				tfAge.setText("");
+				tfTeam.setText("");
+				tfPoints.setText("");
+				tfBounces.setText("");
+				tfAssistances.setText("");
+				tfTheft.setText("");
+				tfBlock.setText("");
+				
+			} catch (NumberFormatException nfe) {
+				
+				alert.setTitle("ERROR");
+				alert.setHeaderText("No se pudo agregar el jugador");
+				alert.setContentText("Algunos de los valores tienen que ser de tipo numerico");
+				alert.showAndWait();
 			}
+			
+			
+			
+			/*
+			if (basketData.searchPlayer() != null) {
+
+				
+			}else {
+				alert.setHeaderText("No se pudo agregar el jugador");
+				alert.setContentText("Ya hay jugadores en la base de datos con esa informacion");
+				alert.showAndWait();
+			}*/
 		}else {
 			alert.setTitle("ERROR");
 			alert.setHeaderText("No se pudo agregar el jugador");
