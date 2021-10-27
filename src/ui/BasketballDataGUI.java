@@ -83,7 +83,6 @@ public class BasketballDataGUI {
 	@FXML
 	private TextField lblPoints;
 
-
 	@FXML
 	private TableColumn<Players, String> tcName;
 
@@ -205,6 +204,12 @@ public class BasketballDataGUI {
 
 	@FXML
 	private ImageView titleAnchPlayers;
+
+	@FXML
+	private ImageView titleMethods;
+
+	@FXML
+	private Button btnBack;
 
 	@FXML
 	private ImageView iconImport;
@@ -358,6 +363,19 @@ public class BasketballDataGUI {
 			titleSearchP.setImage(search);
 
 			break;
+		case "Volver":
+
+			btnSearch.setStyle(style);
+			btnSearch.setEffect(dropShadow);
+			btnSearchVerify = false;
+
+			anchorSearch.setVisible(true);
+			anchorSearch.setDisable(false);
+
+			Image search1 = new Image("/images/searchPlayersT.png");
+			titleSearchP.setImage(search1);
+
+			break;
 		case "   Importar":
 
 			btnImport.setStyle(style);
@@ -484,13 +502,13 @@ public class BasketballDataGUI {
 	}
 
 	@FXML
-	public void btnModify(ActionEvent event) {	
-		System.out.println("entra");
+	public void btnModify(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
-			
+
+			loader.setController(this);
 			Parent root = loader.load();
-			
+
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -511,12 +529,33 @@ public class BasketballDataGUI {
 
 		}*/
 	}
+	
+	@FXML
+	public void btnInfo(MouseEvent event) {
 
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("methodsOfSearch.fxml"));
+
+			loader.setController(this);
+			Parent root = loader.load();
+			Image method = new Image("/images/methodsSearch.png");
+			titleMethods.setImage(method);
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.showAndWait();
+
+		} catch (IOException e) {
+
+		}
+	}
+	
 	@FXML
 	public void btnModifyExit(ActionEvent event) {
 
 	}
-
+	
 	@FXML
 	public void btnSave(ActionEvent event) {
 
@@ -540,5 +579,5 @@ public class BasketballDataGUI {
 			alert.setContentText("Debe llenas todos los campos para crear al jugador");
 			alert.showAndWait();
 		}
-	}
-} 
+	} 
+}

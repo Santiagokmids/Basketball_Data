@@ -1,7 +1,9 @@
 package model;
 
-public class Players {
-	
+import java.io.Serializable;
+
+public class Players implements Serializable{
+	private static final long serialVersionUID = 1L;
 	String name;
 	String lastName;
 	int age;
