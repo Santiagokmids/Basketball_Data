@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -223,6 +224,16 @@ public class BasketballDataGUI {
 	@FXML
 	private Button btnExit;
 
+	@FXML
+	private ComboBox<String> comboBDates;
+
+	@FXML
+	private ComboBox<String> comboBMethods;
+
+	@FXML
+	private ComboBox<String> comboBCriters;
+
+
 	public static ObservableList<Players> listPlayers;
 
 	public void inicializateTableView() {
@@ -372,6 +383,7 @@ public class BasketballDataGUI {
 			titleSearchP.setImage(search);
 			Image info = new Image("/images/warning.png");
 			imgWarning.setImage(info);
+			addCombo();
 
 			break;
 		case "Volver":
@@ -388,6 +400,7 @@ public class BasketballDataGUI {
 
 			Image search1 = new Image("/images/searchPlayersT.png");
 			titleSearchP.setImage(search1);
+			addCombo();
 
 			break;
 		case "   Importar":
@@ -409,7 +422,16 @@ public class BasketballDataGUI {
 			break;
 		}
 	}
-
+	
+	public void addCombo() {
+		comboBDates.getItems().clear();
+		comboBMethods.getItems().clear();
+		comboBCriters.getItems().clear();
+		
+		comboBDates.getItems().addAll("Puntos por partido","Rebotes por partido","Asistencias por partido","Robos por partido","Rebotes por partido");
+		comboBMethods.getItems().addAll("Árbol Binario de búsqueda","Árbol Binario Balanceado","Búsqueda lineal");
+		comboBCriters.getItems().addAll("Igual","Menor o igual","Mayor o igual");
+	}
 
 	private void changeAllButton() {
 		btnPlayersVerify = btnAddVerify = btnDeleteVerify = btnSearchVerify = btnImportVerify = true;
@@ -543,7 +565,7 @@ public class BasketballDataGUI {
 
 		}*/
 	}
-	
+
 	@FXML
 	public void btnInfo(MouseEvent event) {
 
@@ -564,13 +586,13 @@ public class BasketballDataGUI {
 
 		}
 	}
-	
+
 	@FXML
 	public void btnModifyExit(ActionEvent event) {
 		Stage stage = (Stage) this.btnExit.getScene().getWindow();
 		stage.close();
 	}
-	
+
 	@FXML
 	public void btnSave(ActionEvent event) {
 		Stage stage = (Stage) this.btnSave.getScene().getWindow();

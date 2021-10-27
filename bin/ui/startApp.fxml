@@ -145,7 +145,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <ComboBox layoutX="255.0" layoutY="225.0" prefHeight="31.0" prefWidth="221.0" promptText="Atributo a elegir" style="-fx-background-color: #D54939;">
+            <ComboBox fx:id="comboBDates" layoutX="255.0" layoutY="225.0" prefHeight="31.0" prefWidth="221.0" promptText="Atributo a elegir" style="-fx-background-color: #D54939;">
                <effect>
                   <DropShadow />
                </effect>
@@ -155,7 +155,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <ComboBox layoutX="243.0" layoutY="450.0" prefHeight="31.0" prefWidth="246.0" promptText="Método para realizar la búsqueda" style="-fx-background-color: #D54939;">
+            <ComboBox fx:id="comboBMethods" layoutX="243.0" layoutY="450.0" prefHeight="31.0" prefWidth="246.0" promptText="Método para realizar la búsqueda" style="-fx-background-color: #D54939;">
                <effect>
                   <DropShadow />
                </effect>
@@ -193,7 +193,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <ComboBox layoutX="243.0" layoutY="543.0" prefHeight="31.0" prefWidth="246.0" promptText="Criterio de comparación" style="-fx-background-color: #D54939;">
+            <ComboBox fx:id="comboBCriters" layoutX="243.0" layoutY="543.0" prefHeight="31.0" prefWidth="246.0" promptText="Criterio de comparación" style="-fx-background-color: #D54939;">
                <effect>
                   <DropShadow />
                </effect>
