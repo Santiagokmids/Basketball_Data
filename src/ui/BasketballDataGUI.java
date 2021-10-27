@@ -191,6 +191,12 @@ public class BasketballDataGUI {
 	@FXML
 	private ImageView iconImport;
 
+	@FXML
+	private Button btnSave;
+
+	@FXML
+	private Button btnExit;
+
 	public static ObservableList<Players> listPlayers;
 
 	public void inicializateTableView() {
@@ -340,8 +346,11 @@ public class BasketballDataGUI {
 			titleSearchP.setImage(search);
 
 			break;
-			
+
 		case "Volver":
+
+			Stage stage = (Stage) this.btnBack.getScene().getWindow();
+			stage.close();
 
 			btnSearch.setStyle(style);
 			btnSearch.setEffect(dropShadow);
@@ -354,7 +363,7 @@ public class BasketballDataGUI {
 			titleSearchP.setImage(search1);
 
 			break;
-			
+
 		case "   Importar":
 
 			btnImport.setStyle(style);
@@ -485,10 +494,10 @@ public class BasketballDataGUI {
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
-			
+
 			loader.setController(this);
 			Parent root = loader.load();
-			
+
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -516,7 +525,7 @@ public class BasketballDataGUI {
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("methodsOfSearch.fxml"));
-			
+
 			loader.setController(this);
 			Parent root = loader.load();
 			Image method = new Image("/images/methodsSearch.png");
@@ -534,11 +543,13 @@ public class BasketballDataGUI {
 
 	@FXML
 	public void btnModifyExit(ActionEvent event) {
-
+		Stage stage = (Stage) this.btnExit.getScene().getWindow();
+		stage.close();
 	}
 
 	@FXML
 	public void btnSave(ActionEvent event) {
-
+		Stage stage = (Stage) this.btnSave.getScene().getWindow();
+		stage.close();
 	}
 } 

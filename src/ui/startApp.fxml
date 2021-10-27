@@ -180,7 +180,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <Button layoutX="301.0" layoutY="559.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Buscar" textFill="WHITE">
+            <Button layoutX="301.0" layoutY="559.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Buscar" textFill="WHITE">
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>
@@ -457,6 +457,9 @@
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
             </Button>
          </children></AnchorPane>
       <AnchorPane fx:id="anchorBack" disable="true" layoutX="319.0" layoutY="-1.0" prefHeight="687.0" prefWidth="731.0">
