@@ -30,80 +30,80 @@ import model.Players;
 public class BasketballDataGUI {
 
 	//public BasketballData basketData;
-	
 
-    @FXML
-    private TextField lblName;
 
-    @FXML
-    private TextField lblLastName;
-
-    @FXML
-    private TextField lblAge;
-
-    @FXML
-    private TextField lblBlock;
-
-    @FXML
-    private TextField lblAssistance;
-
-    @FXML
-    private TextField lblTeam;
-
-    @FXML
-    private TextField lblTheft;
-
-    @FXML
-    private TextField lblBounce;
-
-    @FXML
-    private TextField lblPoints;
-
-	
 	@FXML
-    private TableColumn<Players, String> tcName;
+	private TextField lblName;
 
-    @FXML
-    private TableColumn<Players, String> tcLastName;
-
-    @FXML
-    private TableColumn<Players, Integer> tcAge;
-
-    @FXML
-    private TableColumn<Players, String> tcBlock;
-
-    @FXML
-    private TableColumn<Players, String> tcAssistance;
-
-    @FXML
-    private TableColumn<Players, String> tcTeam;
-
-    @FXML
-    private TableColumn<Players, String> tcTheft;
-
-    @FXML
-    private TableColumn<Players, String> tcBounce;
-
-    @FXML
-    private TableColumn<Players, String> tcPoints;
-	
 	@FXML
-    private TableView<Players> tvPlayers;
-	
+	private TextField lblLastName;
+
 	@FXML
-    private AnchorPane anchorImport;
+	private TextField lblAge;
 
-    @FXML
-    private AnchorPane anchorSearch;
+	@FXML
+	private TextField lblBlock;
 
-    @FXML
-    private AnchorPane anchorDelete;
+	@FXML
+	private TextField lblAssistance;
 
-    @FXML
-    private AnchorPane anchorAdd;
+	@FXML
+	private TextField lblTeam;
 
-    @FXML
-    private AnchorPane anchorPlayers;
+	@FXML
+	private TextField lblTheft;
+
+	@FXML
+	private TextField lblBounce;
+
+	@FXML
+	private TextField lblPoints;
+
+
+	@FXML
+	private TableColumn<Players, String> tcName;
+
+	@FXML
+	private TableColumn<Players, String> tcLastName;
+
+	@FXML
+	private TableColumn<Players, Integer> tcAge;
+
+	@FXML
+	private TableColumn<Players, String> tcBlock;
+
+	@FXML
+	private TableColumn<Players, String> tcAssistance;
+
+	@FXML
+	private TableColumn<Players, String> tcTeam;
+
+	@FXML
+	private TableColumn<Players, String> tcTheft;
+
+	@FXML
+	private TableColumn<Players, String> tcBounce;
+
+	@FXML
+	private TableColumn<Players, String> tcPoints;
+
+	@FXML
+	private TableView<Players> tvPlayers;
+
+	@FXML
+	private AnchorPane anchorImport;
+
+	@FXML
+	private AnchorPane anchorSearch;
+
+	@FXML
+	private AnchorPane anchorDelete;
+
+	@FXML
+	private AnchorPane anchorAdd;
+
+	@FXML
+	private AnchorPane anchorPlayers;
 
 	@FXML
 	private BorderPane mainPane;
@@ -139,77 +139,83 @@ public class BasketballDataGUI {
 	boolean btnImportVerify = true;
 
 	public BasketballData basketData;
-	
-    @FXML
-    private ImageView imgTitle;
-    
-    @FXML
-    private ImageView imgPlayers;
 
-    @FXML
-    private ImageView imgAdd;
-    
-    @FXML
-    private ImageView imgDel;
+	@FXML
+	private ImageView imgTitle;
 
-    @FXML
-    private ImageView imgSearch;
-    
-    @FXML
-    private ImageView imgImp;
+	@FXML
+	private ImageView imgPlayers;
 
-    @FXML
-    private ImageView imgExit;
-    
-    @FXML
-    private AnchorPane anchorBack;
+	@FXML
+	private ImageView imgAdd;
 
-    @FXML
-    private ImageView imgBack;
-    
-    @FXML
-    private ImageView titleImpP;
+	@FXML
+	private ImageView imgDel;
 
-    @FXML
-    private ImageView titleSearchP;
+	@FXML
+	private ImageView imgSearch;
 
-    @FXML
-    private ImageView titleDeleteP;
+	@FXML
+	private ImageView imgImp;
 
-     @FXML
-    private ImageView titleAddPlayers;
+	@FXML
+	private ImageView imgExit;
 
-    @FXML
-    private ImageView titleAnchPlayers;
-    
-    @FXML
-    private ImageView iconImport;
-    
-    public static ObservableList<Players> listPlayers;
-    
-    public void inicializateTableView() {
-    	
-    	listPlayers = FXCollections.observableArrayList();
-    	
-    	tvPlayers.setItems(listPlayers);
-    	tcName.setCellValueFactory(new PropertyValueFactory<Players, String>("name"));
-    	tcLastName.setCellValueFactory(new PropertyValueFactory<Players, String>("lastName"));
-    	tcAge.setCellValueFactory(new PropertyValueFactory<Players, Integer>("age"));
-    	tcBlock.setCellValueFactory(new PropertyValueFactory<Players, String>("block"));
-    	tcAssistance.setCellValueFactory(new PropertyValueFactory<Players, String>("assistance"));
-    	tcTeam.setCellValueFactory(new PropertyValueFactory<Players, String>("team"));
-    	tcTheft.setCellValueFactory(new PropertyValueFactory<Players, String>("theft"));
-    	tcBounce.setCellValueFactory(new PropertyValueFactory<Players, String>("bounce"));
-    	tcPoints.setCellValueFactory(new PropertyValueFactory<Players, String>("points"));
-    }
-	
+	@FXML
+	private AnchorPane anchorBack;
+
+	@FXML
+	private ImageView imgBack;
+
+	@FXML
+	private ImageView titleImpP;
+
+	@FXML
+	private ImageView titleSearchP;
+
+	@FXML
+	private ImageView titleDeleteP;
+
+	@FXML
+	private ImageView titleAddPlayers;
+
+	@FXML
+	private ImageView titleAnchPlayers;
+
+	@FXML
+	private ImageView titleMethods;
+
+	@FXML
+	private Button btnBack;
+
+	@FXML
+	private ImageView iconImport;
+
+	public static ObservableList<Players> listPlayers;
+
+	public void inicializateTableView() {
+
+		listPlayers = FXCollections.observableArrayList();
+
+		tvPlayers.setItems(listPlayers);
+		tcName.setCellValueFactory(new PropertyValueFactory<Players, String>("name"));
+		tcLastName.setCellValueFactory(new PropertyValueFactory<Players, String>("lastName"));
+		tcAge.setCellValueFactory(new PropertyValueFactory<Players, Integer>("age"));
+		tcBlock.setCellValueFactory(new PropertyValueFactory<Players, String>("block"));
+		tcAssistance.setCellValueFactory(new PropertyValueFactory<Players, String>("assistance"));
+		tcTeam.setCellValueFactory(new PropertyValueFactory<Players, String>("team"));
+		tcTheft.setCellValueFactory(new PropertyValueFactory<Players, String>("theft"));
+		tcBounce.setCellValueFactory(new PropertyValueFactory<Players, String>("bounce"));
+		tcPoints.setCellValueFactory(new PropertyValueFactory<Players, String>("points"));
+	}
+
 	@FXML
 	public void loadApp() throws IOException, InterruptedException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("startApp.fxml"));
 		loader.setController(this);
 		Parent load = loader.load();
 		mainPane.getChildren().clear();
-		
+
 		Image title = new Image("/images/title.png");
 		imgTitle.setImage(title);
 		Image add = new Image("/images/addPlayer.png");
@@ -224,50 +230,50 @@ public class BasketballDataGUI {
 		imgImp.setImage(importP);
 		Image end = new Image("/images/end.png");
 		imgExit.setImage(end);
-		
+
 		Image ball = new Image("/images/back.png");
 		imgBack.setImage(ball);
-		
+
 		mainPane.setTop(load);
 	}
-	
 
-    @FXML
-    public void openning(MouseEvent event) {
-    	changeAllButton();
-    	changeVisibilityAnchor();
-    	changeVisibilityMainAnchor();
-    }
+
+	@FXML
+	public void openning(MouseEvent event) {
+		changeAllButton();
+		changeVisibilityAnchor();
+		changeVisibilityMainAnchor();
+	}
 
 
 	private void changeVisibilityMainAnchor() {
 		anchorBack.setVisible(true);
-    	anchorBack.setDisable(false);
-    	imgBack.setVisible(true);
-    	imgBack.setDisable(false);
+		anchorBack.setDisable(false);
+		imgBack.setVisible(true);
+		imgBack.setDisable(false);
 	}
 
 
 	private void changeVisibilityAnchor() {
 		anchorBack.setVisible(false);
-    	anchorBack.setDisable(true);
-    	imgBack.setVisible(false);
-    	imgBack.setDisable(true);
-		
+		anchorBack.setDisable(true);
+		imgBack.setVisible(false);
+		imgBack.setDisable(true);
+
 		anchorPlayers.setVisible(false);
-    	anchorPlayers.setDisable(true);
-    	
-    	anchorAdd.setVisible(false);
-    	anchorAdd.setDisable(true);
-    	
-    	anchorDelete.setVisible(false);
-    	anchorDelete.setDisable(true);
-    	
-    	anchorSearch.setVisible(false);
-    	anchorSearch.setDisable(true);
-    	
-    	anchorImport.setVisible(false);
-    	anchorImport.setDisable(true);
+		anchorPlayers.setDisable(true);
+
+		anchorAdd.setVisible(false);
+		anchorAdd.setDisable(true);
+
+		anchorDelete.setVisible(false);
+		anchorDelete.setDisable(true);
+
+		anchorSearch.setVisible(false);
+		anchorSearch.setDisable(true);
+
+		anchorImport.setVisible(false);
+		anchorImport.setDisable(true);
 	}
 
 	@FXML
@@ -277,77 +283,92 @@ public class BasketballDataGUI {
 		String s = button.getText();
 		String style = "-fx-background-color: #D63320;";
 		DropShadow dropShadow = new DropShadow();
-		
+
 		changeAllButton();
 		changeVisibilityAnchor();
-		
+
 		switch (s) {
 		case "     Jugadores":
-			
+
 			btnPlayers.setStyle(style);
 			btnPlayers.setEffect(dropShadow);
 			btnPlayersVerify = false;
-			
+
 			anchorPlayers.setVisible(true);
-	    	anchorPlayers.setDisable(false);
-	    	
-	    	Image title = new Image("/images/listPlayersT.png");
+			anchorPlayers.setDisable(false);
+
+			Image title = new Image("/images/listPlayersT.png");
 			titleAnchPlayers.setImage(title);
 			//inicializateTableView();
 			break;
 		case "  Agregar":
-			
+
 			btnAdd.setStyle(style);
 			btnAdd.setEffect(dropShadow);
 			btnAddVerify = false;
-			
+
 			anchorAdd.setVisible(true);
-	    	anchorAdd.setDisable(false);
-	    	
-	    	Image add = new Image("/images/addPlayersT.png");
-	    	titleAddPlayers.setImage(add);
-			
+			anchorAdd.setDisable(false);
+
+			Image add = new Image("/images/addPlayersT.png");
+			titleAddPlayers.setImage(add);
+
 			break;
 		case "  Eliminar":
-			
+
 			btnDelete.setStyle(style);
 			btnDelete.setEffect(dropShadow);
 			btnDeleteVerify = false;
-			
+
 			anchorDelete.setVisible(true);
-	    	anchorDelete.setDisable(false);
-	    	
-	    	Image delete = new Image("/images/deletePlayersT.png");
+			anchorDelete.setDisable(false);
+
+			Image delete = new Image("/images/deletePlayersT.png");
 			titleDeleteP.setImage(delete);
-	    	
+
 			break;
 		case "Buscar":
-			
+
 			btnSearch.setStyle(style);
 			btnSearch.setEffect(dropShadow);
 			btnSearchVerify = false;
-			
+
 			anchorSearch.setVisible(true);
-	    	anchorSearch.setDisable(false);
-	    	
-	    	Image search = new Image("/images/searchPlayersT.png");
+			anchorSearch.setDisable(false);
+
+			Image search = new Image("/images/searchPlayersT.png");
 			titleSearchP.setImage(search);
-	    	
+
 			break;
-		case "   Importar":
 			
+		case "Volver":
+
+			btnSearch.setStyle(style);
+			btnSearch.setEffect(dropShadow);
+			btnSearchVerify = false;
+
+			anchorSearch.setVisible(true);
+			anchorSearch.setDisable(false);
+
+			Image search1 = new Image("/images/searchPlayersT.png");
+			titleSearchP.setImage(search1);
+
+			break;
+			
+		case "   Importar":
+
 			btnImport.setStyle(style);
 			btnImport.setEffect(dropShadow);
 			btnImportVerify = false;
-			
+
 			anchorImport.setVisible(true);
-	    	anchorImport.setDisable(false);
-	    	
-	    	Image imp = new Image("/images/importPlayerT.png");
+			anchorImport.setDisable(false);
+
+			Image imp = new Image("/images/importPlayerT.png");
 			titleImpP.setImage(imp);
 			Image iconImp = new Image("/images/iconImport.png");
-	    	iconImport.setImage(iconImp);
-	    	
+			iconImport.setImage(iconImp);
+
 			break;
 		default:
 			break;
@@ -421,7 +442,7 @@ public class BasketballDataGUI {
 	}
 
 	private void changeStyle(String s) {
-		
+
 		String style = "-fx-background-color: #D54939;";
 		switch (s) {
 		case "     Jugadores":
@@ -458,13 +479,14 @@ public class BasketballDataGUI {
 			break;
 		}
 	}
-	
+
 	@FXML
-    public void btnModify(ActionEvent event) {
-		
+	public void btnModify(ActionEvent event) {
+
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
 			
+			loader.setController(this);
 			Parent root = loader.load();
 			
 			Scene scene = new Scene(root);
@@ -472,12 +494,12 @@ public class BasketballDataGUI {
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setScene(scene);
 			stage.showAndWait();
-			
+
 		} catch (IOException e) {
 		}
 		/**
 		Players players = (Players) this.tvPlayers.getSelectionModel().getSelectedItem();
-		
+
 		if(players == null) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -485,17 +507,38 @@ public class BasketballDataGUI {
 			alert.setContentText("Es necesario seleccionar un jugador");
 			alert.showAndWait();
 		}else {
-			
+
 		}*/
-    }
-	
+	}
+
 	@FXML
-    public void btnModifyExit(ActionEvent event) {
+	public void btnInfo(MouseEvent event) {
 
-    }
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("methodsOfSearch.fxml"));
+			
+			loader.setController(this);
+			Parent root = loader.load();
+			Image method = new Image("/images/methodsSearch.png");
+			titleMethods.setImage(method);
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.showAndWait();
 
-    @FXML
-    public void btnSave(ActionEvent event) {
+		} catch (IOException e) {
 
-    }
+		}
+	}
+
+	@FXML
+	public void btnModifyExit(ActionEvent event) {
+
+	}
+
+	@FXML
+	public void btnSave(ActionEvent event) {
+
+	}
 } 
