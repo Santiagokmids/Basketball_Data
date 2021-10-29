@@ -545,20 +545,8 @@ public class BasketballDataGUI {
 
 	@FXML
 	public void btnModify(ActionEvent event) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
-
-			loader.setController(this);
-			Parent root = loader.load();
-
-			Scene scene = new Scene(root);
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setScene(scene);
-			stage.showAndWait();
-		} catch (IOException e) {
-		}
-		/**
+		
+		
 		Players players = (Players) this.tvPlayers.getSelectionModel().getSelectedItem();
 
 		if(players == null) {
@@ -568,8 +556,20 @@ public class BasketballDataGUI {
 			alert.setContentText("Es necesario seleccionar un jugador");
 			alert.showAndWait();
 		}else {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
 
-		}*/
+				loader.setController(this);
+				Parent root = loader.load();
+
+				Scene scene = new Scene(root);
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.setScene(scene);
+				stage.showAndWait();
+			} catch (IOException e) {
+			}
+		}
 	}
 
 	@FXML
@@ -625,7 +625,7 @@ public class BasketballDataGUI {
 				
 				alert.setTitle("EXCELENTE");
 				alert.setHeaderText("Se ha registrado exitosamente");
-				alert.setContentText("Se ha registrado a"+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
+				alert.setContentText("Se ha registrado a "+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
 				alert.showAndWait();
 
 				tfName.setText("");
@@ -660,7 +660,7 @@ public class BasketballDataGUI {
 		}else {
 			alert.setTitle("ERROR");
 			alert.setHeaderText("No se pudo agregar el jugador");
-			alert.setContentText("Debe llenas todos los campos para crear al jugador");
+			alert.setContentText("Debe llenar todos los campos para crear al jugador");
 			alert.showAndWait();
 		}
 	} 
