@@ -8,27 +8,45 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import dataStructures.AVLTree;
+import dataStructures.BinaryTree;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class BasketballData {
+public class BasketballData<H, F, V, K, T> {
 	
 	public static final String NODES = "data/node.txt";
-	private ArrayList<Players> players;
-
-	public static final String TREE_POINST = "data/node_poinst.txt";
+	public static final String TREE_BOUNCE = "data/node_bounce.txt";
 	public static final String TREE_ASSISTANCE = "data/node_assistance.txt";
 	public static final String TREE_BLOCK = "data/node_block.txt";
 	public static final String TREE_POINTS = "data/node_points.txt";
 	
+	private ArrayList<Players> players;
+	private AVLTree<K, V, F, H> pointsAVLTree;
+	private AVLTree<K, V, F, H> bounceAVLTree;
+	private AVLTree<K, V, F, H> assitanceAVLTree;
+	private AVLTree<K, V, F, H> blockAVLTree;
+	private BinaryTree<Players, Integer> theftTree;
+	private BinaryTree<Players, Integer> assistanceTree;
+	
 	public BasketballData() {
 		players = new ArrayList<>();
+		pointsAVLTree = new AVLTree<>();
+		bounceAVLTree = new AVLTree<>();
+		assitanceAVLTree = new AVLTree<>();
+		blockAVLTree = new AVLTree<>();
+		theftTree = new BinaryTree<>();
+		assistanceTree = new BinaryTree<>(); 
 	}
 
 	public void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
 		players.add(newPlayers);
+		theftTree.addNode(newPlayers, theft);
+		assistanceTree.addNode(newPlayers, assistance);
 	}
 
 	public void importData(String fileName) throws IOException {
@@ -113,6 +131,54 @@ public class BasketballData {
 
 	public Players searchPlayer() {
 		return null;
+	}
+
+	public AVLTree<K, V, F, H> getPointsAVLTree() {
+		return pointsAVLTree;
+	}
+
+	public void setPointsAVLTree(AVLTree<K, V, F, H> pointsAVLTree) {
+		this.pointsAVLTree = pointsAVLTree;
+	}
+
+	public AVLTree<K, V, F, H> getBounceAVLTree() {
+		return bounceAVLTree;
+	}
+
+	public void setBounceAVLTree(AVLTree<K, V, F, H> bounceAVLTree) {
+		this.bounceAVLTree = bounceAVLTree;
+	}
+
+	public AVLTree<K, V, F, H> getAssitanceAVLTree() {
+		return assitanceAVLTree;
+	}
+
+	public void setAssitanceAVLTree(AVLTree<K, V, F, H> assitanceAVLTree) {
+		this.assitanceAVLTree = assitanceAVLTree;
+	}
+
+	public AVLTree<K, V, F, H> getBlockAVLTree() {
+		return blockAVLTree;
+	}
+
+	public void setBlockAVLTree(AVLTree<K, V, F, H> blockAVLTree) {
+		this.blockAVLTree = blockAVLTree;
+	}
+
+	public BinaryTree<Players, Integer> getTheftTree() {
+		return theftTree;
+	}
+
+	public void setTheftTree(BinaryTree<Players, Integer> theftTree) {
+		this.theftTree = theftTree;
+	}
+
+	public BinaryTree<Players, Integer> getAssistanceTree() {
+		return assistanceTree;
+	}
+
+	public void setAssistanceTree(BinaryTree<Players, Integer> assistanceTree) {
+		this.assistanceTree = assistanceTree;
 	}
 }
 

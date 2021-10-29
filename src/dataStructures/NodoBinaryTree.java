@@ -1,7 +1,7 @@
 package dataStructures;
 
-
 public class NodoBinaryTree <T,K> {
+	
 	private NodoBinaryTree<T,K> left;
 	private NodoBinaryTree<T,K> right;
 	private T value;
@@ -43,4 +43,11 @@ public class NodoBinaryTree <T,K> {
 		this.parent = parent;
 	}
 
+	public K getKey() {
+		return key;
+	}
+
+	public void setKey(K key) {
+		this.key = key;
+	}
 }
