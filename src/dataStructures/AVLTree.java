@@ -1,5 +1,7 @@
 package dataStructures;
 
+import java.util.ArrayList;
+
 import model.Players;
 
 public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> implements IAVLTree<K, V, F, H>{
@@ -66,10 +68,16 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	@SuppressWarnings("unchecked")
 	public NodeAVLTree<K, V, F, H> searchNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree) {
 		
-		if(assistaNodeAVLTree == null || assistaNodeAVLTree.getKey() == key) {
+		if(assistaNodeAVLTree == null) {
 			return (NodeAVLTree<K, V, F, H>) assistaNodeAVLTree;
+<<<<<<< HEAD
 		}else {
 			if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
+=======
+		}
+		else {
+			if((Integer)key <= (Integer)assistaNodeAVLTree.getKey()) {
+>>>>>>> bf53df11ffd3674822ac4a60ce60af979ff560f6
 				return searchNode(key, assistaNodeAVLTree.getLeft());
 			}else {
 				return searchNode(key, assistaNodeAVLTree.getRight());

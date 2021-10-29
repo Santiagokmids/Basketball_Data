@@ -2,7 +2,6 @@ package ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -446,17 +445,19 @@ public class BasketballDataGUI {
 			int dates = getDateToSearch(txtDatesSearch.getText());	
 
 			if(date.equalsIgnoreCase("Puntos por partido") && dates != -1) {
-				searchPoints(method, value);
+				searchPoints(method, value, dates);
 
 			}else if(date.equalsIgnoreCase("Rebotes por partido") && dates != -1) {
+				searchBounces(method, value, dates);
 
 			}else if(date.equalsIgnoreCase("Asistencias por partido") && dates != -1) {
+				searchAssistence(method, value, dates);
 
 			}else if(date.equalsIgnoreCase("Robos por partido") && dates != -1) {
 				searchTheft(method, value, dates);
 
 			}else if(date.equalsIgnoreCase("Bloqueos por partido") && dates != -1) {
-
+				searchBlock(method, value, dates);
 			}
 		}
 		else {
@@ -505,21 +506,99 @@ public class BasketballDataGUI {
 		return value;
 	}
 
-	public void searchPoints(String method, int criter) {
+	public void searchPoints(String method, int criter, int date) {
 
 		if(method.equalsIgnoreCase("Árbol Binario Balanceado")) {
-
+			String message = "El o los jugadores encontrados son: \n";
+			ArrayList<Players> player = new ArrayList<Players>();
+			
 			if(criter == 0) {
-
+				boolean stop = false;
+				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesPoint(date),player,stop);
+				showPlayers(player, message);
+				
+			}else if(criter == 1) {
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesPoint(date),player);
+				showPlayers(player, message);
+				
+			}else if(criter == -1) {
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesPoint(date),player);
+				showPlayers(player, message);
 			}
+		} else {
+			showAlert();
+		}
+	}
+	
+	public void searchBounces(String method, int criter, int date) {
+
+		if(method.equalsIgnoreCase("Árbol Binario Balanceado")) {
+			String message = "El o los jugadores encontrados son: \n";
+			ArrayList<Players> player = new ArrayList<Players>();
+			
+			if(criter == 0) {
+				boolean stop = false;
+				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesBounce(date),player,stop);
+				showPlayers(player, message);
+				
+			}else if(criter == 1) {
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBounce(date),player);
+				showPlayers(player, message);
+				
+			}else if(criter == -1) {
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBounce(date),player);
+				showPlayers(player, message);
+			}
+		} else {
+			showAlert();
+		}
+	}
+	
+	public void searchAssistence(String method, int criter, int date) {
+		String message = "El o los jugadores encontrados son: \n";
+		ArrayList<Players> player = new ArrayList<Players>();
+		
+		if(method.equalsIgnoreCase("Árbol Binario Balanceado")) {
+			
+			if(criter == 0) {
+				boolean stop = false;
+				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesAssitence(date),player,stop);
+				showPlayers(player, message);
+				
+			}else if(criter == 1) {
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesAssitence(date),player);
+				showPlayers(player, message);
+				
+			}else if(criter == -1) {
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesAssitence(date),player);
+				showPlayers(player, message);
+			}
+		}else if(method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
+			
+			if(criter == 0) {
+				boolean stop = false;
+				player = basketData.searchNodeEqualsTree(date,basketData.searchNodesAssitenceTree(date),player,stop);
+				showPlayers(player, message);
+				
+			}else if(criter == 1) {
+				player = basketData.searchNodeMinTree(date,basketData.searchNodesAssitenceTree(date),player);
+				showPlayers(player, message);
+				
+			}else if(criter == -1) {
+				player = basketData.searchNodeMaxTree(date,basketData.searchNodesAssitenceTree(date),player);
+				showPlayers(player, message);
+			}
+		}
+		else {
+			showAlert();
 		}
 	}
 
 	public void searchTheft(String method, int criter, int date) {
-
+		String message = "El o los jugadores encontrados son: \n";
+		ArrayList<Players> player = new ArrayList<Players>();;
+		
 		if(method.equalsIgnoreCase("Búsqueda lineal")) {
-			String message = "El o los jugadores encontrados son: \n";
-			ArrayList<Players> player;
 			
 			if(criter == 0) {
 				player = basketData.searchArrayEquals(date);
@@ -533,6 +612,46 @@ public class BasketballDataGUI {
 				player = basketData.searchArrayMin(date);
 				showPlayers(player, message);
 			}
+		}else if(method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
+			
+			if(criter == 0) {
+				boolean stop = false;
+				player = basketData.searchNodeEqualsTree(date,basketData.searchNodesTheftTree(date),player,stop);
+				showPlayers(player, message);
+				
+			}else if(criter == 1) {
+				player = basketData.searchNodeMinTree(date,basketData.searchNodesTheftTree(date),player);
+				showPlayers(player, message);
+				
+			}else if(criter == -1) {
+				player = basketData.searchNodeMaxTree(date,basketData.searchNodesTheftTree(date),player);
+				showPlayers(player, message);
+			}
+		} 
+		else {
+			showAlert();
+		}
+	}
+	
+	public void searchBlock(String method, int criter, int date) {
+
+		if(method.equalsIgnoreCase("Árbol Binario Balanceado")) {
+			String message = "El o los jugadores encontrados son: \n";
+			ArrayList<Players> player = new ArrayList<Players>();
+			
+			if(criter == 0) {
+				boolean stop = false;
+				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesBlocks(date),player,stop);
+				showPlayers(player, message);
+				
+			}else if(criter == 1) {
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBlocks(date),player);
+				showPlayers(player, message);
+				
+			}else if(criter == -1) {
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBlocks(date),player);
+				showPlayers(player, message);
+			}
 		} else {
 			showAlert();
 		}
@@ -541,18 +660,22 @@ public class BasketballDataGUI {
 	public void showPlayers(ArrayList<Players> player, String message) {
 		
 		String ms = message;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("INFORMACIÓN");
 		
 		if(player.isEmpty()) {
 			ms = "No se encontraron jugadores con ese dato estadístico";
+			alert.setHeaderText("VACÍO");
 			
 		}else {
+			
+			alert.setHeaderText("Los atributos a mostrar serán mostrados de la siguiente forma: \nNombre - Apellido - Edad - Equipo - Puntos - Rebotes - Asistencias - Robos - Bloqueos");
+			
 			for (int i = 0; i < player.size(); i++) {
 				ms += player.get(i).toString()+"\n";
 			}
 		}
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("INFORMACIÓN");
-		alert.setHeaderText("Los atributos a mostrar serán mostrados de la siguiente forma: \nNombre - Apellido - Edad - Equipo - Puntos - Rebotes - Asistencias - Robos - Bloqueos");
+
 		alert.setContentText(ms);
 		alert.showAndWait();
 	}
