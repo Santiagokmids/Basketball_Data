@@ -1,5 +1,7 @@
 package dataStructures;
 
+import java.util.ArrayList;
+
 import model.Players;
 
 public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
@@ -72,9 +74,10 @@ public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
 	@SuppressWarnings("unchecked")
 	public NodeAVLTree<K, V, F, H> searchNode(K key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree) {
 		
-		if(assistaNodeAVLTree == null || assistaNodeAVLTree.getKey() == key) {
+		if(assistaNodeAVLTree == null) {
 			return (NodeAVLTree<K, V, F, H>) assistaNodeAVLTree;
-		}else {
+		}
+		else {
 			if((Integer)key <= (Integer)assistaNodeAVLTree.getKey()) {
 				return searchNode(key, assistaNodeAVLTree.getLeft());
 			}else {
