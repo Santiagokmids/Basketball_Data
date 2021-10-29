@@ -160,7 +160,7 @@
                   <DropShadow />
                </effect>
             </ComboBox>
-            <TextField alignment="CENTER" layoutX="257.0" layoutY="323.0" prefHeight="31.0" prefWidth="221.0" promptText="Dato">
+            <TextField fx:id="txtDatesSearch" alignment="CENTER" layoutX="257.0" layoutY="323.0" prefHeight="31.0" prefWidth="221.0" promptText="Dato">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="16.0" />
                </font>
@@ -175,7 +175,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <Button layoutX="301.0" layoutY="608.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Buscar" textFill="WHITE">
+            <Button layoutX="301.0" layoutY="608.0" mnemonicParsing="false" onAction="#searchOptions" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Buscar" textFill="WHITE">
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>
