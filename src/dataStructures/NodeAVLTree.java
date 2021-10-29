@@ -10,9 +10,11 @@ public class NodeAVLTree<K, V, F, H> {
 	private NodeAVLTree<K, V, F, H> right;
 	private NodeAVLTree<K, V, F, H> dad;
 	
-	public NodeAVLTree(K key, V object) {
+	public NodeAVLTree(K key, V object, F balanced, H height) {
 		this.key = key;
 		this.object = object;
+		this.balanced = balanced;
+		this.height = height;
 	}
 
 	public K getKey() {

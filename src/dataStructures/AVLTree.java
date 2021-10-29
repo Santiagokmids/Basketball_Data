@@ -2,9 +2,9 @@ package dataStructures;
 
 import model.Players;
 
-public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
+public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> implements IAVLTree<K, V, F, H>{
 	
-	private NodeAVLTree<Integer, Players, Integer, Integer> root;
+	private NodeAVLTree<K, V, F, H> root;
 	
 	public AVLTree() {
 		createTree();
@@ -15,20 +15,16 @@ public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
 		root = null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public boolean addNode(K key, V object) {
+	public boolean addNode(K key, V object, F balanced, H height) {
 		
 		boolean verify = false;
 		
-		NodeAVLTree<Integer, Players, Integer, Integer> newNodeAVLTree = new NodeAVLTree<Integer, Players, Integer, Integer>(null, null);
-		newNodeAVLTree.setKey((Integer)key);
-		newNodeAVLTree.setObject((Players)object);
-		newNodeAVLTree.setHeight(1);
+		NodeAVLTree<K, V, F, H> newNodeAVLTree = new NodeAVLTree<K, V, F, H>(key, object, balanced, height);
 		
 		if(root == null) {
 			root = newNodeAVLTree;
-			newNodeAVLTree.setBalanced(balanceTree((NodeAVLTree<K, V, F, H>) newNodeAVLTree));
+			newNodeAVLTree.setBalanced(balanceTree( newNodeAVLTree));
 			verify = true;
 		}else {
 			verify = addNode(key, root, newNodeAVLTree);
@@ -37,20 +33,18 @@ public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
 		return verify;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void updateHeight(NodeAVLTree<Integer, Players, Integer, Integer> nodeAVLTree) {
-		nodeAVLTree.setHeight(1 + nodeMax(height((NodeAVLTree<K, V, F, H>) nodeAVLTree.getLeft()), height((NodeAVLTree<K, V, F, H>) nodeAVLTree.getRight())));
+	public void updateHeight(NodeAVLTree<K, V, F, H> nodeAVLTree) {
+		nodeAVLTree.setHeight(1 + nodeMax(height(nodeAVLTree.getLeft()), height(nodeAVLTree.getRight())));
 	}
 	
-	@SuppressWarnings("unchecked")
-	public boolean addNode(K key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree, NodeAVLTree<Integer, Players, Integer, Integer> newNodeAVLTree) {
+	public boolean addNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree, NodeAVLTree<K, V, F, H> newNodeAVLTree) {
 		boolean verify = false;
 		
-		if(newNodeAVLTree.getKey() <= assistaNodeAVLTree.getKey()) {
+		if((newNodeAVLTree.getKey()).compareTo(assistaNodeAVLTree.getKey()) <= 0) {
 			if(assistaNodeAVLTree.getLeft() == null) {
 				assistaNodeAVLTree.setLeft(newNodeAVLTree);
 				newNodeAVLTree.setDad(assistaNodeAVLTree);
-				assistaNodeAVLTree.setBalanced(balanceTree((NodeAVLTree<K, V, F, H>) assistaNodeAVLTree));
+				assistaNodeAVLTree.setBalanced(balanceTree(assistaNodeAVLTree));
 				verify = true;
 			}else {
 				addNode(key, assistaNodeAVLTree.getLeft(), newNodeAVLTree);
@@ -70,12 +64,12 @@ public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public NodeAVLTree<K, V, F, H> searchNode(K key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree) {
+	public NodeAVLTree<K, V, F, H> searchNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree) {
 		
 		if(assistaNodeAVLTree == null || assistaNodeAVLTree.getKey() == key) {
 			return (NodeAVLTree<K, V, F, H>) assistaNodeAVLTree;
 		}else {
-			if((Integer)key <= (Integer)assistaNodeAVLTree.getKey()) {
+			if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
 				return searchNode(key, assistaNodeAVLTree.getLeft());
 			}else {
 				return searchNode(key, assistaNodeAVLTree.getRight());
@@ -84,33 +78,33 @@ public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
 	}
 
 	@Override
-	public int height(NodeAVLTree<K, V, F, H> node) {
-		int height = 0;
+	public H height(NodeAVLTree<K, V, F, H> node) {
+		H height = null;
 		if(node != null) {
-			height = (int) node.getHeight();
+			height = node.getHeight();
 		}
 		return height;
 	}
 
 	@Override
-	public Integer nodeMax(H nodeHeightA, H nodeHeightB) {
-		return ((Integer)nodeHeightA > (Integer)nodeHeightB) ? (Integer)nodeHeightA : (Integer)nodeHeightB;
+	public H nodeMax(H nodeHeightA, H nodeHeightB) {
+		return (nodeHeightA.compareTo(nodeHeightB) < 0) ? nodeHeightA : nodeHeightB;
 	}
 
 	@Override
-	public int balanceTree(NodeAVLTree<K, V, F, H> node) {
-		int balance = 0;
+	public H balanceTree(NodeAVLTree<K, V, F, H> node) {
+		H balance;
 		if(node != null) {
-			balance = height(node.getLeft()) - height(node.getRight());
+			balance = height(node.getRight()).compareTo(height(node.getLeft()));
 		}
 		return balance;
 	}
 	
-	public NodeAVLTree<Integer, Players, Integer, Integer> getRoot() {
+	public NodeAVLTree<K, V, F, H> getRoot() {
 		return root;
 	}
 
-	public void setRoot(NodeAVLTree<Integer, Players, Integer, Integer> root) {
+	public void setRoot(NodeAVLTree<K, V, F, H> root) {
 		this.root = root;
 	}
 }
