@@ -99,4 +99,8 @@ public class Players implements Serializable{
 	public void setPoints(int points) {
 		this.points = points;
 	}
+	
+	public String toString() {
+		return getName()+" - "+getLastName()+" - "+getAge()+" - "+getTeam()+" - "+getPoints()+" - "+getBounce()+" - "+getAssistance()+" - "+getTheft()+" - "+getBlock()+" - "+getBlock();
+	}
 }

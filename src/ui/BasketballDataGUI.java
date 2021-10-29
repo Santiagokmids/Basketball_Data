@@ -1,8 +1,8 @@
 package ui;
 
 import java.io.IOException;
-
-import org.omg.PortableInterceptor.AdapterManagerIdHelper;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -234,10 +234,13 @@ public class BasketballDataGUI {
 
 	@FXML
 	private ComboBox<String> comboBCriters;
+	
+	@FXML
+    private TextField txtDatesSearch;
 
 
 	public static ObservableList<Players> listPlayers;
-	
+
 	public BasketballDataGUI(BasketballData basketballData) {
 		this.basketData = basketballData;
 	}
@@ -428,13 +431,147 @@ public class BasketballDataGUI {
 			break;
 		}
 	}
+
+	@FXML
+	public void searchOptions(ActionEvent event) {
+
+		String date = comboBDates.getValue();
+		String method = comboBMethods.getValue();
+		String criter = comboBCriters.getValue();
+		String txt = txtDatesSearch.getText();
+		
+		if(criter != null && date != null && method != null && !txt.equals("") ) {
+			
+			int value = putCriter(criter);
+			int dates = getDateToSearch(txtDatesSearch.getText());	
+
+			if(date.equalsIgnoreCase("Puntos por partido") && dates != -1) {
+				searchPoints(method, value);
+
+			}else if(date.equalsIgnoreCase("Rebotes por partido") && dates != -1) {
+
+			}else if(date.equalsIgnoreCase("Asistencias por partido") && dates != -1) {
+
+			}else if(date.equalsIgnoreCase("Robos por partido") && dates != -1) {
+				searchTheft(method, value, dates);
+
+			}else if(date.equalsIgnoreCase("Bloqueos por partido") && dates != -1) {
+
+			}
+		}
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setHeaderText("Datos inválidos");
+			alert.setContentText("Debe ingresar todas las opciones para buscar a un jugador");
+			alert.showAndWait();
+		}
+
+	}
 	
+	public int getDateToSearch(String dates) {
+		
+		int date = -1;
+		
+		try {
+			
+			date = Integer.parseInt(dates);
+			
+		}catch(NumberFormatException nfe){
+			
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setHeaderText("Datos inválidos");
+			alert.setContentText("Debe ingresar un valor númerico para los datos");
+			alert.showAndWait();
+		}
+		
+		return date;
+	}
+	
+	public int putCriter(String criter) {
+		int value = 0;
+
+		if(criter.equalsIgnoreCase("Igual")) {
+			value = 0;
+
+		}else if(criter.equalsIgnoreCase("Menor o igual")) {
+			value = -1;
+
+		}else if(criter.equalsIgnoreCase("Mayor o igual")) {
+			value = 1;
+		}
+		
+		return value;
+	}
+
+	public void searchPoints(String method, int criter) {
+
+		if(method.equalsIgnoreCase("Árbol Binario Balanceado")) {
+
+			if(criter == 0) {
+
+			}
+		}
+	}
+
+	public void searchTheft(String method, int criter, int date) {
+
+		if(method.equalsIgnoreCase("Búsqueda lineal")) {
+			String message = "El o los jugadores encontrados son: \n";
+			ArrayList<Players> player;
+			
+			if(criter == 0) {
+				player = basketData.searchArrayEquals(date);
+				showPlayers(player, message);
+				
+			}else if(criter == 1) {
+				player = basketData.searchArrayMax(date);
+				showPlayers(player, message);
+				
+			}else if(criter == -1) {
+				player = basketData.searchArrayMin(date);
+				showPlayers(player, message);
+			}
+		} else {
+			showAlert();
+		}
+	}
+	
+	public void showPlayers(ArrayList<Players> player, String message) {
+		
+		String ms = message;
+		
+		if(player.isEmpty()) {
+			ms = "No se encontraron jugadores con ese dato estadístico";
+			
+		}else {
+			for (int i = 0; i < player.size(); i++) {
+				ms += player.get(i).toString()+"\n";
+			}
+		}
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("INFORMACIÓN");
+		alert.setHeaderText("Los atributos a mostrar serán mostrados de la siguiente forma: \nNombre - Apellido - Edad - Equipo - Puntos - Rebotes - Asistencias - Robos - Bloqueos");
+		alert.setContentText(ms);
+		alert.showAndWait();
+	}
+
+	public void showAlert() {
+
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("ERROR");
+		alert.setHeaderText("Método Inválido");
+		alert.setContentText("El método de búsqueda elegido NO está disponible para este dato estadístico");
+		alert.showAndWait();
+	}
+
 	public void addCombo() {
 		comboBDates.getItems().clear();
 		comboBMethods.getItems().clear();
 		comboBCriters.getItems().clear();
-		
-		comboBDates.getItems().addAll("Puntos por partido","Rebotes por partido","Asistencias por partido","Robos por partido","Rebotes por partido");
+
+		comboBDates.getItems().addAll("Puntos por partido","Rebotes por partido","Asistencias por partido","Robos por partido","Bloqueos por partido");
 		comboBMethods.getItems().addAll("Árbol Binario de búsqueda","Árbol Binario Balanceado","Búsqueda lineal");
 		comboBCriters.getItems().addAll("Igual","Menor o igual","Mayor o igual");
 	}
@@ -611,7 +748,7 @@ public class BasketballDataGUI {
 		Alert alert = new Alert(AlertType.INFORMATION);
 
 		if(!tfName.getText().equals("") && !tfLastName.getText().equals("") && !tfTeam.getText().equals("") && !tfAge.getText().equals("") && !tfPoints.getText().equals("") && !tfBounces.getText().equals("") && !tfAssistances.getText().equals("") && !tfTheft.getText().equals("") && !tfBlock.getText().equals("")) {
-			
+
 			try {
 				int age = Integer.parseInt(tfAge.getText());
 				int points = Integer.parseInt(tfPoints.getText());
@@ -619,10 +756,10 @@ public class BasketballDataGUI {
 				int assistance = Integer.parseInt(tfAssistances.getText());
 				int theft = Integer.parseInt(tfTheft.getText());
 				int block = Integer.parseInt(tfBlock.getText());
-				
+
 				basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
 				inicializateTableView();
-				
+
 				alert.setTitle("EXCELENTE");
 				alert.setHeaderText("Se ha registrado exitosamente");
 				alert.setContentText("Se ha registrado a"+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
@@ -637,21 +774,21 @@ public class BasketballDataGUI {
 				tfAssistances.setText("");
 				tfTheft.setText("");
 				tfBlock.setText("");
-				
+
 			} catch (NumberFormatException nfe) {
-				
+
 				alert.setTitle("ERROR");
 				alert.setHeaderText("No se pudo agregar el jugador");
 				alert.setContentText("Algunos de los valores tienen que ser de tipo numerico");
 				alert.showAndWait();
 			}
-			
-			
-			
+
+
+
 			/*
 			if (basketData.searchPlayer() != null) {
 
-				
+
 			}else {
 				alert.setHeaderText("No se pudo agregar el jugador");
 				alert.setContentText("Ya hay jugadores en la base de datos con esa informacion");

@@ -65,29 +65,40 @@ public class BasketballData {
 	}
 
 	public ArrayList<Players> searchArrayMin(int code) {
+		
 		ArrayList<Players> player= new ArrayList<Players>();
+		
 		for (int i = 0; i < players.size(); i++) {
-			//if (code <=  players.getTheft()) {
+			
+			if (code >= players.get(i).getTheft()) {
 				player.add(players.get(i));
-			//}
+			}
 		}
 		return player;
 	}
+	
 	public ArrayList<Players> searchArrayMax(int code) {
+		
 		ArrayList<Players> player= new ArrayList<Players>();
+		
 		for (int i = 0; i < players.size(); i++) {
-			//if (code >=  players.getTheft()) {
+			
+			if (code <=  players.get(i).getTheft()) {
 				player.add(players.get(i));
-			//}
+			}
 		}
 		return player;
 	}
+	
 	public ArrayList<Players> searchArrayEquals(int code) {
+		
 		ArrayList<Players> player= new ArrayList<Players>();
+
 		for (int i = 0; i < players.size(); i++) {
-			//if (code ==  players.getTheft()) {
+			
+			if (code ==  players.get(i).getTheft()) {
 				player.add(players.get(i));
-			//}
+			}
 		}
 		return player;
 	}
