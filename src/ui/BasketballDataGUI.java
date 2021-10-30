@@ -2,7 +2,9 @@ package ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.jar.Attributes.Name;
 
+import dataStructures.NodeAVLTree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -879,15 +881,27 @@ public class BasketballDataGUI {
 				int assistance = Integer.parseInt(tfAssistances.getText());
 				int theft = Integer.parseInt(tfTheft.getText());
 				int block = Integer.parseInt(tfBlock.getText());
+				
+				Players player = basketData.searchPlayer(points, tfName.getText(), tfLastName.getText());
+				
+				if (player == null) {
 
-				basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
-				inicializateTableView();
+					if(age > 0 && points > 0 && bounce > 0 && assistance > 0 && theft > 0 && block > 0) {
+						basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
+						inicializateTableView();
 
-				alert.setTitle("EXCELENTE");
-				alert.setHeaderText("Se ha registrado exitosamente");
-				alert.setContentText("Se ha registrado a "+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
-				alert.showAndWait();
+						alert.setTitle("EXCELENTE");
+						alert.setHeaderText("Se ha registrado exitosamente");
+						alert.setContentText("Se ha registrado a "+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
+						alert.showAndWait();
+					}
 
+				}else {
+					alert.setHeaderText("No se pudo agregar el jugador");
+					alert.setContentText("Ya hay jugadores en la base de datos con esa informacion");
+					alert.showAndWait();
+				}
+				
 				tfName.setText("");
 				tfLastName.setText("");
 				tfAge.setText("");
@@ -906,17 +920,6 @@ public class BasketballDataGUI {
 				alert.showAndWait();
 			}
 
-
-
-			/*
-			if (basketData.searchPlayer() != null) {
-
-
-			}else {
-				alert.setHeaderText("No se pudo agregar el jugador");
-				alert.setContentText("Ya hay jugadores en la base de datos con esa informacion");
-				alert.showAndWait();
-			}*/
 		}else {
 			alert.setTitle("ERROR");
 			alert.setHeaderText("No se pudo agregar el jugador");

@@ -212,8 +212,10 @@ public class BasketballData {
 		return players;
 	}
 
-	public Players searchPlayer() {
-		return null;
+	public Players searchPlayer(int point, String name, String lastName) {
+		NodeAVLTree<Integer, Players, Integer, Integer> player = pointsAVLTree.searchNode(point,name,lastName);
+		
+		return player.getObject();
 	}
 
 	public AVLTree<Integer, Players, Integer, Integer> getPointsAVLTree() {

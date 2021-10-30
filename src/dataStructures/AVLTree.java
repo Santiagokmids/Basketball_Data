@@ -67,21 +67,32 @@ public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
 	}
 
 	@Override
-	public NodeAVLTree<K, V, F, H> searchNode(K key) {
-		return searchNode(key, root);
+	public ArrayList<NodeAVLTree<K, V, F, H>> searchNode(K key) {
+		ArrayList<NodeAVLTree<K, V, F, H>> players = new ArrayList<NodeAVLTree<K, V, F, H>>();
+		boolean stop = false;
+		return searchNode(key, root,players, stop);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public NodeAVLTree<K, V, F, H> searchNode(K key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree) {
+	public ArrayList<NodeAVLTree<K, V, F, H>> searchNode(K key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree, ArrayList<NodeAVLTree<K, V, F, H>> players, boolean stop) {
 		
 		if(assistaNodeAVLTree == null) {
-			return (NodeAVLTree<K, V, F, H>) assistaNodeAVLTree;
+			return players;
+
+		}
+		
+		if(assistaNodeAVLTree.getKey() == key) {
+			stop = true;
+			players.add(assistaNodeAVLTree);
+			
+		}if(assistaNodeAVLTree.getKey() != key && stop) {
+			return players;
 		}
 		else {
 			if((Integer)key <= (Integer)assistaNodeAVLTree.getKey()) {
-				return searchNode(key, assistaNodeAVLTree.getLeft());
+				return searchNode(key, assistaNodeAVLTree.getLeft(),players,stop);
 			}else {
-				return searchNode(key, assistaNodeAVLTree.getRight());
+				return searchNode(key, assistaNodeAVLTree.getRight(),players,stop);
 			}
 		}
 	}
