@@ -85,37 +85,7 @@ public class ArbolAVL {
 		else return r.fe;
 	}
 
-	public NodoArbolAVL rotacionIzquierda(NodoArbolAVL r) {
-		NodoArbolAVL auxiliar = r.izdo;
-		r.dcho = auxiliar.dcho;
-		auxiliar.dcho = r;
-		r.fe = Math.max(obtenerFE(r.izdo), obtenerFE(r.dcho)) + 1;
-		auxiliar.fe = Math.max(obtenerFE(auxiliar.izdo), obtenerFE(auxiliar.dcho)) + 1;
-		return auxiliar;
-	}
-
-	public NodoArbolAVL rotacionDerecha(NodoArbolAVL r) {
-		NodoArbolAVL auxiliar = r.dcho;
-		r.dcho = auxiliar.izdo;
-		auxiliar.izdo = r;
-		r.fe = Math.max(obtenerFE(r.izdo), obtenerFE(r.dcho)) + 1;
-		auxiliar.fe = Math.max(obtenerFE(auxiliar.izdo), obtenerFE(auxiliar.dcho)) + 1;
-		return auxiliar;
-	}
-
-	public NodoArbolAVL rotacionDobleIzquierda(NodoArbolAVL r) {
-		NodoArbolAVL temporal;
-		r.izdo =  rotacionDerecha(r.izdo);
-		temporal = rotacionIzquierda(r);
-		return temporal;
-	}
-
-	public NodoArbolAVL rotacionDobleDerecha(NodoArbolAVL r) {
-		NodoArbolAVL temporal;
-		r.dcho =  rotacionIzquierda(r.dcho);
-		temporal = rotacionDerecha(r);
-		return temporal;
-	}
+	
 }
 	 */	
 }

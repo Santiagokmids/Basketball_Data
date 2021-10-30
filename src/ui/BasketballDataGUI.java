@@ -2,9 +2,7 @@ package ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.jar.Attributes.Name;
 
-import dataStructures.NodeAVLTree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

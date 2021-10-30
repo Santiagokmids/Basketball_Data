@@ -49,6 +49,10 @@ public class BasketballData {
 	public void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
 		players.add(newPlayers);
+		pointsAVLTree.addNode(points,newPlayers);
+		bounceAVLTree.addNode(bounce, newPlayers);
+		assistanceAVLTree.addNode(assistance, newPlayers);
+		blockAVLTree.addNode(block, newPlayers);
 		theftTree.addNode(newPlayers, theft);
 		assistanceTree.addNode(newPlayers, assistance);
 	}
@@ -140,7 +144,7 @@ public class BasketballData {
 	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesBlocks(){
 		return blockAVLTree.getRoot();
 	}
-
+	
 	public ArrayList<Players> searchNodeEqualsAVL(int key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree, ArrayList<Players> players,boolean stop) {
 
 		if(assistaNodeAVLTree == null) {

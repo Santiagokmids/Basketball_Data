@@ -1,9 +1,9 @@
 package dataStructures;
 
-public class BinaryTree <T,K>implements  IBinaryTree<T,K>{
-	
+public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>{
+
 	private NodoBinaryTree<T,K> root;
-	
+
 	public void ArbolBinarioBusqueda() {
 		createTree();
 	}
@@ -12,12 +12,13 @@ public class BinaryTree <T,K>implements  IBinaryTree<T,K>{
 	public void createTree() {
 		root = null;
 	}
-	
+
 	@Override
 	public boolean addNode(T value, K key) {
 		boolean verify = false;
 
 		NodoBinaryTree<T,K> newNode = new NodoBinaryTree<>();
+		newNode.setKey(key);
 		newNode.setValue(value);
 
 		if (root == null) {
@@ -31,25 +32,22 @@ public class BinaryTree <T,K>implements  IBinaryTree<T,K>{
 	}
 
 	private void addNode(NodoBinaryTree<T,K> current, NodoBinaryTree<T,K> newNode) {
-		
-		int new1 = (int) newNode.getValue();
-		int aux = (int) current.getValue();
-		
-		if (new1 <= aux) {
-			if (current.getLeft() == null) {
+
+		if((newNode.getKey()).compareTo(current.getKey()) <= 0) {
+
+			if(current.getLeft() == null) {
 				current.setLeft(newNode);
 				newNode.setParent(current);
-				
-			} else {
+
+			}else {
 				addNode(current.getLeft(), newNode);
-			}
-			
-		} else {
-			if (current.getRight() == null) {
+			}	
+		}else {
+			if(current.getRight() == null) {
 				current.setRight(newNode);
 				newNode.setParent(current);
 				
-			} else {
+			}else {
 				addNode(current.getRight(), newNode);
 			}
 		}
@@ -57,7 +55,7 @@ public class BinaryTree <T,K>implements  IBinaryTree<T,K>{
 
 	@Override
 	public boolean deleteNode(K key) {
-		
+
 		boolean verify = false;
 
 		NodoBinaryTree<T,K> node = searchNode(key);
@@ -112,32 +110,34 @@ public class BinaryTree <T,K>implements  IBinaryTree<T,K>{
 
 		} else {
 			NodoBinaryTree<T,K> successor = successor(node.getRight());
-			
+
 			if(successor != null) {
 				node.setValue(successor.getValue());
+				node.setKey(successor.getKey());
 				deleteNode(successor);
-				
+
 			}else {
 				NodoBinaryTree<T,K> predecessor = successor(node.getRight());
 				node.setValue(predecessor.getValue());
+				node.setKey(predecessor.getKey());
 				deleteNode(predecessor);
 			}
-			
+
 		}
 	}
 
 	@Override
 	public NodoBinaryTree<T,K> successor(NodoBinaryTree<T,K> current) {
-		
+
 		NodoBinaryTree<T,K> newNode = new NodoBinaryTree<T,K>();
-		
+
 		if (current.getLeft() != null) {
 			newNode = successor(current.getLeft());
 
 		} else {
 			newNode = current;
 		}
-		
+
 		return newNode;
 	}
 
@@ -147,43 +147,43 @@ public class BinaryTree <T,K>implements  IBinaryTree<T,K>{
 	}
 
 	private NodoBinaryTree<T,K> searchNode(NodoBinaryTree<T,K> current, K key) {
-		
+
 		NodoBinaryTree<T,K> newN = new NodoBinaryTree<T,K>();
-		
+
 		if (current == null || current.getValue() == key) {
 			newN = current;
-			
+
 		} else {
-			
+
 			int value = (int) key;
 			int valueAux = (int) current.getValue();
-			
+
 			if ( value <= valueAux) {
 				newN = searchNode(current.getLeft(), key);
-				
+
 			} else {
 				newN = searchNode(current.getRight(), key);
 			}
 		}
-		
+
 		return newN;
 	}
-	
+
 	@Override
 	public NodoBinaryTree<T, K> predecessor(NodoBinaryTree<T, K> current) {
-		
+
 		NodoBinaryTree<T,K> newNode = new NodoBinaryTree<T,K>();
-		
+
 		if (current.getRight() != null) {
 			newNode = predecessor(current.getLeft());
 
 		} else {
 			newNode = successor(root);
 		}
-		
+
 		return newNode;
 	}
-	
+
 	public NodoBinaryTree<T,K> getRoot() {
 		return root;
 	}
