@@ -1,9 +1,11 @@
 package dataStructures;
 
+import java.util.ArrayList;
+
 public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> implements IAVLTree<K, V, F, H>{
-	
+
 	private NodeAVLTree<K, V, F, H> root;
-	
+
 	public AVLTree() {
 		createTree();
 	}
@@ -15,11 +17,11 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 
 	@Override
 	public boolean addNode(K key, V object) {
-		
+
 		boolean verify = false;
-		
+
 		NodeAVLTree<K, V, F, H> newNodeAVLTree = new NodeAVLTree<K, V, F, H>(key, object);
-		
+
 		if(root == null) {
 			root = newNodeAVLTree;
 			newNodeAVLTree.setBalanced(balanceTree( newNodeAVLTree));
@@ -27,17 +29,17 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 		}else {
 			verify = addNode(key, root, newNodeAVLTree);
 		}
-		
+
 		return verify;
 	}
-	
+
 	public void updateHeight(NodeAVLTree<K, V, F, H> nodeAVLTree) {
 		nodeAVLTree.setHeight(1 + nodeMax(height(nodeAVLTree.getLeft()), height(nodeAVLTree.getRight())));
 	}
-	
+
 	public boolean addNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree, NodeAVLTree<K, V, F, H> newNodeAVLTree) {
 		boolean verify = false;
-		
+
 		if((newNodeAVLTree.getKey()).compareTo(assistaNodeAVLTree.getKey()) <= 0) {
 			if(assistaNodeAVLTree.getLeft() == null) {
 				assistaNodeAVLTree.setLeft(newNodeAVLTree);
@@ -57,24 +59,37 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public NodeAVLTree<K, V, F, H> searchNode(K key) {
-		return searchNode(key, root);
+	public ArrayList<NodeAVLTree<K, V, F, H>> searchNode(K key) {
+		ArrayList<NodeAVLTree<K, V, F, H>> players = new ArrayList<NodeAVLTree<K, V, F, H>>();
+		boolean stop = false;
+		
+		return searchNode(key, root,players, stop);
 	}
-	
-	public NodeAVLTree<K, V, F, H> searchNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree) {
-		
-		
+
+	public ArrayList<NodeAVLTree<K, V, F, H>> searchNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree, ArrayList<NodeAVLTree<K, V, F, H>> players, boolean stop) {
+
 		if(assistaNodeAVLTree == null) {
-			return assistaNodeAVLTree;
-		}else {
+			return players;
+		}
+		if(assistaNodeAVLTree.getKey() == key) {
+			stop = true;
+			players.add(assistaNodeAVLTree);
+
+		}if(assistaNodeAVLTree.getKey() != key && stop) {
+			return players;
+		}
+		else {
+			
 			if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
-				return searchNode(key, assistaNodeAVLTree.getLeft());
+				return searchNode(key, assistaNodeAVLTree.getLeft(),players,stop);
+						
 			}else {
-				return searchNode(key, assistaNodeAVLTree.getRight());
+				return searchNode(key, assistaNodeAVLTree.getRight(),players,stop);
 			}
 		}
+
 	}
-	
+
 	@Override
 	public int height(NodeAVLTree<K, V, F, H> node) {
 		int height = 0;
@@ -97,7 +112,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 		}
 		return balance;
 	}
-	
+
 	public NodeAVLTree<K, V, F, H> getRoot() {
 		return root;
 	}
