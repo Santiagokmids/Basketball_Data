@@ -112,7 +112,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="304.0" layoutY="481.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Importar" textFill="WHITE">
+            <Button layoutX="304.0" layoutY="481.0" mnemonicParsing="false" onAction="#btnImport" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Importar" textFill="WHITE">
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>

@@ -1,24 +1,17 @@
 package model;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 import dataStructures.AVLTree;
 import dataStructures.BinaryTree;
 import dataStructures.NodeAVLTree;
 import dataStructures.NodoBinaryTree;
-
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import thread.BinarySearch;
 
 public class BasketballData {
 
@@ -219,7 +212,9 @@ public class BasketballData {
 	public Players searchPlayer(int point, String name, String lastName) {
 		ArrayList<NodeAVLTree<Integer, Players, Integer, Integer>> player = pointsAVLTree.searchNode(point);
 		
-		return null;
+		BinarySearch binarySearch = new BinarySearch(player, name, lastName);
+		binarySearch.start();
+		return binarySearch.getNewPlayer();
 	}
 
 	public AVLTree<Integer, Players, Integer, Integer> getPointsAVLTree() {
