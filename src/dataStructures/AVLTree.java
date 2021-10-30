@@ -2,12 +2,10 @@ package dataStructures;
 
 import java.util.ArrayList;
 
-import model.Players;
+public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> implements IAVLTree<K, V, F, H>{
 
-public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
-	
-	private NodeAVLTree<Integer, Players, Integer, Integer> root;
-	
+	private NodeAVLTree<K, V, F, H> root;
+
 	public AVLTree() {
 		createTree();
 	}
@@ -17,42 +15,36 @@ public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
 		root = null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean addNode(K key, V object) {
-		
+
 		boolean verify = false;
-		
-		NodeAVLTree<Integer, Players, Integer, Integer> newNodeAVLTree = new NodeAVLTree<Integer, Players, Integer, Integer>(null, null);
-		newNodeAVLTree.setKey((Integer)key);
-		newNodeAVLTree.setObject((Players)object);
-		newNodeAVLTree.setHeight(1);
-		
+
+		NodeAVLTree<K, V, F, H> newNodeAVLTree = new NodeAVLTree<K, V, F, H>(key, object);
+
 		if(root == null) {
 			root = newNodeAVLTree;
-			newNodeAVLTree.setBalanced(balanceTree((NodeAVLTree<K, V, F, H>) newNodeAVLTree));
+			newNodeAVLTree.setBalanced(balanceTree( newNodeAVLTree));
 			verify = true;
 		}else {
 			verify = addNode(key, root, newNodeAVLTree);
 		}
-		
+
 		return verify;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public void updateHeight(NodeAVLTree<Integer, Players, Integer, Integer> nodeAVLTree) {
-		nodeAVLTree.setHeight(1 + nodeMax(height((NodeAVLTree<K, V, F, H>) nodeAVLTree.getLeft()), height((NodeAVLTree<K, V, F, H>) nodeAVLTree.getRight())));
+
+	public void updateHeight(NodeAVLTree<K, V, F, H> nodeAVLTree) {
+		nodeAVLTree.setHeight(1 + nodeMax(height(nodeAVLTree.getLeft()), height(nodeAVLTree.getRight())));
 	}
-	
-	@SuppressWarnings("unchecked")
-	public boolean addNode(K key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree, NodeAVLTree<Integer, Players, Integer, Integer> newNodeAVLTree) {
+
+	public boolean addNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree, NodeAVLTree<K, V, F, H> newNodeAVLTree) {
 		boolean verify = false;
-		
-		if(newNodeAVLTree.getKey() <= assistaNodeAVLTree.getKey()) {
+
+		if((newNodeAVLTree.getKey()).compareTo(assistaNodeAVLTree.getKey()) <= 0) {
 			if(assistaNodeAVLTree.getLeft() == null) {
 				assistaNodeAVLTree.setLeft(newNodeAVLTree);
 				newNodeAVLTree.setDad(assistaNodeAVLTree);
-				assistaNodeAVLTree.setBalanced(balanceTree((NodeAVLTree<K, V, F, H>) assistaNodeAVLTree));
+				assistaNodeAVLTree.setBalanced(balanceTree(assistaNodeAVLTree));
 				verify = true;
 			}else {
 				addNode(key, assistaNodeAVLTree.getLeft(), newNodeAVLTree);
@@ -70,45 +62,46 @@ public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
 	public ArrayList<NodeAVLTree<K, V, F, H>> searchNode(K key) {
 		ArrayList<NodeAVLTree<K, V, F, H>> players = new ArrayList<NodeAVLTree<K, V, F, H>>();
 		boolean stop = false;
+		
 		return searchNode(key, root,players, stop);
 	}
-	
-	@SuppressWarnings("unchecked")
-	public ArrayList<NodeAVLTree<K, V, F, H>> searchNode(K key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree, ArrayList<NodeAVLTree<K, V, F, H>> players, boolean stop) {
-		
+
+	public ArrayList<NodeAVLTree<K, V, F, H>> searchNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree, ArrayList<NodeAVLTree<K, V, F, H>> players, boolean stop) {
+
 		if(assistaNodeAVLTree == null) {
 			return players;
-
 		}
-		
 		if(assistaNodeAVLTree.getKey() == key) {
 			stop = true;
 			players.add(assistaNodeAVLTree);
-			
+
 		}if(assistaNodeAVLTree.getKey() != key && stop) {
 			return players;
 		}
 		else {
-			if((Integer)key <= (Integer)assistaNodeAVLTree.getKey()) {
+			
+			if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
 				return searchNode(key, assistaNodeAVLTree.getLeft(),players,stop);
+						
 			}else {
 				return searchNode(key, assistaNodeAVLTree.getRight(),players,stop);
 			}
 		}
+
 	}
 
 	@Override
 	public int height(NodeAVLTree<K, V, F, H> node) {
 		int height = 0;
 		if(node != null) {
-			height = (int) node.getHeight();
+			height = node.getHeight();
 		}
 		return height;
 	}
 
 	@Override
-	public Integer nodeMax(H nodeHeightA, H nodeHeightB) {
-		return ((Integer)nodeHeightA > (Integer)nodeHeightB) ? (Integer)nodeHeightA : (Integer)nodeHeightB;
+	public int nodeMax(int nodeHeightA, int nodeHeightB) {
+		return (nodeHeightA > nodeHeightB) ? nodeHeightA : nodeHeightB;
 	}
 
 	@Override
@@ -119,12 +112,12 @@ public class AVLTree<K, V, F, H> implements IAVLTree<K, V, F, H>{
 		}
 		return balance;
 	}
-	
-	public NodeAVLTree<Integer, Players, Integer, Integer> getRoot() {
+
+	public NodeAVLTree<K, V, F, H> getRoot() {
 		return root;
 	}
 
-	public void setRoot(NodeAVLTree<Integer, Players, Integer, Integer> root) {
+	public void setRoot(NodeAVLTree<K, V, F, H> root) {
 		this.root = root;
 	}
 }

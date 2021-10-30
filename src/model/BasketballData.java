@@ -125,20 +125,20 @@ public class BasketballData {
 		return player;
 	}
 
-	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesPoint(int key){
-		return pointsAVLTree.searchNode(key);
+	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesPoint(){
+		return pointsAVLTree.getRoot();
 	}
 	
-	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesBounce(int key){
-		return bounceAVLTree.searchNode(key);
+	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesBounce(){
+		return bounceAVLTree.getRoot();
 	}
 	
-	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesAssitence(int key){
-		return assistanceAVLTree.searchNode(key);
+	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesAssitence(){
+		return assistanceAVLTree.getRoot();
 	}
 	
-	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesBlocks(int key){
-		return blockAVLTree.searchNode(key);
+	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesBlocks(){
+		return blockAVLTree.getRoot();
 	}
 
 	public ArrayList<Players> searchNodeEqualsAVL(int key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree, ArrayList<Players> players,boolean stop) {
@@ -213,9 +213,9 @@ public class BasketballData {
 	}
 
 	public Players searchPlayer(int point, String name, String lastName) {
-		NodeAVLTree<Integer, Players, Integer, Integer> player = pointsAVLTree.searchNode(point,name,lastName);
+		ArrayList<NodeAVLTree<Integer, Players, Integer, Integer>> player = pointsAVLTree.searchNode(point);
 		
-		return player.getObject();
+		return null;
 	}
 
 	public AVLTree<Integer, Players, Integer, Integer> getPointsAVLTree() {
@@ -266,8 +266,8 @@ public class BasketballData {
 		this.assistanceTree = assistanceTree;
 	}
 	
-	public NodoBinaryTree<Players, Integer> searchNodesAssitenceTree(int key){
-		return assistanceTree.searchNode(key);
+	public NodoBinaryTree<Players, Integer> searchNodesAssitenceTree(){
+		return assistanceTree.getRoot();
 	}
 
 	public ArrayList<Players> searchNodeEqualsTree(int key, NodoBinaryTree<Players, Integer> assistaNodeTree, ArrayList<Players> players,boolean stop) {

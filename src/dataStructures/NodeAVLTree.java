@@ -4,8 +4,8 @@ public class NodeAVLTree<K, V, F, H> {
 	
 	private K key;
 	private V object;
-	private F balanced;
-	private H height;
+	private int balanced;
+	private int height;
 	private NodeAVLTree<K, V, F, H> left;
 	private NodeAVLTree<K, V, F, H> right;
 	private NodeAVLTree<K, V, F, H> dad;
@@ -13,6 +13,8 @@ public class NodeAVLTree<K, V, F, H> {
 	public NodeAVLTree(K key, V object) {
 		this.key = key;
 		this.object = object;
+		balanced = 0;
+		height = 1;
 	}
 
 	public K getKey() {
@@ -31,11 +33,11 @@ public class NodeAVLTree<K, V, F, H> {
 		this.object = object;
 	}
 
-	public F getBalanced() {
+	public int getBalanced() {
 		return balanced;
 	}
 
-	public void setBalanced(F balanced) {
+	public void setBalanced(int balanced) {
 		this.balanced = balanced;
 	}
 
@@ -63,12 +65,12 @@ public class NodeAVLTree<K, V, F, H> {
 		this.dad = dad;
 	}
 
-	public H getHeight() {
+	public int getHeight() {
 		
 		return height;
 	}
 
-	public void setHeight(H height) {
+	public void setHeight(int height) {
 		this.height = height;
 	}
 }

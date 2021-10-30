@@ -516,15 +516,15 @@ public class BasketballDataGUI {
 			
 			if(criter == 0) {
 				boolean stop = false;
-				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesPoint(date),player,stop);
+				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesPoint(),player,stop);
 				showPlayers(player, message);
 				
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesPoint(date),player);
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesPoint(),player);
 				showPlayers(player, message);
 				
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesPoint(date),player);
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesPoint(),player);
 				showPlayers(player, message);
 			}
 		} else {
@@ -540,15 +540,15 @@ public class BasketballDataGUI {
 			
 			if(criter == 0) {
 				boolean stop = false;
-				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesBounce(date),player,stop);
+				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesBounce(),player,stop);
 				showPlayers(player, message);
 				
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBounce(date),player);
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBounce(),player);
 				showPlayers(player, message);
 				
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBounce(date),player);
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBounce(),player);
 				showPlayers(player, message);
 			}
 		} else {
@@ -564,30 +564,30 @@ public class BasketballDataGUI {
 			
 			if(criter == 0) {
 				boolean stop = false;
-				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesAssitence(date),player,stop);
+				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesAssitence(),player,stop);
 				showPlayers(player, message);
 				
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesAssitence(date),player);
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesAssitence(),player);
 				showPlayers(player, message);
 				
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesAssitence(date),player);
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesAssitence(),player);
 				showPlayers(player, message);
 			}
 		}else if(method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
 			
 			if(criter == 0) {
 				boolean stop = false;
-				player = basketData.searchNodeEqualsTree(date,basketData.searchNodesAssitenceTree(date),player,stop);
+				player = basketData.searchNodeEqualsTree(date,basketData.searchNodesAssitenceTree(),player,stop);
 				showPlayers(player, message);
 				
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinTree(date,basketData.searchNodesAssitenceTree(date),player);
+				player = basketData.searchNodeMinTree(date,basketData.searchNodesAssitenceTree(),player);
 				showPlayers(player, message);
 				
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxTree(date,basketData.searchNodesAssitenceTree(date),player);
+				player = basketData.searchNodeMaxTree(date,basketData.searchNodesAssitenceTree(),player);
 				showPlayers(player, message);
 			}
 		}
@@ -643,15 +643,15 @@ public class BasketballDataGUI {
 			
 			if(criter == 0) {
 				boolean stop = false;
-				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesBlocks(date),player,stop);
+				player = basketData.searchNodeEqualsAVL(date,basketData.searchNodesBlocks(),player,stop);
 				showPlayers(player, message);
 				
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBlocks(date),player);
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBlocks(),player);
 				showPlayers(player, message);
 				
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBlocks(date),player);
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBlocks(),player);
 				showPlayers(player, message);
 			}
 		} else {

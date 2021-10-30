@@ -169,29 +169,6 @@ public class BinaryTree <T,K>implements  IBinaryTree<T,K>{
 		return newN;
 	}
 	
-	public String infoTree() {
-		return infoTree(root);
-	}
-	
-	public String infoTree(NodoBinaryTree<T,K> node) {
-		String message = "";
-
-		if (root != null) {
-			message += infoTree(node.getLeft());
-			message += node.getValue() + " ";
-			message += infoTree(node.getRight());
-		}
-		return message;
-	}
-
-	public NodoBinaryTree<T,K> getRoot() {
-		return root;
-	}
-
-	public void setRoot(NodoBinaryTree<T,K> root) {
-		this.root = root;
-	}
-
 	@Override
 	public NodoBinaryTree<T, K> predecessor(NodoBinaryTree<T, K> current) {
 		
@@ -207,4 +184,11 @@ public class BinaryTree <T,K>implements  IBinaryTree<T,K>{
 		return newNode;
 	}
 	
+	public NodoBinaryTree<T,K> getRoot() {
+		return root;
+	}
+
+	public void setRoot(NodoBinaryTree<T,K> root) {
+		this.root = root;
+	}
 }
