@@ -74,7 +74,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 			}
 		}
 	}
-
+	
 	@Override
 	public int height(NodeAVLTree<K, V, F, H> node) {
 		int height = 0;
