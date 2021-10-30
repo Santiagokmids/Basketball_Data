@@ -1,9 +1,5 @@
 package dataStructures;
 
-import java.util.ArrayList;
-
-import model.Players;
-
 public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> implements IAVLTree<K, V, F, H>{
 	
 	private NodeAVLTree<K, V, F, H> root;
@@ -18,11 +14,11 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public boolean addNode(K key, V object, F balanced, H height) {
+	public boolean addNode(K key, V object) {
 		
 		boolean verify = false;
 		
-		NodeAVLTree<K, V, F, H> newNodeAVLTree = new NodeAVLTree<K, V, F, H>(key, object, balanced, height);
+		NodeAVLTree<K, V, F, H> newNodeAVLTree = new NodeAVLTree<K, V, F, H>(key, object);
 		
 		if(root == null) {
 			root = newNodeAVLTree;
@@ -80,8 +76,8 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public H height(NodeAVLTree<K, V, F, H> node) {
-		H height = null;
+	public int height(NodeAVLTree<K, V, F, H> node) {
+		int height = 0;
 		if(node != null) {
 			height = node.getHeight();
 		}
@@ -89,15 +85,15 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public H nodeMax(H nodeHeightA, H nodeHeightB) {
-		return (nodeHeightA.compareTo(nodeHeightB) < 0) ? nodeHeightA : nodeHeightB;
+	public int nodeMax(int nodeHeightA, int nodeHeightB) {
+		return (nodeHeightA > nodeHeightB) ? nodeHeightA : nodeHeightB;
 	}
 
 	@Override
-	public H balanceTree(NodeAVLTree<K, V, F, H> node) {
-		H balance;
+	public int balanceTree(NodeAVLTree<K, V, F, H> node) {
+		int balance = 0;
 		if(node != null) {
-			balance = height(node.getRight()).compareTo(height(node.getLeft()));
+			balance = height(node.getLeft()) - height(node.getRight());
 		}
 		return balance;
 	}
