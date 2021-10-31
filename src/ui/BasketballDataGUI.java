@@ -297,7 +297,6 @@ public class BasketballDataGUI {
 	public void inicializateTableView() {
 
 		listPlayers = FXCollections.observableArrayList(basketData.getPlayers());
-
 		tvPlayers.setItems(listPlayers);
 		tcName.setCellValueFactory(new PropertyValueFactory<Players, String>("name"));
 		tcLastName.setCellValueFactory(new PropertyValueFactory<Players, String>("lastName"));
@@ -336,8 +335,8 @@ public class BasketballDataGUI {
 		imgBack.setImage(ball);
 
 		mainPane.setTop(load);
+		inicializateTableView();
 	}
-
 
 	@FXML
 	public void openning(MouseEvent event) {
@@ -353,8 +352,9 @@ public class BasketballDataGUI {
 		imgBack.setVisible(true);
 		imgBack.setDisable(false);
 	}
+	
 
-
+	 
 	private void changeVisibilityAnchor() {
 		anchorBack.setVisible(false);
 		anchorBack.setDisable(true);
