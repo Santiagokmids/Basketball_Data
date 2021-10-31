@@ -267,8 +267,8 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>{
 
 		if(assistaNodeAVLTree == null) {
 			return players;
-		}
-		if(assistaNodeAVLTree.getKey() == key) {
+			
+		}else if(assistaNodeAVLTree.getKey() == key) {
 			stop = true;
 			players.add(assistaNodeAVLTree);
 

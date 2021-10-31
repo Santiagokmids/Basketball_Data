@@ -39,7 +39,7 @@ import thread.ImportData;
 import thread.LoadData;
 
 public class BasketballDataGUI {
-	
+
 	@FXML
     private TextField lblImport;
 
@@ -174,6 +174,34 @@ public class BasketballDataGUI {
 
 	@FXML
 	private Button btnSearch;
+
+	@FXML
+	private TextField txtDeleteName;
+
+	@FXML
+	private TextField txtDeleteLast;
+
+	@FXML
+	private TextField txtDeleteAge;
+
+	@FXML
+	private TextField txtDeletePoint;
+
+	@FXML
+	private TextField txtDeleteBounce;
+
+	@FXML
+	private TextField txtDeleteAss;
+
+	@FXML
+	private TextField txtDeleteTheft;
+
+	@FXML
+	private TextField txtDeleteBlock;
+
+	@FXML
+	private TextField txtDeleteTeam;
+
 
 	@FXML
 	private Button btnImport;
@@ -902,7 +930,7 @@ public class BasketballDataGUI {
 				int theft = Integer.parseInt(tfTheft.getText());
 				int block = Integer.parseInt(tfBlock.getText());
 
-				Players player = basketData.searchPlayer(points, tfName.getText(), tfLastName.getText());
+				Players player = basketData.searchPlayer(tfName.getText(), tfLastName.getText(),age,tfTeam.getText(),points,bounce,assistance,theft,block);
 
 				if (player == null) {
 
@@ -921,8 +949,9 @@ public class BasketballDataGUI {
 					}
 
 				}else {
+					alert.setAlertType(AlertType.ERROR);
 					alert.setHeaderText("No se pudo agregar el jugador");
-					alert.setContentText("Ya hay jugadores en la base de datos con esa informacion");
+					alert.setContentText("Ya hay jugadores en la base de datos con esa información");
 					alert.showAndWait();
 				}
 
@@ -937,14 +966,16 @@ public class BasketballDataGUI {
 				tfBlock.setText("");
 
 			} catch (NumberFormatException nfe) {
-
+				
+				alert.setAlertType(AlertType.ERROR);
 				alert.setTitle("ERROR");
 				alert.setHeaderText("No se pudo agregar el jugador");
-				alert.setContentText("Algunos de los valores tienen que ser de tipo numerico");
+				alert.setContentText("Algunos de los valores tienen que ser de tipo numérico");
 				alert.showAndWait();
 			}
 
 		}else {
+			alert.setAlertType(AlertType.ERROR);
 			alert.setTitle("ERROR");
 			alert.setHeaderText("No se pudo agregar el jugador");
 			alert.setContentText("Debe llenar todos los campos para crear al jugador");
@@ -957,58 +988,60 @@ public class BasketballDataGUI {
 
 		Alert alert = new Alert(AlertType.INFORMATION);
 
-		if(!tfName.getText().equals("") && !tfLastName.getText().equals("") && !tfTeam.getText().equals("") && !tfAge.getText().equals("") && !tfPoints.getText().equals("") && !tfBounces.getText().equals("") && !tfAssistances.getText().equals("") && !tfTheft.getText().equals("") && !tfBlock.getText().equals("")) {
+		if(!txtDeleteName.getText().equals("") && !txtDeleteLast.getText().equals("") && !txtDeleteTeam.getText().equals("") && !txtDeleteAge.getText().equals("") && !txtDeletePoint.getText().equals("") && !txtDeleteBounce.getText().equals("") && !txtDeleteAss.getText().equals("") && !txtDeleteTheft.getText().equals("") && !txtDeleteBlock.getText().equals("")) {
 
 			try {
-				int age = Integer.parseInt(tfAge.getText());
-				int points = Integer.parseInt(tfPoints.getText());
-				int bounce = Integer.parseInt(tfBounces.getText());
-				int assistance = Integer.parseInt(tfAssistances.getText());
-				int theft = Integer.parseInt(tfTheft.getText());
-				int block = Integer.parseInt(tfBlock.getText());
+				int age = Integer.parseInt(txtDeleteAge.getText());
+				int points = Integer.parseInt(txtDeletePoint.getText());
+				int bounce = Integer.parseInt(txtDeleteBounce.getText());
+				int assistance = Integer.parseInt(txtDeleteAss.getText());
+				int theft = Integer.parseInt(txtDeleteTheft.getText());
+				int block = Integer.parseInt(txtDeleteBlock.getText());
 
-				Players player = basketData.searchPlayer(points, tfName.getText(), tfLastName.getText());
-
-				if (player == null) {
+				Players player = basketData.searchPlayer(txtDeleteName.getText(), txtDeleteLast.getText(),age,txtDeleteTeam.getText(),points,bounce,assistance,theft,block);
+				
+				if (player != null && player.getTeam() != null) {
 
 					if(age > -1 && points > -1 && bounce > -1 && assistance > -1 && theft > -1 && block > -1) {
-						basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
+						basketData.deletePlayer(txtDeleteName.getText(), txtDeleteLast.getText(), txtDeleteTeam.getText(), age, points, bounce, assistance, theft, block);
 						inicializateTableView();
 
 						alert.setTitle("EXCELENTE");
-						alert.setHeaderText("Se ha registrado exitosamente");
-						alert.setContentText("Se ha registrado a "+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
+						alert.setHeaderText("Se ha eliminado exitosamente");
+						alert.setContentText("Se ha eliminado a "+txtDeleteName.getText()+" "+txtDeleteLast.getText()+" de la base de datos");
 						alert.showAndWait();
 					}
 
 				}else {
-					alert.setHeaderText("No se pudo agregar el jugador");
-					alert.setContentText("Ya hay jugadores en la base de datos con esa informacion");
+					alert.setAlertType(AlertType.ERROR);
+					alert.setHeaderText("No se pudo eliminar el jugador");
+					alert.setContentText("En la base de datos no se encuentran jugadores registrados con esa información");
 					alert.showAndWait();
 				}
 
-				tfName.setText("");
-				tfLastName.setText("");
-				tfAge.setText("");
-				tfTeam.setText("");
-				tfPoints.setText("");
-				tfBounces.setText("");
-				tfAssistances.setText("");
-				tfTheft.setText("");
-				tfBlock.setText("");
+				txtDeleteName.setText("");
+				txtDeleteLast.setText("");
+				txtDeleteAge.setText("");
+				txtDeleteTeam.setText("");
+				txtDeletePoint.setText("");
+				txtDeleteBounce.setText("");
+				txtDeleteAss.setText("");
+				txtDeleteTheft.setText("");
+				txtDeleteBlock.setText("");
 
 			} catch (NumberFormatException nfe) {
-
+				
+				alert.setAlertType(AlertType.ERROR);
 				alert.setTitle("ERROR");
-				alert.setHeaderText("No se pudo agregar el jugador");
-				alert.setContentText("Algunos de los valores tienen que ser de tipo numerico");
+				alert.setHeaderText("No se pudo eliminar el jugador");
+				alert.setContentText("Algunos de los valores tienen que ser de tipo numérico");
 				alert.showAndWait();
 			}
 
 		}else {
 			alert.setTitle("ERROR");
-			alert.setHeaderText("No se pudo agregar el jugador");
-			alert.setContentText("Debe llenar todos los campos para crear al jugador");
+			alert.setHeaderText("No se pudo eliminar el jugador");
+			alert.setContentText("Debe llenar todos los campos para eliminar al jugador");
 			alert.showAndWait();
 		}
 	}

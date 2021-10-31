@@ -271,7 +271,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="txtDeleteTheftt" layoutX="270.0" layoutY="463.0" prefHeight="32.0" prefWidth="59.0" promptText="Robos">
+            <TextField fx:id="txtDeleteTheft" layoutX="270.0" layoutY="463.0" prefHeight="32.0" prefWidth="59.0" promptText="Robos">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>

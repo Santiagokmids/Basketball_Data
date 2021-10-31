@@ -29,7 +29,7 @@ public class Players implements Serializable{
 	}
 	
 	public int compareTo(String player2) {
-		String messagePlayer1 = getName()+" "+getLastName();
+		String messagePlayer1 = getName()+" "+getLastName()+" "+getTeam()+" "+getAge()+" "+getPoints()+" "+getBounce()+" "+getAssistance()+" "+getTheft()+" "+getBlock();
 		int verify = messagePlayer1.compareTo(player2);
 		return verify;
 	}
