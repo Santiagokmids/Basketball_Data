@@ -1,11 +1,12 @@
 package ui;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import dataStructures.NodeAVLTree;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -40,11 +41,14 @@ import thread.LoadData;
 public class BasketballDataGUI {
 	
 	@FXML
+    private TextField lblImport;
+
+	@FXML
 	private Button btnWaitting;
 
 	@FXML
-    private Label lblWaitting;
-	
+	private Label lblWaitting;
+
 	@FXML
 	private ImageView imgSmile;
 
@@ -254,7 +258,8 @@ public class BasketballDataGUI {
 	@FXML
 	private TextField txtDatesSearch;
 
-
+	private String direction = "";
+	
 	public static ObservableList<Players> listPlayers;
 
 	public BasketballDataGUI(BasketballData basketballData) {
@@ -909,6 +914,10 @@ public class BasketballDataGUI {
 						alert.setHeaderText("Se ha registrado exitosamente");
 						alert.setContentText("Se ha registrado a "+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
 						alert.showAndWait();
+					}else {
+						alert.setHeaderText("No se pudo agregar el jugador");
+						alert.setContentText("Debe ingresar números mayores o iguales a 0");
+						alert.showAndWait();
 					}
 
 				}else {
@@ -942,7 +951,7 @@ public class BasketballDataGUI {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
 	public void btnDelete(ActionEvent event) {
 
@@ -1005,70 +1014,63 @@ public class BasketballDataGUI {
 	}
 
 	@FXML
-	public void btnImport(ActionEvent event) {
+	public void btnImport(MouseEvent event) {
 
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Abrir un archivo");
 		File file = fileChooser.showOpenDialog(mainPane.getScene().getWindow());
 
 		if(file != null) {
+			lblImport.setText(file.getAbsolutePath());
+			direction = file.getAbsolutePath();
+		}
+	}
 
-			/*
-			ImportData importData = new ImportData();
-			importData.start();
+	@FXML
+	public void btnGoImport(ActionEvent event) {
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		
+		if (!lblImport.getText().equals(direction)) {
+			alert.setTitle("ERROR");
+			alert.setHeaderText("No se pudo importar");
+			alert.setContentText("El campo debe contener una dirección válida");
+			alert.showAndWait();
+		}else if(lblImport.getText().isEmpty()){
+			alert.setTitle("ERROR");
+			alert.setHeaderText("No se pudo importar");
+			alert.setContentText("El campo debe contener una dirección de documento");
+			alert.showAndWait();
+		}else if(!lblImport.getText().isEmpty()) {
 			try {
-				importData.join();
-			} catch (InterruptedException e) {
-			}
-			 */
-			
-			try {
-				
 				waitting();
-				
 			} catch (IOException e) {
 			}
 		}
 	}
-	
-	@FXML
-	private void exitWaitting(ActionEvent event) throws InterruptedException {
 
-		//btnWaitting.setDisable(true);
-		//btnWaitting.setVisible(false);
-		
-		//lblWaitting.setText("Se están importando los datos, por favor espere...");
-		ImportData dt = new ImportData(this,lblWaitting, btnWaitting);
-		LoadData ld = new LoadData(this);
-		//lblWaitting.setText("Santi le gusta luna");
-		// btnWaitting.setVisible(false);
+	@FXML
+	private void exitWaitting(ActionEvent event) throws InterruptedException, FileNotFoundException {
+
+		LoadData dt = new LoadData(this, lblWaitting, btnWaitting);
+		ImportData ld = new ImportData(this, basketData, new BufferedReader(new FileReader(direction)));
 		imgSmile.setVisible(true);
 		dt.start();
 		Thread.sleep(150);
 		ld.start();
-		
-		
-		
-		
-		
-		
 	}
-	public void loadSanti() {
-		
-		for (int i = 0; i < 200000; i++) {
-		System.out.println(i);
-	}
-	}
+
 	public void change() throws InterruptedException {
-		
+
 		Stage stage = (Stage) this.imgSmile.getScene().getWindow();
 		stage.close();
 		imgSmile.setVisible(false);
 	}
+
 	private void waitting() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("importWait-pane.fxml"));
 		loader.setController(this);
-		
+
 		Parent load;
 		load = loader.load();
 		Image image = new Image("/images/feliz.png");
@@ -1079,10 +1081,10 @@ public class BasketballDataGUI {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
-		
+
 		btnWaitting.setDisable(false);
 		btnWaitting.setVisible(true);
-		
+
 		stage.showAndWait();
 	}
 }

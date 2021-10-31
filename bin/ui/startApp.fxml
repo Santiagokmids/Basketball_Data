@@ -102,17 +102,17 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="159.0" layoutY="415.0" prefHeight="42.0" prefWidth="379.0">
+            <TextField fx:id="lblImport" layoutX="159.0" layoutY="415.0" prefHeight="42.0" prefWidth="379.0">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="17.0" />
                </font>
             </TextField>
-            <ImageView fx:id="iconImport" fitHeight="42.0" fitWidth="40.0" layoutX="548.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="iconImport" fitHeight="42.0" fitWidth="40.0" layoutX="548.0" layoutY="416.0" onMouseClicked="#btnImport" pickOnBounds="true" preserveRatio="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="304.0" layoutY="481.0" mnemonicParsing="false" onAction="#btnImport" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Importar" textFill="WHITE">
+            <Button layoutX="304.0" layoutY="481.0" mnemonicParsing="false" onAction="#btnGoImport" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Importar" textFill="WHITE">
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>
@@ -200,7 +200,7 @@
             </ComboBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorDelete" layoutX="314.0" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="731.0">
+      <AnchorPane fx:id="anchorDelete" disable="true" layoutX="314.0" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="731.0" visible="false">
          <children>
             <ImageView fx:id="titleDeleteP" fitHeight="106.0" fitWidth="633.0" layoutX="60.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="148.0" layoutY="187.0" text="Introduzca todos los atributos para eliminar a un jugador.">
@@ -464,7 +464,7 @@
                </cursor>
             </Button>
          </children></AnchorPane>
-      <AnchorPane fx:id="anchorBack" disable="true" layoutX="319.0" layoutY="-1.0" prefHeight="687.0" prefWidth="731.0" visible="false">
+      <AnchorPane fx:id="anchorBack" layoutX="319.0" layoutY="-1.0" prefHeight="687.0" prefWidth="731.0">
          <children>
             <ImageView fx:id="imgBack" fitHeight="329.0" fitWidth="528.0" layoutX="154.0" layoutY="182.0" opacity="0.19" pickOnBounds="true" preserveRatio="true" />
          </children>

@@ -1,9 +1,9 @@
 package model;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
@@ -14,12 +14,14 @@ import dataStructures.NodoBinaryTree;
 import thread.BinarySearch;
 
 public class BasketballData {
-
-	public static final String NODES = "data/node.txt";
-	public static final String TREE_BOUNCE = "data/node_bounce.txt";
-	public static final String TREE_ASSISTANCE = "data/node_assistance.txt";
-	public static final String TREE_BLOCK = "data/node_block.txt";
-	public static final String TREE_POINTS = "data/node_points.txt";
+	
+	public static final String SAVE_PATH_FILE_LINEAL_THEFT = "data/node_lineal_theft.txt";
+	public static final String SAVE_PATH_FILE_BB_THEFT = "data/node_BB_theft.txt";
+	public static final String SAVE_PATH_FILE_BB_ASSISTANCE = "data/node_BB_assistance.txt";
+	public static final String SAVE_PATH_FILE_AVL_BOUNCE = "data/node_AVL_bounce.txt";
+	public static final String SAVE_PATH_FILE_AVL_ASSISTANCE = "data/node_AVL_assistance.txt";
+	public static final String SAVE_PATH_FILE_AVL_BLOCK = "data/node_AVL_block.txt";
+	public static final String SAVE_PATH_FILE_AVL_POINTS = "data/node_AVL_points.txt";
 
 	private ArrayList<Players> players;
 	private AVLTree<Integer, Players> pointsAVLTree;
@@ -52,6 +54,10 @@ public class BasketballData {
 		if(points == 20) {
 			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot()));
 		}
+		try {
+			saveData();
+		} catch (IOException e) {
+		}
 	}
 	
 	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
@@ -67,29 +73,41 @@ public class BasketballData {
 		if(points == 20) {
 			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot()));
 		}
-	}
-
-	public void importData(String fileName) throws IOException {
-
-		BufferedReader br = new BufferedReader(new FileReader(fileName));
-		String line = br.readLine();
-
-		while(line != null) {
-			//String[] dataPlayers = line.split(";");
-
-			//createPlayer(players);
-
-			// createPlayer(players);
-
-			line = br.readLine();
+		try {
+			saveData();
+		} catch (IOException e) {
 		}
-		br.close();
 	}
-
+	
 	public void saveData() throws FileNotFoundException, IOException {
-		// ObjectOutputStream ob = new ObjectOutputStream(new FileOutputStream(NODES));
-		// ob.writeObject(nodoooo);
-		// ob.close();
+		ObjectOutputStream linealTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_LINEAL_THEFT));
+		linealTheft.writeObject(players);
+		
+		ObjectOutputStream bbTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_THEFT));
+		bbTheft.writeObject(theftTree);
+		
+		ObjectOutputStream bbAssistant = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_ASSISTANCE));
+		bbAssistant.writeObject(assistanceTree);
+		
+		ObjectOutputStream avlBounce = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BOUNCE));
+		avlBounce.writeObject(bounceAVLTree);
+		
+		ObjectOutputStream avlAssistance = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_ASSISTANCE));
+		avlAssistance.writeObject(assistanceAVLTree);
+		
+		ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
+		avlBlock.writeObject(blockAVLTree);
+		
+		ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
+		avlPoints.writeObject(pointsAVLTree);
+		
+		linealTheft.close();
+		bbTheft.close();
+		bbAssistant.close();
+		avlBounce.close();
+		avlAssistance.close();
+		avlBlock.close();
+		avlPoints.close();
 	}
 
 	public boolean loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
@@ -233,6 +251,10 @@ public class BasketballData {
 		
 		BinarySearch binarySearch = new BinarySearch(player, name, lastName);
 		binarySearch.start();
+		try {
+			binarySearch.join();
+		} catch (InterruptedException e) {
+		}
 		return binarySearch.getNewPlayer();
 	}
 
