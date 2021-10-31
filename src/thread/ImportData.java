@@ -2,21 +2,22 @@ package thread;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.application.Platform;
 import model.BasketballData;
-import ui.BasketballDataGUI;
+import model.Players;
 
 public class ImportData extends Thread{
 
-	private BasketballDataGUI basketballDataGUI;
 	private BasketballData basketballData;
 	private BufferedReader file;
+	private ArrayList<Players> newList;
 
-	public ImportData(BasketballDataGUI basketballDataGUI, BasketballData basketballData, BufferedReader file) {
-		this.basketballDataGUI = basketballDataGUI;
+	public ImportData(BasketballData basketballData, BufferedReader file) {
 		this.basketballData = basketballData;
 		this.file = file;
+		newList = new ArrayList<>();
 	}
 
 	public void run() {
@@ -28,6 +29,8 @@ public class ImportData extends Thread{
 				String line = "";
 				try {
 					line = file.readLine();
+					
+					int i = 0;
 
 					while(line != null) {
 
@@ -43,15 +46,22 @@ public class ImportData extends Thread{
 							int assistance = Integer.parseInt(parts[6]);
 							int theft = Integer.parseInt(parts[7]);
 							int block = Integer.parseInt(parts[8]);
-
-							basketballData.addPlayer(name, lastName, team, age, points, bounce, assistance, theft, block);
-							basketballDataGUI.inicializateTableView();
-
+							
+							Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
+							newList.add(newPlayers);
+							
 							line = file.readLine();
 
 						} catch (NumberFormatException e) {
 							line = file.readLine();
 						}
+						i++;
+					}
+					
+					if(i%2 == 0 && i > 2) {
+						newThreadMethod(i, 4);
+					}else{
+						newThreadMethod(i, 3);
 					}
 
 				}catch (IOException e) {
@@ -59,6 +69,15 @@ public class ImportData extends Thread{
 				try {
 					file.close();
 				} catch (IOException e) {
+				}
+			}
+
+			private void newThreadMethod(int i, int division) {
+				int cont = (i/division); 
+				for (int j = 0; j < newList.size()-1; j+=(i/division)) {
+					cont += j;
+					SecondPartImport newThreadImport = new SecondPartImport(basketballData, newList, j, cont);
+					newThreadImport.start();
 				}
 			}
 		});

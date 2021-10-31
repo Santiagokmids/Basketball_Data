@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -1089,11 +1090,13 @@ public class BasketballDataGUI {
 	private void exitWaitting(ActionEvent event) throws InterruptedException, FileNotFoundException {
 
 		LoadData dt = new LoadData(this, lblWaitting, btnWaitting);
-		ImportData ld = new ImportData(this, basketData, new BufferedReader(new FileReader(direction)));
+		ImportData ld = new ImportData(basketData, new BufferedReader(new FileReader(direction)));
 		imgSmile.setVisible(true);
 		dt.start();
 		Thread.sleep(150);
 		ld.start();
+		ld.join();
+		inicializateTableView();
 	}
 
 	public void change() throws InterruptedException {

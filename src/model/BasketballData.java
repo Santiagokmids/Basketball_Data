@@ -16,7 +16,7 @@ import dataStructures.NodoBinaryTree;
 import thread.BinarySearch;
 
 public class BasketballData {
-	
+
 	public static final String SAVE_PATH_FILE_LINEAL_THEFT = "data/node_lineal_theft.txt";
 	public static final String SAVE_PATH_FILE_BB_THEFT = "data/node_BB_theft.txt";
 	public static final String SAVE_PATH_FILE_BB_ASSISTANCE = "data/node_BB_assistance.txt";
@@ -52,16 +52,17 @@ public class BasketballData {
 		blockAVLTree.addNode(block, newPlayers);
 		theftTree.addNode(newPlayers, theft);
 		assistanceTree.addNode(newPlayers, assistance);
-		*/
+		 
 		if(points == 20) {
 			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot()) + "esta en baskeData linea 57");
 		}
+		*/
 		try {
 			saveData();
 		} catch (IOException e) {
 		}
 	}
-	
+
 	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		deleteInArray(name, lastName);
 		pointsAVLTree.deleteNode(new NodeAVLTree<Integer, Players>(points, new Players(name,lastName,team,age,points,bounce,assistance,theft,block)));
@@ -70,39 +71,40 @@ public class BasketballData {
 		blockAVLTree.addNode(block, newPlayers);
 		theftTree.addNode(newPlayers, theft);
 		assistanceTree.addNode(newPlayers, assistance);
-		*/
+		
 		if(points == 20) {
 			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot())+ "esta en baskeData linea 75");
 		}
+		*/
 		try {
 			saveData();
 		} catch (IOException e) {
 		}
 	}
-	
+
 	public void saveData() throws FileNotFoundException, IOException {
-		
+
 		ObjectOutputStream linealTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_LINEAL_THEFT));
 		linealTheft.writeObject(players);
-		
+
 		ObjectOutputStream bbTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_THEFT));
 		bbTheft.writeObject(theftTree);
-		
+
 		ObjectOutputStream bbAssistant = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_ASSISTANCE));
 		bbAssistant.writeObject(assistanceTree);
-		
+
 		ObjectOutputStream avlBounce = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BOUNCE));
 		avlBounce.writeObject(bounceAVLTree);
-		
+
 		ObjectOutputStream avlAssistance = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_ASSISTANCE));
 		avlAssistance.writeObject(assistanceAVLTree);
-		
+
 		ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
 		avlBlock.writeObject(blockAVLTree);
-		
+
 		ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
 		avlPoints.writeObject(pointsAVLTree);
-		
+
 		linealTheft.close();
 		bbTheft.close();
 		bbAssistant.close();
@@ -114,135 +116,73 @@ public class BasketballData {
 
 	@SuppressWarnings("unchecked")
 	public boolean loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
-/*
+		
 		boolean loaded = false;
-		
+
 		File lineaTheftFile = new File(SAVE_PATH_FILE_LINEAL_THEFT);
-		
+
 		if(lineaTheftFile.exists()) {
 			ObjectInputStream linealTheft = new ObjectInputStream(new FileInputStream(lineaTheftFile));
 			players = (ArrayList<Players>) linealTheft.readObject();
 			linealTheft.close();
 			loaded = true;
 		}
-		
+
 		File bbTheftFile = new File(SAVE_PATH_FILE_BB_THEFT);
-		
+
 		if(bbTheftFile.exists()) {
 			ObjectInputStream bbTheft = new ObjectInputStream(new FileInputStream(bbTheftFile));
 			theftTree = (BinaryTree<Players, Integer>) bbTheft.readObject();
 			bbTheft.close();
 			loaded = true;
 		}
-		
+
 		File bbAssistantFile = new File(SAVE_PATH_FILE_BB_ASSISTANCE);
-		
+
 		if(bbAssistantFile.exists()) {
 			ObjectInputStream bbAssistant = new ObjectInputStream(new FileInputStream(bbAssistantFile));
 			assistanceTree = (BinaryTree<Players, Integer>) bbAssistant.readObject();
 			bbAssistant.close();
 			loaded = true;
 		}
-		
+
 		File avlBounceFile = new File(SAVE_PATH_FILE_AVL_BOUNCE);
-		
+
 		if(avlBounceFile.exists()) {
 			ObjectInputStream avlBounce = new ObjectInputStream(new FileInputStream(avlBounceFile));
 			bounceAVLTree = (AVLTree<Integer, Players>) avlBounce.readObject();
 			avlBounce.close();
 			loaded = true;
 		}
-		
+
 		File avlAssistanceFile = new File(SAVE_PATH_FILE_AVL_ASSISTANCE);
-		
+
 		if(avlAssistanceFile.exists()) {
 			ObjectInputStream avlAssistance = new ObjectInputStream(new FileInputStream(avlAssistanceFile));
 			assistanceAVLTree = (AVLTree<Integer, Players>) avlAssistance.readObject();
 			avlAssistance.close();
 			loaded = true;
 		}
-		
+
 		File avlBlockFile = new File(SAVE_PATH_FILE_AVL_BLOCK);
-		
+
 		if(avlBlockFile.exists()) {
 			ObjectInputStream avlBlock = new ObjectInputStream(new FileInputStream(avlBlockFile));
 			blockAVLTree = (AVLTree<Integer, Players>) avlBlock.readObject();
 			avlBlock.close();
 			loaded = true;
 		}
-		
+
 		File avlPointsFile = new File(SAVE_PATH_FILE_AVL_POINTS);
-		
+
 		if(avlPointsFile.exists()) {
 			ObjectInputStream avlPoints = new ObjectInputStream(new FileInputStream(avlPointsFile));
 			pointsAVLTree = (AVLTree<Integer, Players>) avlPoints.readObject();
 			avlPoints.close();
 			loaded = true;
 		}
-		
+
 		return loaded;
-		*/
-		File f = new File(SAVE_PATH_FILE_LINEAL_THEFT);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			players = (ArrayList<Players>) ob.readObject();
-			ob.close();
-
-		}
-		f = new File(SAVE_PATH_FILE_BB_THEFT);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			theftTree =  (BinaryTree<Players, Integer>) ob.readObject();
-			ob.close();
-
-		}
-		f = new File(SAVE_PATH_FILE_BB_THEFT);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			assistanceTree =  (BinaryTree<Players, Integer>) ob.readObject();
-			ob.close();
-
-		}
-		
-		
-		f = new File(SAVE_PATH_FILE_AVL_BOUNCE);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			bounceAVLTree =  (AVLTree<Integer, Players>) ob.readObject();
-			ob.close();
-
-		}
-		f = new File(SAVE_PATH_FILE_AVL_ASSISTANCE);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			assistanceAVLTree =  (AVLTree<Integer, Players>) ob.readObject();
-			ob.close();
-
-		}
-		
-		f = new File(SAVE_PATH_FILE_AVL_BLOCK);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			blockAVLTree =  (AVLTree<Integer, Players>) ob.readObject();
-			ob.close();
-
-		}
-		f = new File(SAVE_PATH_FILE_AVL_BLOCK);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			pointsAVLTree =  (AVLTree<Integer, Players>) ob.readObject();
-			ob.close();
-
-		}
-		
-return true;
 	}
 
 	public ArrayList<Players> searchArrayMin(int code) {
@@ -283,9 +223,9 @@ return true;
 		}
 		return player;
 	}
-	
+
 	public void deleteInArray(String name, String lastName) {
-		
+
 		for (int i = 0; i < players.size(); i++) {
 
 			if (name.equalsIgnoreCase(players.get(i).getName()) && lastName.equalsIgnoreCase(players.get(i).getLastName())) {
@@ -297,19 +237,19 @@ return true;
 	public NodeAVLTree<Integer, Players> searchNodesPoint(){
 		return pointsAVLTree.getRoot();
 	}
-	
+
 	public NodeAVLTree<Integer, Players> searchNodesBounce(){
 		return bounceAVLTree.getRoot();
 	}
-	
+
 	public NodeAVLTree<Integer, Players> searchNodesAssitence(){
 		return assistanceAVLTree.getRoot();
 	}
-	
+
 	public NodeAVLTree<Integer, Players> searchNodesBlocks(){
 		return blockAVLTree.getRoot();
 	}
-	
+
 	public ArrayList<Players> searchNodeEqualsAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree, ArrayList<Players> players,boolean stop) {
 
 		if(assistaNodeAVLTree == null) {
@@ -333,18 +273,18 @@ return true;
 
 	public ArrayList<Players> searchNodeMinAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree, ArrayList<Players> players) {
 		ArrayList<Players> pl = new ArrayList<Players>();
-		
+
 		if(assistaNodeAVLTree == null) {
 			pl = players;
 
 		}if(assistaNodeAVLTree.getKey() <= key) {
 			players.add(assistaNodeAVLTree.getObject());
-			
+
 		}
 		else {
 			if((Integer)key <= (Integer)assistaNodeAVLTree.getKey()) {
 				pl = searchNodeMinAVL(key, assistaNodeAVLTree.getLeft(),players);
-				
+
 			}else {
 				pl = searchNodeMinAVL(key, assistaNodeAVLTree.getRight(),players);
 			}
@@ -354,18 +294,18 @@ return true;
 
 	public ArrayList<Players> searchNodeMaxAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree, ArrayList<Players> players) {
 		ArrayList<Players> pl = new ArrayList<Players>();
-		
+
 		if(assistaNodeAVLTree == null) {
 			pl = players;
 
 		}if(assistaNodeAVLTree.getKey() >= key) {
 			players.add(assistaNodeAVLTree.getObject());
-			
+
 		}
 		else {
 			if((Integer)key <= (Integer)assistaNodeAVLTree.getKey()) {
 				pl = searchNodeMaxAVL(key, assistaNodeAVLTree.getLeft(),players);
-				
+
 			}else {
 				pl = searchNodeMaxAVL(key, assistaNodeAVLTree.getRight(),players);
 			}
@@ -383,8 +323,8 @@ return true;
 
 	public Players searchPlayer(String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) {
 		ArrayList<NodeAVLTree<Integer, Players>> player = pointsAVLTree.searchNode(points);
-		
-		System.out.println(player.isEmpty()+" el buscar del nodo");
+
+		//System.out.println(player.isEmpty()+" el buscar del nodo");
 		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance, theft, block);
 		binarySearch.start();
 		try {
@@ -441,7 +381,7 @@ return true;
 	public void setAssistanceTree(BinaryTree<Players, Integer> assistanceTree) {
 		this.assistanceTree = assistanceTree;
 	}
-	
+
 	public NodoBinaryTree<Players, Integer> searchNodesAssitenceTree(){
 		return assistanceTree.getRoot();
 	}
@@ -469,18 +409,18 @@ return true;
 
 	public ArrayList<Players> searchNodeMinTree(int key, NodoBinaryTree<Players, Integer> assistaNodeTree, ArrayList<Players> players) {
 		ArrayList<Players> pl = new ArrayList<Players>();
-		
+
 		if(assistaNodeTree == null) {
 			pl = players;
 
 		}if(assistaNodeTree.getKey() <= key) {
 			players.add(assistaNodeTree.getValue());
-			
+
 		}
 		else {
 			if((Integer)key <= (Integer)assistaNodeTree.getKey()) {
 				pl = searchNodeMinTree(key, assistaNodeTree.getLeft(),players);
-				
+
 			}else {
 				pl = searchNodeMinTree(key, assistaNodeTree.getRight(),players);
 			}
@@ -490,25 +430,25 @@ return true;
 
 	public ArrayList<Players> searchNodeMaxTree(int key, NodoBinaryTree<Players, Integer> assistaNodeTree, ArrayList<Players> players) {
 		ArrayList<Players> pl = new ArrayList<Players>();
-		
+
 		if(assistaNodeTree == null) {
 			pl = players;
 
 		}if(assistaNodeTree.getKey() >= key) {
 			players.add(assistaNodeTree.getValue());
-			
+
 		}
 		else {
 			if((Integer)key <= (Integer)assistaNodeTree.getKey()) {
 				pl = searchNodeMaxTree(key, assistaNodeTree.getLeft(),players);
-				
+
 			}else {
 				pl = searchNodeMaxTree(key, assistaNodeTree.getRight(),players);
 			}
 		}
 		return pl;
 	}
-	
+
 	public NodoBinaryTree<Players, Integer> searchNodesTheftTree(int key){
 		return theftTree.searchNode(key);
 	}
