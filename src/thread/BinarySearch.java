@@ -7,12 +7,12 @@ import model.Players;
 
 public class BinarySearch extends Thread{
 	
-	private ArrayList<NodeAVLTree<Integer, Players, Integer, Integer>> player;
+	private ArrayList<NodeAVLTree<Integer, Players>> player;
 	private Players newPlayer;
 	private String name;
 	private String lastName;
 	
-	public BinarySearch(ArrayList<NodeAVLTree<Integer, Players, Integer, Integer>> player, String name, String lastName) {
+	public BinarySearch(ArrayList<NodeAVLTree<Integer, Players>> player, String name, String lastName) {
 		this.player = player;
 		this.name = name;
 		this.lastName = lastName;
@@ -21,7 +21,7 @@ public class BinarySearch extends Thread{
 	public void run() {
 		for (int i = 1; i < player.size(); i++) {
 			for (int j = i; j > 0 && player.get(j-1).getObject().compareTo(player.get(j).getObject().getName()+" "+player.get(j).getObject().getLastName()) > 0; j--) {
-				NodeAVLTree<Integer, Players, Integer, Integer> tempAvlTree = player.get(j);
+				NodeAVLTree<Integer, Players> tempAvlTree = player.get(j);
 				
 				player.set(j, player.get(j-1));
 				player.set(j-1, tempAvlTree);
@@ -30,9 +30,9 @@ public class BinarySearch extends Thread{
 		newPlayer = binarySearch(player, name+" "+lastName);
 	}
 	
-	public Players binarySearch(ArrayList<NodeAVLTree<Integer, Players, Integer, Integer>> newList, String toSearch) {
+	public Players binarySearch(ArrayList<NodeAVLTree<Integer, Players>> newList, String toSearch) {
 		
-		ArrayList<NodeAVLTree<Integer, Players, Integer, Integer>> listPlayersArrayList = newList;
+		ArrayList<NodeAVLTree<Integer, Players>> listPlayersArrayList = newList;
 		
 		int pos = -1;
 		int i = 0;

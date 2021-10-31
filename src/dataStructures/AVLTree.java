@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> implements IAVLTree<K, V, F, H>{
 
-	private NodeAVLTree<K, V, F, H> root;
+	private NodeAVLTree<K, V> root;
 
 	public AVLTree() {
 		createTree();
@@ -20,7 +20,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 
 		boolean verify = false;
 
-		NodeAVLTree<K, V, F, H> newNodeAVLTree = new NodeAVLTree<K, V, F, H>(key, object);
+		NodeAVLTree<K, V> newNodeAVLTree = new NodeAVLTree<K, V>(key, object);
 
 		if(root == null) {
 			root = newNodeAVLTree;
@@ -32,10 +32,13 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 		return verify;
 	}
 
-	public void updateHeight(NodeAVLTree<K, V, F, H> nodeAVLTree) {
+	public void updateHeight(NodeAVLTree<K, V> nodeAVLTree) {
 
 		if(nodeAVLTree != null && (nodeAVLTree.getLeft() != null || nodeAVLTree.getRight() != null)) {
 			nodeAVLTree.setHeight(1 + nodeMax(height(nodeAVLTree.getLeft()), height(nodeAVLTree.getRight())));
+		}
+		else if(nodeAVLTree.getLeft() == null && nodeAVLTree.getRight() == null) {
+			nodeAVLTree.setHeight(1);
 		}
 
 		if(nodeAVLTree.getDad() != null) {
@@ -43,7 +46,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 		}
 	}
 
-	public boolean addNode(NodeAVLTree<K, V, F, H> assistaNodeAVLTree, NodeAVLTree<K, V, F, H> newNodeAVLTree) {
+	public boolean addNode(NodeAVLTree<K, V> assistaNodeAVLTree, NodeAVLTree<K, V> newNodeAVLTree) {
 		boolean verify = false;
 
 		if(newNodeAVLTree.getKey().compareTo(assistaNodeAVLTree.getKey()) <= 0) { //significa que el nuevo nodo es menor al que ya estaba
@@ -72,7 +75,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public boolean deleteNode(NodeAVLTree<K, V, F, H> node) {
+	public boolean deleteNode(NodeAVLTree<K, V> node) {
 
 		boolean verify = false;
 
@@ -96,7 +99,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 			node.setDad(null);
 
 		} else if (node.getLeft() == null || node.getRight() == null) {
-			NodeAVLTree<K, V, F, H> onlyChild;
+			NodeAVLTree<K, V> onlyChild;
 
 			if (node.getLeft() != null) {
 				onlyChild = node.getLeft();
@@ -125,7 +128,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 			updateHeight(node);
 
 		} else {
-			NodeAVLTree<K, V, F, H> successor = successor(node.getRight());
+			NodeAVLTree<K, V> successor = successor(node.getRight());
 
 			if(successor != null) {
 				node.setObject(successor.getObject());
@@ -133,7 +136,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 				deleteNode(successor);
 
 			}else {
-				NodeAVLTree<K, V, F, H> predecessor = successor(node.getRight());
+				NodeAVLTree<K, V> predecessor = successor(node.getRight());
 				node.setObject(predecessor.getObject());
 				node.setKey(predecessor.getKey());
 				deleteNode(predecessor);
@@ -144,9 +147,9 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public NodeAVLTree<K, V, F, H> successor(NodeAVLTree<K, V, F, H> current) {
+	public NodeAVLTree<K, V> successor(NodeAVLTree<K, V> current) {
 
-		NodeAVLTree<K, V, F, H> newNode = new NodeAVLTree<K, V, F, H>(null, null);
+		NodeAVLTree<K, V> newNode = new NodeAVLTree<K, V>(null, null);
 
 		if (current.getLeft() != null) {
 			newNode = successor(current.getLeft());
@@ -159,9 +162,9 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public NodeAVLTree<K, V, F, H> predecessor(NodeAVLTree<K, V, F, H> current) {
+	public NodeAVLTree<K, V> predecessor(NodeAVLTree<K, V> current) {
 
-		NodeAVLTree<K, V, F, H> newNode = new NodeAVLTree<K, V, F, H>(null, null);
+		NodeAVLTree<K, V> newNode = new NodeAVLTree<K, V>(null, null);
 
 		if (current.getRight() != null) {
 			newNode = predecessor(current.getLeft());
@@ -173,8 +176,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 		return newNode;
 	}
 
-	public void traslate(int balance, NodeAVLTree<K, V, F, H> node) {
-		System.out.println("entriiio");
+	public void traslate(int balance, NodeAVLTree<K, V> node) {
 		switch(balance) {
 		case 2: 
 			if(node.getLeft() != null && node.getLeft().getBalanced() != 1) {
@@ -183,7 +185,6 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 			}else if(node.getLeft() != null && node.getLeft().getBalanced() == 1){
 				doubleRightTranslate(node);
 			}
-			System.out.println("se cambio a "+node.getKey());
 			break;
 
 		case -2:
@@ -193,16 +194,15 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 			}else if(node.getRight() != null && node.getRight().getBalanced() == -1){
 				doubleLeftTranslate(node);
 			}
-			System.out.println("se cambio a "+node.getKey());
 			break;
 		}
 
 	}
 
-	public NodeAVLTree<K, V, F, H> leftTraslate(NodeAVLTree<K, V, F, H> node) {
+	public NodeAVLTree<K, V> leftTraslate(NodeAVLTree<K, V> node) {
 
-		NodeAVLTree<K, V, F, H> currentA = node.getRight();
-		NodeAVLTree<K, V, F, H> currentB = currentA.getLeft();
+		NodeAVLTree<K, V> currentA = node.getRight();
+		NodeAVLTree<K, V> currentB = currentA.getLeft();
 
 		currentA.setLeft(node);
 		node.setRight(currentB);
@@ -218,10 +218,10 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 		return currentA;
 	}
 
-	public NodeAVLTree<K, V, F, H> rigthTraslate( NodeAVLTree<K, V, F, H> node) {
+	public NodeAVLTree<K, V> rigthTraslate( NodeAVLTree<K, V> node) {
 
-		NodeAVLTree<K, V, F, H> currentA = node.getLeft();
-		NodeAVLTree<K, V, F, H> currentB = currentA.getRight();
+		NodeAVLTree<K, V> currentA = node.getLeft();
+		NodeAVLTree<K, V> currentB = currentA.getRight();
 
 		currentA.setRight(node);
 		node.setLeft(currentB);
@@ -237,8 +237,8 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 		return currentA;
 	}
 
-	public NodeAVLTree<K, V, F, H> doubleLeftTranslate(NodeAVLTree<K, V, F, H> node) {
-		NodeAVLTree<K, V, F, H> current;
+	public NodeAVLTree<K, V> doubleLeftTranslate(NodeAVLTree<K, V> node) {
+		NodeAVLTree<K, V> current;
 
 		node.setRight(rigthTraslate(node.getRight()));
 		current = leftTraslate(node);
@@ -246,8 +246,8 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 		return current;
 	}
 
-	public NodeAVLTree<K, V, F, H> doubleRightTranslate(NodeAVLTree<K, V, F, H> node) {
-		NodeAVLTree<K, V, F, H> current;
+	public NodeAVLTree<K, V> doubleRightTranslate(NodeAVLTree<K, V> node) {
+		NodeAVLTree<K, V> current;
 
 		node.setLeft(leftTraslate(node.getLeft()));
 		current = rigthTraslate(node);
@@ -256,14 +256,14 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public ArrayList<NodeAVLTree<K, V, F, H>> searchNode(K key) {
-		ArrayList<NodeAVLTree<K, V, F, H>> players = new ArrayList<NodeAVLTree<K, V, F, H>>();
+	public ArrayList<NodeAVLTree<K, V>> searchNode(K key) {
+		ArrayList<NodeAVLTree<K, V>> players = new ArrayList<NodeAVLTree<K, V>>();
 		boolean stop = false;
 
 		return searchNode(key, root,players, stop);
 	}
 
-	public ArrayList<NodeAVLTree<K, V, F, H>> searchNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree, ArrayList<NodeAVLTree<K, V, F, H>> players, boolean stop) {
+	public ArrayList<NodeAVLTree<K, V>> searchNode(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<NodeAVLTree<K, V>> players, boolean stop) {
 
 		if(assistaNodeAVLTree == null) {
 			return players;
@@ -288,7 +288,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public int height(NodeAVLTree<K, V, F, H> node) {
+	public int height(NodeAVLTree<K, V> node) {
 		int height = 0;
 		if(node != null) {
 			height = node.getHeight();
@@ -302,33 +302,34 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	@Override
-	public int balanceTree(NodeAVLTree<K, V, F, H> node) {
+	public int balanceTree(NodeAVLTree<K, V> node) {
 		int balance = 0;
-		System.out.println("entramo");
 		if(node != null) {
 			balance = height(node.getLeft()) - height(node.getRight());
 			node.setBalanced(balance);
 		}
 		if(balance < -1 || balance > 1) {
-			System.out.println("entraas");
 			traslate(balance, node);
 		}
 		return balance;
 	}
 
-	public NodeAVLTree<K, V, F, H> getRoot() {
+	public NodeAVLTree<K, V> getRoot() {
 		return root;
 	}
 
-	public void setRoot(NodeAVLTree<K, V, F, H> root) {
+	public void setRoot(NodeAVLTree<K, V> root) {
 		this.root = root;
 	}
 
-	public void preOrder(NodeAVLTree<K, V, F, H> node) {
-		if (node != null) {
-			System.out.print(node.getKey() + " ");
-			preOrder(node.getLeft());
-			preOrder(node.getRight());
+	public String searchInOrder(NodeAVLTree<K, V> node) {
+		String message = "";
+
+		if(node != null) {
+			message += searchInOrder(node.getLeft());
+			message += node.getKey()+" ";
+			message += searchInOrder(node.getRight());
 		}
+		return message;
 	}
 }

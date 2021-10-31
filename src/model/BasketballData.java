@@ -41,7 +41,7 @@ public class BasketballData {
 
 	public void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
-		//players.add(newPlayers);
+		players.add(newPlayers);
 		pointsAVLTree.addNode(points,newPlayers);
 		/*bounceAVLTree.addNode(bounce, newPlayers);
 		assistanceAVLTree.addNode(assistance, newPlayers);
@@ -49,8 +49,23 @@ public class BasketballData {
 		theftTree.addNode(newPlayers, theft);
 		assistanceTree.addNode(newPlayers, assistance);
 		*/
-		if(points == 50) {
-			pointsAVLTree.preOrder(pointsAVLTree.getRoot());
+		if(points == 20) {
+			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot()));
+		}
+	}
+	
+	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
+		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
+		players.add(newPlayers);
+		pointsAVLTree.addNode(points,newPlayers);
+		/*bounceAVLTree.addNode(bounce, newPlayers);
+		assistanceAVLTree.addNode(assistance, newPlayers);
+		blockAVLTree.addNode(block, newPlayers);
+		theftTree.addNode(newPlayers, theft);
+		assistanceTree.addNode(newPlayers, assistance);
+		*/
+		if(points == 20) {
+			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot()));
 		}
 	}
 
@@ -126,23 +141,23 @@ public class BasketballData {
 		return player;
 	}
 
-	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesPoint(){
+	public NodeAVLTree<Integer, Players> searchNodesPoint(){
 		return pointsAVLTree.getRoot();
 	}
 	
-	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesBounce(){
+	public NodeAVLTree<Integer, Players> searchNodesBounce(){
 		return bounceAVLTree.getRoot();
 	}
 	
-	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesAssitence(){
+	public NodeAVLTree<Integer, Players> searchNodesAssitence(){
 		return assistanceAVLTree.getRoot();
 	}
 	
-	public NodeAVLTree<Integer, Players, Integer, Integer> searchNodesBlocks(){
+	public NodeAVLTree<Integer, Players> searchNodesBlocks(){
 		return blockAVLTree.getRoot();
 	}
 	
-	public ArrayList<Players> searchNodeEqualsAVL(int key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree, ArrayList<Players> players,boolean stop) {
+	public ArrayList<Players> searchNodeEqualsAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree, ArrayList<Players> players,boolean stop) {
 
 		if(assistaNodeAVLTree == null) {
 			return players;
@@ -163,7 +178,7 @@ public class BasketballData {
 		}
 	}
 
-	public ArrayList<Players> searchNodeMinAVL(int key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree, ArrayList<Players> players) {
+	public ArrayList<Players> searchNodeMinAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree, ArrayList<Players> players) {
 		ArrayList<Players> pl = new ArrayList<Players>();
 		
 		if(assistaNodeAVLTree == null) {
@@ -184,7 +199,7 @@ public class BasketballData {
 		return pl;
 	}
 
-	public ArrayList<Players> searchNodeMaxAVL(int key, NodeAVLTree<Integer, Players, Integer, Integer> assistaNodeAVLTree, ArrayList<Players> players) {
+	public ArrayList<Players> searchNodeMaxAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree, ArrayList<Players> players) {
 		ArrayList<Players> pl = new ArrayList<Players>();
 		
 		if(assistaNodeAVLTree == null) {
@@ -214,7 +229,7 @@ public class BasketballData {
 	}
 
 	public Players searchPlayer(int point, String name, String lastName) {
-		ArrayList<NodeAVLTree<Integer, Players, Integer, Integer>> player = pointsAVLTree.searchNode(point);
+		ArrayList<NodeAVLTree<Integer, Players>> player = pointsAVLTree.searchNode(point);
 		
 		BinarySearch binarySearch = new BinarySearch(player, name, lastName);
 		binarySearch.start();

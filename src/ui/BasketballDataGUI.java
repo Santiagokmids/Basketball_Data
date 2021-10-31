@@ -941,7 +941,68 @@ public class BasketballDataGUI {
 			alert.setContentText("Debe llenar todos los campos para crear al jugador");
 			alert.showAndWait();
 		}
-	} 
+	}
+	
+	@FXML
+	public void btnDelete(ActionEvent event) {
+
+		Alert alert = new Alert(AlertType.INFORMATION);
+
+		if(!tfName.getText().equals("") && !tfLastName.getText().equals("") && !tfTeam.getText().equals("") && !tfAge.getText().equals("") && !tfPoints.getText().equals("") && !tfBounces.getText().equals("") && !tfAssistances.getText().equals("") && !tfTheft.getText().equals("") && !tfBlock.getText().equals("")) {
+
+			try {
+				int age = Integer.parseInt(tfAge.getText());
+				int points = Integer.parseInt(tfPoints.getText());
+				int bounce = Integer.parseInt(tfBounces.getText());
+				int assistance = Integer.parseInt(tfAssistances.getText());
+				int theft = Integer.parseInt(tfTheft.getText());
+				int block = Integer.parseInt(tfBlock.getText());
+
+				Players player = basketData.searchPlayer(points, tfName.getText(), tfLastName.getText());
+
+				if (player == null) {
+
+					if(age > -1 && points > -1 && bounce > -1 && assistance > -1 && theft > -1 && block > -1) {
+						basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
+						inicializateTableView();
+
+						alert.setTitle("EXCELENTE");
+						alert.setHeaderText("Se ha registrado exitosamente");
+						alert.setContentText("Se ha registrado a "+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
+						alert.showAndWait();
+					}
+
+				}else {
+					alert.setHeaderText("No se pudo agregar el jugador");
+					alert.setContentText("Ya hay jugadores en la base de datos con esa informacion");
+					alert.showAndWait();
+				}
+
+				tfName.setText("");
+				tfLastName.setText("");
+				tfAge.setText("");
+				tfTeam.setText("");
+				tfPoints.setText("");
+				tfBounces.setText("");
+				tfAssistances.setText("");
+				tfTheft.setText("");
+				tfBlock.setText("");
+
+			} catch (NumberFormatException nfe) {
+
+				alert.setTitle("ERROR");
+				alert.setHeaderText("No se pudo agregar el jugador");
+				alert.setContentText("Algunos de los valores tienen que ser de tipo numerico");
+				alert.showAndWait();
+			}
+
+		}else {
+			alert.setTitle("ERROR");
+			alert.setHeaderText("No se pudo agregar el jugador");
+			alert.setContentText("Debe llenar todos los campos para crear al jugador");
+			alert.showAndWait();
+		}
+	}
 
 	@FXML
 	public void btnImport(ActionEvent event) {

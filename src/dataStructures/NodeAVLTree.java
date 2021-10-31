@@ -1,14 +1,14 @@
 package dataStructures;
 
-public class NodeAVLTree<K, V, F, H> {
+public class NodeAVLTree<K, V> {
 	
 	private K key;
 	private V object;
 	private int balanced;
 	private int height;
-	private NodeAVLTree<K, V, F, H> left;
-	private NodeAVLTree<K, V, F, H> right;
-	private NodeAVLTree<K, V, F, H> dad;
+	private NodeAVLTree<K, V> left;
+	private NodeAVLTree<K, V> right;
+	private NodeAVLTree<K, V> dad;
 	
 	public NodeAVLTree(K key, V object) {
 		this.key = key;
@@ -41,27 +41,27 @@ public class NodeAVLTree<K, V, F, H> {
 		this.balanced = balanced;
 	}
 
-	public NodeAVLTree<K, V, F, H> getLeft() {
+	public NodeAVLTree<K, V> getLeft() {
 		return left;
 	}
 
-	public void setLeft(NodeAVLTree<K, V, F, H> left) {
+	public void setLeft(NodeAVLTree<K, V> left) {
 		this.left = left;
 	}
 
-	public NodeAVLTree<K, V, F, H> getRight() {
+	public NodeAVLTree<K, V> getRight() {
 		return right;
 	}
 
-	public void setRight(NodeAVLTree<K, V, F, H> right) {
+	public void setRight(NodeAVLTree<K, V> right) {
 		this.right = right;
 	}
 
-	public NodeAVLTree<K, V, F, H> getDad() {
+	public NodeAVLTree<K, V> getDad() {
 		return dad;
 	}
 
-	public void setDad(NodeAVLTree<K, V, F, H> dad) {
+	public void setDad(NodeAVLTree<K, V> dad) {
 		this.dad = dad;
 	}
 

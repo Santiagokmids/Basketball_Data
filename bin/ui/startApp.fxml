@@ -200,7 +200,7 @@
             </ComboBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorDelete" disable="true" layoutX="314.0" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="731.0" visible="false">
+      <AnchorPane fx:id="anchorDelete" layoutX="314.0" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="731.0">
          <children>
             <ImageView fx:id="titleDeleteP" fitHeight="106.0" fitWidth="633.0" layoutX="60.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="148.0" layoutY="187.0" text="Introduzca todos los atributos para eliminar a un jugador.">
@@ -208,12 +208,12 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="165.0" layoutY="263.0" prefHeight="32.0" prefWidth="189.0" promptText="Nombre">
+            <TextField fx:id="txtDeleteName" layoutX="165.0" layoutY="263.0" prefHeight="32.0" prefWidth="189.0" promptText="Nombre">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
             </TextField>
-            <Button layoutX="321.0" layoutY="536.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Eliminar" textFill="WHITE">
+            <Button layoutX="321.0" layoutY="536.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="51.0" prefWidth="133.0" style="-fx-background-color: D44939; -fx-background-radius: 20;" text="Eliminar" textFill="WHITE">
                <font>
                   <Font name="MT Extra" size="22.0" />
                </font>
@@ -221,7 +221,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <TextField layoutX="450.0" layoutY="263.0" prefHeight="32.0" prefWidth="189.0" promptText="Apellido">
+            <TextField fx:id="txtDeleteLast" layoutX="450.0" layoutY="263.0" prefHeight="32.0" prefWidth="189.0" promptText="Apellido">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -231,7 +231,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="503.0" layoutY="312.0" prefHeight="32.0" prefWidth="49.0" promptText="Edad">
+            <TextField fx:id="txtDeleteAge" layoutX="503.0" layoutY="312.0" prefHeight="32.0" prefWidth="49.0" promptText="Edad">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -241,7 +241,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="162.0" layoutY="410.0" prefHeight="32.0" prefWidth="73.0" promptText="Puntos">
+            <TextField fx:id="txtDeletePoint" layoutX="162.0" layoutY="410.0" prefHeight="32.0" prefWidth="73.0" promptText="Puntos">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -251,7 +251,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="338.0" layoutY="412.0" prefHeight="32.0" prefWidth="73.0" promptText="Rebotes">
+            <TextField fx:id="txtDeleteBounce" layoutX="338.0" layoutY="412.0" prefHeight="32.0" prefWidth="73.0" promptText="Rebotes">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -261,7 +261,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="530.0" layoutY="410.0" prefHeight="32.0" prefWidth="98.0" promptText="Asistencias">
+            <TextField fx:id="txtDeleteAss" layoutX="530.0" layoutY="410.0" prefHeight="32.0" prefWidth="98.0" promptText="Asistencias">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -271,7 +271,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="270.0" layoutY="463.0" prefHeight="32.0" prefWidth="59.0" promptText="Robos">
+            <TextField fx:id="txtDeleteTheftt" layoutX="270.0" layoutY="463.0" prefHeight="32.0" prefWidth="59.0" promptText="Robos">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -281,7 +281,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="449.0" layoutY="463.0" prefHeight="32.0" prefWidth="83.0" promptText="Bloqueos">
+            <TextField fx:id="txtDeleteBlock" layoutX="449.0" layoutY="463.0" prefHeight="32.0" prefWidth="83.0" promptText="Bloqueos">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -301,7 +301,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField layoutX="224.0" layoutY="310.0" prefHeight="32.0" prefWidth="189.0" promptText="Equipo">
+            <TextField fx:id="txtDeleteTeam" layoutX="224.0" layoutY="310.0" prefHeight="32.0" prefWidth="189.0" promptText="Equipo">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -464,7 +464,7 @@
                </cursor>
             </Button>
          </children></AnchorPane>
-      <AnchorPane fx:id="anchorBack" layoutX="319.0" layoutY="-1.0" prefHeight="687.0" prefWidth="731.0">
+      <AnchorPane fx:id="anchorBack" disable="true" layoutX="319.0" layoutY="-1.0" prefHeight="687.0" prefWidth="731.0" visible="false">
          <children>
             <ImageView fx:id="imgBack" fitHeight="329.0" fitWidth="528.0" layoutX="154.0" layoutY="182.0" opacity="0.19" pickOnBounds="true" preserveRatio="true" />
          </children>
