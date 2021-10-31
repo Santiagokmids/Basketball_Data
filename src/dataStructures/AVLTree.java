@@ -256,21 +256,21 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>{
 	}
 
 	@Override
-	public ArrayList<NodeAVLTree<K, V>> searchNode(K key) {
-		ArrayList<NodeAVLTree<K, V>> players = new ArrayList<NodeAVLTree<K, V>>();
+	public ArrayList<V> searchNode(K key) {
+		ArrayList<V> players = new ArrayList<V>();
 		boolean stop = false;
 
 		return searchNode(key, root,players, stop);
 	}
 
-	public ArrayList<NodeAVLTree<K, V>> searchNode(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<NodeAVLTree<K, V>> players, boolean stop) {
+	public ArrayList<V> searchNode(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<V> players, boolean stop) {
 
 		if(assistaNodeAVLTree == null) {
 			return players;
 			
 		}else if(assistaNodeAVLTree.getKey() == key) {
 			stop = true;
-			players.add(assistaNodeAVLTree);
+			players.add(assistaNodeAVLTree.getObject());
 
 		}if(assistaNodeAVLTree.getKey() != key && stop) {
 			return players;
@@ -284,7 +284,6 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>{
 				return searchNode(key, assistaNodeAVLTree.getRight(),players,stop);
 			}
 		}
-
 	}
 
 	@Override
