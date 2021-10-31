@@ -1,45 +1,66 @@
 package thread;
 
-
+import java.io.BufferedReader;
+import java.io.IOException;
 
 import javafx.application.Platform;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import model.BasketballData;
 import ui.BasketballDataGUI;
 
 public class ImportData extends Thread{
-	private Label lb;
-	private Button btn;
-	private BasketballDataGUI bd;
-	public ImportData(BasketballDataGUI bd,Label lb,Button btn) {
-		this.lb = lb;
-		this.btn = btn;
-		this.bd = bd;
+
+	private BasketballDataGUI basketballDataGUI;
+	private BasketballData basketballData;
+	private BufferedReader file;
+
+	public ImportData(BasketballDataGUI basketballDataGUI, BasketballData basketballData, BufferedReader file) {
+		this.basketballDataGUI = basketballDataGUI;
+		this.basketballData = basketballData;
+		this.file = file;
 	}
-	 @Override
-	    public void run() {
-		 Platform.runLater(()->{
-			 lb.setText("Los jugadores se están importando, por favor espere...");
-			 btn.setVisible(false);
-         });	 
-		 delay();
-		 Platform.runLater(() -> { 
+
+	public void run() {
+
+		Platform.runLater(new Thread() {
+
+			@Override
+			public void run() {
+				String line = "";
 				try {
-					bd.change();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					line = file.readLine();
+
+					while(line != null) {
+
+						try {
+							String[] parts = line.split(";");
+
+							String name = parts[0];
+							String lastName = parts[1];
+							String team = parts[3];
+							int age = Integer.parseInt(parts[2]);
+							int points = Integer.parseInt(parts[4]);
+							int bounce = Integer.parseInt(parts[5]);
+							int assistance = Integer.parseInt(parts[6]);
+							int theft = Integer.parseInt(parts[7]);
+							int block = Integer.parseInt(parts[8]);
+
+							basketballData.addPlayer(name, lastName, team, age, points, bounce, assistance, theft, block);
+							basketballDataGUI.inicializateTableView();
+
+							line = file.readLine();
+
+						} catch (NumberFormatException e) {
+							line = file.readLine();
+						}
+					}
+
+				}catch (IOException e) {
 				}
-					
-			});
-	 }
-	 
-	 private void delay() {
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				try {
+					file.close();
+				} catch (IOException e) {
+				}
 			}
-		}
+		});
+	}
 }

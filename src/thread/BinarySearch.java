@@ -52,7 +52,7 @@ public class BinarySearch extends Thread{
 		int i = 0;
 		int j = listPlayersArrayList.size()-1;
 		Players playerFindPlayers = null;
-
+		
 		while (i <= j && pos < 0) {
 			int m = (i+j)/2;
 			if(listPlayersArrayList.get(m).compareTo(toSearch) == 0) {

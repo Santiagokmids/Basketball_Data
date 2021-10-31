@@ -1,6 +1,9 @@
 package ui;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -37,6 +40,9 @@ import thread.LoadData;
 import thread.SearchByName;
 
 public class BasketballDataGUI {
+
+	@FXML
+    private TextField lblImport;
 
 	@FXML
 	private Button btnWaitting;
@@ -283,6 +289,8 @@ public class BasketballDataGUI {
 
 	public int players;
 
+	private String direction = "";
+	
 	public static ObservableList<Players> listPlayers;
 
 	public BasketballDataGUI(BasketballData basketballData) {
@@ -292,7 +300,6 @@ public class BasketballDataGUI {
 	public void inicializateTableView() {
 
 		listPlayers = FXCollections.observableArrayList(basketData.getPlayers());
-
 		tvPlayers.setItems(listPlayers);
 		tcName.setCellValueFactory(new PropertyValueFactory<Players, String>("name"));
 		tcLastName.setCellValueFactory(new PropertyValueFactory<Players, String>("lastName"));
@@ -331,8 +338,8 @@ public class BasketballDataGUI {
 		imgBack.setImage(ball);
 
 		mainPane.setTop(load);
+		inicializateTableView();
 	}
-
 
 	@FXML
 	public void openning(MouseEvent event) {
@@ -348,8 +355,9 @@ public class BasketballDataGUI {
 		imgBack.setVisible(true);
 		imgBack.setDisable(false);
 	}
+	
 
-
+	 
 	private void changeVisibilityAnchor() {
 		anchorBack.setVisible(false);
 		anchorBack.setDisable(true);
@@ -874,6 +882,9 @@ public class BasketballDataGUI {
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setScene(scene);
 				stage.showAndWait();
+				
+				basketData.saveData();
+				
 			} catch (IOException e) {
 			}
 		}
@@ -942,6 +953,10 @@ public class BasketballDataGUI {
 						alert.setContentText("Se ha registrado a "+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
 						alert.showAndWait();
 						players = 0;
+					}else {
+						alert.setHeaderText("No se pudo agregar el jugador");
+						alert.setContentText("Debe ingresar números mayores o iguales a 0");
+						alert.showAndWait();
 					}
 
 				}else {
@@ -1044,66 +1059,59 @@ public class BasketballDataGUI {
 	}
 
 	@FXML
-	public void btnImport(ActionEvent event) {
+	public void btnImport(MouseEvent event) {
 
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Abrir un archivo");
 		File file = fileChooser.showOpenDialog(mainPane.getScene().getWindow());
 
 		if(file != null) {
+			lblImport.setText(file.getAbsolutePath());
+			direction = file.getAbsolutePath();
+		}
+	}
 
-			/*
-			ImportData importData = new ImportData();
-			importData.start();
+	@FXML
+	public void btnGoImport(ActionEvent event) {
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		
+		if (!lblImport.getText().equals(direction)) {
+			alert.setTitle("ERROR");
+			alert.setHeaderText("No se pudo importar");
+			alert.setContentText("El campo debe contener una dirección válida");
+			alert.showAndWait();
+		}else if(lblImport.getText().isEmpty()){
+			alert.setTitle("ERROR");
+			alert.setHeaderText("No se pudo importar");
+			alert.setContentText("El campo debe contener una dirección de documento");
+			alert.showAndWait();
+		}else if(!lblImport.getText().isEmpty()) {
 			try {
-				importData.join();
-			} catch (InterruptedException e) {
-			}
-			 */
-
-			try {
-
 				waitting();
-
 			} catch (IOException e) {
 			}
 		}
 	}
 
 	@FXML
-	private void exitWaitting(ActionEvent event) throws InterruptedException {
+	private void exitWaitting(ActionEvent event) throws InterruptedException, FileNotFoundException {
 
-		//btnWaitting.setDisable(true);
-		//btnWaitting.setVisible(false);
-
-		//lblWaitting.setText("Se están importando los datos, por favor espere...");
-		ImportData dt = new ImportData(this,lblWaitting, btnWaitting);
-		LoadData ld = new LoadData(this);
-		//lblWaitting.setText("Santi le gusta luna");
-		// btnWaitting.setVisible(false);
+		LoadData dt = new LoadData(this, lblWaitting, btnWaitting);
+		ImportData ld = new ImportData(this, basketData, new BufferedReader(new FileReader(direction)));
 		imgSmile.setVisible(true);
 		dt.start();
 		Thread.sleep(150);
 		ld.start();
-
-
-
-
-
-
 	}
-	public void loadSanti() {
 
-		for (int i = 0; i < 200000; i++) {
-			System.out.println(i);
-		}
-	}
 	public void change() throws InterruptedException {
 
 		Stage stage = (Stage) this.imgSmile.getScene().getWindow();
 		stage.close();
 		imgSmile.setVisible(false);
 	}
+
 	private void waitting() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("importWait-pane.fxml"));
 		loader.setController(this);
