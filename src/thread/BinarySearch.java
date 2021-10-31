@@ -54,7 +54,7 @@ public class BinarySearch extends Thread{
 		int pos = -1;
 		int i = 0;
 		int j = listPlayersArrayList.size()-1;
-		Players playerFindPlayers = new Players(name,lastName,null,age,points,bounce,assistance,theft,block);
+		Players playerFindPlayers = null;
 		
 		while (i <= j && pos < 0) {
 			int m = (i+j)/2;

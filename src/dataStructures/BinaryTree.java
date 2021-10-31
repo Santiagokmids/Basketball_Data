@@ -1,7 +1,11 @@
 package dataStructures;
 
-public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>{
+import java.io.Serializable;
 
+public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>, Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private NodoBinaryTree<T,K> root;
 
 	public BinaryTree() {

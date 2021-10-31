@@ -1,9 +1,12 @@
 package dataStructures;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>{
+public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private NodeAVLTree<K, V> root;
 
 	public AVLTree() {
