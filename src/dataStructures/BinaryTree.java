@@ -4,7 +4,7 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 
 	private NodoBinaryTree<T,K> root;
 
-	public void ArbolBinarioBusqueda() {
+	public BinaryTree() {
 		createTree();
 	}
 
