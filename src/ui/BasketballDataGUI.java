@@ -900,7 +900,7 @@ public class BasketballDataGUI {
 
 				if (player == null) {
 
-					if(age > 0 && points > 0 && bounce > 0 && assistance > 0 && theft > 0 && block > 0) {
+					if(age > -1 && points > -1 && bounce > -1 && assistance > -1 && theft > -1 && block > -1) {
 						basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
 						inicializateTableView();
 

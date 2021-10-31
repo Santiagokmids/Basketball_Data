@@ -23,24 +23,24 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 		NodeAVLTree<K, V, F, H> newNodeAVLTree = new NodeAVLTree<K, V, F, H>(key, object);
 
 		if(root == null) {
-			System.out.println("omefa");
 			root = newNodeAVLTree;
-			newNodeAVLTree.setBalanced(balanceTree( newNodeAVLTree));
 			verify = true;
 		}else {
 			verify = addNode(key, root, newNodeAVLTree);
 		}
-		System.out.println(root.getHeight()+" raiz");
-		if(root.getRight() != null) {
-			System.out.println(root.getRight().getHeight()+" der");
-		}if(root.getLeft() != null){
-			System.out.println(root.getLeft().getHeight()+" iz");
-		}
+		
 		return verify;
 	}
 
 	public void updateHeight(NodeAVLTree<K, V, F, H> nodeAVLTree) {
-		nodeAVLTree.setHeight(1 + nodeMax(height(nodeAVLTree.getLeft()), height(nodeAVLTree.getRight())));
+		
+		if(nodeAVLTree != null && (nodeAVLTree.getLeft() != null || nodeAVLTree.getRight() != null)) {
+			nodeAVLTree.setHeight(1 + nodeMax(height(nodeAVLTree.getLeft()), height(nodeAVLTree.getRight())));
+		}
+		
+		if(nodeAVLTree.getDad() != null) {
+			updateHeight(nodeAVLTree.getDad());
+		}
 	}
 
 	public boolean addNode(K key, NodeAVLTree<K, V, F, H> assistaNodeAVLTree, NodeAVLTree<K, V, F, H> newNodeAVLTree) {
@@ -50,7 +50,6 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 			if(assistaNodeAVLTree.getLeft() == null) {
 				assistaNodeAVLTree.setLeft(newNodeAVLTree);
 				newNodeAVLTree.setDad(assistaNodeAVLTree);
-				assistaNodeAVLTree.setBalanced(balanceTree(assistaNodeAVLTree));
 				verify = true;
 			}else {
 				addNode(key, assistaNodeAVLTree.getLeft(), newNodeAVLTree);
@@ -59,14 +58,13 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 			if(assistaNodeAVLTree.getRight() == null) {
 				assistaNodeAVLTree.setRight(newNodeAVLTree);
 				newNodeAVLTree.setDad(assistaNodeAVLTree);
-				assistaNodeAVLTree.setBalanced(balanceTree(assistaNodeAVLTree));
 				verify = true;
 			}else {
 				addNode(key, assistaNodeAVLTree.getRight(), newNodeAVLTree);
 			}
 		}
+		updateHeight(newNodeAVLTree.getDad());
 		balanceTree(root);
-		updateHeight(root);
 		return verify;
 	}
 
@@ -79,13 +77,16 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 
 			if (node == root) {
 				root = null;
+				updateHeight(node);
 				verify = true;
 
 			} else if (node == node.getDad().getLeft()) {
+				updateHeight(node);
 				node.getDad().setLeft(null);
 				verify = true;
 
 			} else {
+				updateHeight(node);
 				node.getDad().setRight(null);
 				verify = true;
 			}
@@ -96,11 +97,13 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 
 			if (node.getLeft() != null) {
 				onlyChild = node.getLeft();
+				updateHeight(node);
 				node.setLeft(null);
 				verify = true;
 
 			} else {
 				onlyChild = node.getRight();
+				updateHeight(node);
 				node.setRight(null);
 				verify = true;
 			}
@@ -111,13 +114,12 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 
 			} else if (node == node.getDad().getLeft()) {
 				node.getDad().setLeft(onlyChild);
-				verify = true;
 
 			} else {
 				node.getDad().setRight(onlyChild);
-				verify = true;
 			}
 			node.setDad(null);
+			updateHeight(node);
 
 		} else {
 			NodeAVLTree<K, V, F, H> successor = successor(node.getRight());
@@ -135,7 +137,6 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 			}
 		}
 		balanceTree(root);
-		updateHeight(root);
 		return verify;
 	}
 
@@ -170,22 +171,22 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	public void traslate(int balance, NodeAVLTree<K, V, F, H> node) {
-		
 		switch(balance) {
 		case -2: 
-			balanceTree(node.getLeft());
-			if(node.getLeft().getBalanced() != 1) {
+			
+			if(node.getLeft() != null && node.getLeft().getBalanced() != 1) {
 				rigthTraslate(node);
-			}else {
+				
+			}else if(node.getLeft() != null &&node.getLeft().getBalanced() == 1){
 				doubleRightTranslate(node);
 			}
 			break;
 			
 		case 2:
-			balanceTree(node.getLeft());
-			if(node.getLeft().getBalanced() != -1) {
+			if(node.getRight() != null && node.getRight().getBalanced() != -1) {
 				leftTraslate(node);
-			}else {
+				
+			}else if(node.getRight() != null && node.getRight().getBalanced() == -1){
 				doubleLeftTranslate(node);
 			}
 			break;
@@ -194,31 +195,54 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	}
 
 	public NodeAVLTree<K, V, F, H> leftTraslate(NodeAVLTree<K, V, F, H> node) {
-
+		
 		NodeAVLTree<K, V, F, H> current = node.getLeft();
-
-		node.getRight().setRight(current.getRight());
+		node.setLeft(current.getRight());
 		current.setRight(node);
+		
+		if(node == root) {
+			root = current.getRight();
+		}
 		
 		updateHeight(node);
 		updateHeight(current);
-		balanceTree(node);
-		balanceTree(current);
+		
+		/*NodeAVLTree<K, V, F, H> currentA = node.getRight();
+		NodeAVLTree<K, V, F, H> currentB = currentA.getLeft();
 
+		currentA.setLeft(node);
+		node.setRight(currentB);
+		
+		updateHeight(node);
+		updateHeight(currentA);
+
+		return currentA;*/
 		return current;
 	}
 
 	public NodeAVLTree<K, V, F, H> rigthTraslate( NodeAVLTree<K, V, F, H> node) {
+		
 		NodeAVLTree<K, V, F, H> current = node.getRight();
-
 		node.setRight(current.getLeft());
 		current.setLeft(node);
 		
+		if(node == root) {
+			root = current.getLeft();
+		}
+		
 		updateHeight(node);
 		updateHeight(current);
-		balanceTree(node);
-		balanceTree(current);
 		
+		/*NodeAVLTree<K, V, F, H> currentA = node.getLeft();
+		NodeAVLTree<K, V, F, H> currentB = currentA.getRight();
+
+		currentA.setRight(node);
+		node.setLeft(currentB);
+		
+		updateHeight(node);
+		updateHeight(currentA);
+
+		return currentA;*/
 		return current;
 	}
 
@@ -289,6 +313,7 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	@Override
 	public int balanceTree(NodeAVLTree<K, V, F, H> node) {
 		int balance = 0;
+
 		if(node != null) {
 			balance = height(node.getLeft()) - height(node.getRight());
 			node.setBalanced(balance);
@@ -306,4 +331,12 @@ public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> imp
 	public void setRoot(NodeAVLTree<K, V, F, H> root) {
 		this.root = root;
 	}
+	
+	 public void preOrder(NodeAVLTree<K, V, F, H> node) {
+		 if (node != null) {
+	            System.out.print(node.getKey() + " ");
+	            preOrder(node.getLeft());
+	            preOrder(node.getRight());
+	        }
+	    }
 }

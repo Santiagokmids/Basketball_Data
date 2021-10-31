@@ -43,11 +43,15 @@ public class BasketballData {
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
 		players.add(newPlayers);
 		pointsAVLTree.addNode(points,newPlayers);
-		bounceAVLTree.addNode(bounce, newPlayers);
+		/*bounceAVLTree.addNode(bounce, newPlayers);
 		assistanceAVLTree.addNode(assistance, newPlayers);
 		blockAVLTree.addNode(block, newPlayers);
 		theftTree.addNode(newPlayers, theft);
 		assistanceTree.addNode(newPlayers, assistance);
+		*/
+		if(points == 50) {
+			pointsAVLTree.preOrder(pointsAVLTree.getRoot());
+		}
 	}
 
 	public void importData(String fileName) throws IOException {
