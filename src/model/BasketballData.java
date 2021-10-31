@@ -16,7 +16,7 @@ import dataStructures.NodoBinaryTree;
 import thread.BinarySearch;
 
 public class BasketballData {
-	
+
 	public static final String SAVE_PATH_FILE_LINEAL_THEFT = "data/node_lineal_theft.txt";
 	public static final String SAVE_PATH_FILE_BB_THEFT = "data/node_BB_theft.txt";
 	public static final String SAVE_PATH_FILE_BB_ASSISTANCE = "data/node_BB_assistance.txt";
@@ -79,30 +79,30 @@ public class BasketballData {
 		} catch (IOException e) {
 		}
 	}
-	
+
 	public void saveData() throws FileNotFoundException, IOException {
-		
+
 		ObjectOutputStream linealTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_LINEAL_THEFT));
 		linealTheft.writeObject(players);
-		
+
 		ObjectOutputStream bbTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_THEFT));
 		bbTheft.writeObject(theftTree);
-		
+
 		ObjectOutputStream bbAssistant = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_ASSISTANCE));
 		bbAssistant.writeObject(assistanceTree);
-		
+
 		ObjectOutputStream avlBounce = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BOUNCE));
 		avlBounce.writeObject(bounceAVLTree);
-		
+
 		ObjectOutputStream avlAssistance = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_ASSISTANCE));
 		avlAssistance.writeObject(assistanceAVLTree);
-		
+
 		ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
 		avlBlock.writeObject(blockAVLTree);
-		
+
 		ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_POINTS));
 		avlPoints.writeObject(pointsAVLTree);
-		
+
 		linealTheft.close();
 		bbTheft.close();
 		bbAssistant.close();
@@ -114,74 +114,74 @@ public class BasketballData {
 
 	@SuppressWarnings("unchecked")
 	public boolean loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
-/*
+		/*
 		boolean loaded = false;
-		
+
 		File lineaTheftFile = new File(SAVE_PATH_FILE_LINEAL_THEFT);
-		
+
 		if(lineaTheftFile.exists()) {
 			ObjectInputStream linealTheft = new ObjectInputStream(new FileInputStream(lineaTheftFile));
 			players = (ArrayList<Players>) linealTheft.readObject();
 			linealTheft.close();
 			loaded = true;
 		}
-		
+
 		File bbTheftFile = new File(SAVE_PATH_FILE_BB_THEFT);
-		
+
 		if(bbTheftFile.exists()) {
 			ObjectInputStream bbTheft = new ObjectInputStream(new FileInputStream(bbTheftFile));
 			theftTree = (BinaryTree<Players, Integer>) bbTheft.readObject();
 			bbTheft.close();
 			loaded = true;
 		}
-		
+
 		File bbAssistantFile = new File(SAVE_PATH_FILE_BB_ASSISTANCE);
-		
+
 		if(bbAssistantFile.exists()) {
 			ObjectInputStream bbAssistant = new ObjectInputStream(new FileInputStream(bbAssistantFile));
 			assistanceTree = (BinaryTree<Players, Integer>) bbAssistant.readObject();
 			bbAssistant.close();
 			loaded = true;
 		}
-		
+
 		File avlBounceFile = new File(SAVE_PATH_FILE_AVL_BOUNCE);
-		
+
 		if(avlBounceFile.exists()) {
 			ObjectInputStream avlBounce = new ObjectInputStream(new FileInputStream(avlBounceFile));
 			bounceAVLTree = (AVLTree<Integer, Players>) avlBounce.readObject();
 			avlBounce.close();
 			loaded = true;
 		}
-		
+
 		File avlAssistanceFile = new File(SAVE_PATH_FILE_AVL_ASSISTANCE);
-		
+
 		if(avlAssistanceFile.exists()) {
 			ObjectInputStream avlAssistance = new ObjectInputStream(new FileInputStream(avlAssistanceFile));
 			assistanceAVLTree = (AVLTree<Integer, Players>) avlAssistance.readObject();
 			avlAssistance.close();
 			loaded = true;
 		}
-		
+
 		File avlBlockFile = new File(SAVE_PATH_FILE_AVL_BLOCK);
-		
+
 		if(avlBlockFile.exists()) {
 			ObjectInputStream avlBlock = new ObjectInputStream(new FileInputStream(avlBlockFile));
 			blockAVLTree = (AVLTree<Integer, Players>) avlBlock.readObject();
 			avlBlock.close();
 			loaded = true;
 		}
-		
+
 		File avlPointsFile = new File(SAVE_PATH_FILE_AVL_POINTS);
-		
+
 		if(avlPointsFile.exists()) {
 			ObjectInputStream avlPoints = new ObjectInputStream(new FileInputStream(avlPointsFile));
 			pointsAVLTree = (AVLTree<Integer, Players>) avlPoints.readObject();
 			avlPoints.close();
 			loaded = true;
 		}
-		
+
 		return loaded;
-		*/
+		 */
 		File f = new File(SAVE_PATH_FILE_LINEAL_THEFT);
 
 		if (f.exists()) {
@@ -206,8 +206,8 @@ public class BasketballData {
 			ob.close();
 
 		}
-		
-		
+
+
 		f = new File(SAVE_PATH_FILE_AVL_BOUNCE);
 
 		if (f.exists()) {
@@ -224,7 +224,7 @@ public class BasketballData {
 			ob.close();
 
 		}
-		
+
 		f = new File(SAVE_PATH_FILE_AVL_BLOCK);
 
 		if (f.exists()) {
@@ -233,7 +233,7 @@ public class BasketballData {
 			ob.close();
 
 		}
-		
+
 		f = new File(SAVE_PATH_FILE_AVL_POINTS);
 
 		if (f.exists()) {
@@ -243,7 +243,7 @@ public class BasketballData {
 			ob.close();
 
 		}
-		
+
 		return true;
 	}
 
@@ -391,7 +391,7 @@ public class BasketballData {
 	public Players searchPlayer(String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) {
 		ArrayList<Players> player = pointsAVLTree.searchNode(points);
 		System.out.println(player.isEmpty()+" ola "+pointsAVLTree.getRoot()+" "+players.isEmpty());
-		
+
 		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance, theft, block);
 		binarySearch.start();
 		try {
