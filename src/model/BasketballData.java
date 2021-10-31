@@ -1,11 +1,13 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
 
 import dataStructures.AVLTree;
 import dataStructures.BinaryTree;
@@ -109,14 +111,75 @@ public class BasketballData {
 		avlPoints.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
 
-		// File f = new File(NODE);
-		// if (f.exists()) {
-		// ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-		// ARbol = (noooddooo ) ob.readObject();
-		// ob.close();
-		return false;
+		boolean loaded = false;
+		
+		File lineaTheftFile = new File(SAVE_PATH_FILE_LINEAL_THEFT);
+		
+		if(lineaTheftFile.exists()) {
+			ObjectInputStream linealTheft = new ObjectInputStream(new FileInputStream(lineaTheftFile));
+			players = (ArrayList<Players>) linealTheft.readObject();
+			linealTheft.close();
+			loaded = true;
+		}
+		
+		File bbTheftFile = new File(SAVE_PATH_FILE_BB_THEFT);
+		
+		if(bbTheftFile.exists()) {
+			ObjectInputStream bbTheft = new ObjectInputStream(new FileInputStream(bbTheftFile));
+			theftTree = (BinaryTree<Players, Integer>) bbTheft.readObject();
+			bbTheft.close();
+			loaded = true;
+		}
+		
+		File bbAssistantFile = new File(SAVE_PATH_FILE_BB_ASSISTANCE);
+		
+		if(bbAssistantFile.exists()) {
+			ObjectInputStream bbAssistant = new ObjectInputStream(new FileInputStream(bbAssistantFile));
+			assistanceTree = (BinaryTree<Players, Integer>) bbAssistant.readObject();
+			bbAssistant.close();
+			loaded = true;
+		}
+		
+		File avlBounceFile = new File(SAVE_PATH_FILE_AVL_BOUNCE);
+		
+		if(avlBounceFile.exists()) {
+			ObjectInputStream avlBounce = new ObjectInputStream(new FileInputStream(avlBounceFile));
+			bounceAVLTree = (AVLTree<Integer, Players>) avlBounce.readObject();
+			avlBounce.close();
+			loaded = true;
+		}
+		
+		File avlAssistanceFile = new File(SAVE_PATH_FILE_AVL_ASSISTANCE);
+		
+		if(avlAssistanceFile.exists()) {
+			ObjectInputStream avlAssistance = new ObjectInputStream(new FileInputStream(avlAssistanceFile));
+			assistanceAVLTree = (AVLTree<Integer, Players>) avlAssistance.readObject();
+			avlAssistance.close();
+			loaded = true;
+		}
+		
+		File avlBlockFile = new File(SAVE_PATH_FILE_AVL_BLOCK);
+		
+		if(avlBlockFile.exists()) {
+			ObjectInputStream avlBlock = new ObjectInputStream(new FileInputStream(avlBlockFile));
+			blockAVLTree = (AVLTree<Integer, Players>) avlBlock.readObject();
+			avlBlock.close();
+			loaded = true;
+		}
+		
+		File avlPointsFile = new File(SAVE_PATH_FILE_AVL_POINTS);
+		
+		if(avlPointsFile.exists()) {
+			ObjectInputStream avlPoints = new ObjectInputStream(new FileInputStream(avlPointsFile));
+			pointsAVLTree = (AVLTree<Integer, Players>) avlPoints.readObject();
+			avlPoints.close();
+			loaded = true;
+		}
+		
+		return loaded;
 	}
 
 	public ArrayList<Players> searchArrayMin(int code) {

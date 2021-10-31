@@ -877,6 +877,9 @@ public class BasketballDataGUI {
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setScene(scene);
 				stage.showAndWait();
+				
+				basketData.saveData();
+				
 			} catch (IOException e) {
 			}
 		}
