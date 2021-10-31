@@ -938,7 +938,7 @@ public class BasketballDataGUI {
 				int theft = Integer.parseInt(tfTheft.getText());
 				int block = Integer.parseInt(tfBlock.getText());
 
-				SearchByName search = new SearchByName(basketData.getPlayers(), tfName.getText(), tfLastName.getText());
+				SearchByName search = new SearchByName(basketData.getPlayers(), tfName.getText(), tfLastName.getText(),age);
 				search.start();
 				search.join();
 				
