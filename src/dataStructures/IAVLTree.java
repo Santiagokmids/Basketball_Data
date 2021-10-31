@@ -2,7 +2,7 @@ package dataStructures;
 
 import java.util.ArrayList;
 
-public interface IAVLTree<K, V, F, H> {
+public interface IAVLTree<K, V> {
 	
 	public void createTree();
 	public boolean addNode(K key, V object);

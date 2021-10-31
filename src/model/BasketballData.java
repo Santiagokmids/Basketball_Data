@@ -22,10 +22,10 @@ public class BasketballData {
 	public static final String TREE_POINTS = "data/node_points.txt";
 
 	private ArrayList<Players> players;
-	private AVLTree<Integer, Players, Integer, Integer> pointsAVLTree;
-	private AVLTree<Integer, Players, Integer, Integer> bounceAVLTree;
-	private AVLTree<Integer, Players, Integer, Integer> assistanceAVLTree;
-	private AVLTree<Integer, Players, Integer, Integer> blockAVLTree;
+	private AVLTree<Integer, Players> pointsAVLTree;
+	private AVLTree<Integer, Players> bounceAVLTree;
+	private AVLTree<Integer, Players> assistanceAVLTree;
+	private AVLTree<Integer, Players> blockAVLTree;
 	private BinaryTree<Players, Integer> theftTree;
 	private BinaryTree<Players, Integer> assistanceTree;
 
@@ -236,35 +236,35 @@ public class BasketballData {
 		return binarySearch.getNewPlayer();
 	}
 
-	public AVLTree<Integer, Players, Integer, Integer> getPointsAVLTree() {
+	public AVLTree<Integer, Players> getPointsAVLTree() {
 		return pointsAVLTree;
 	}
 
-	public void setPointsAVLTree(AVLTree<Integer, Players, Integer, Integer> pointsAVLTree) {
+	public void setPointsAVLTree(AVLTree<Integer, Players> pointsAVLTree) {
 		this.pointsAVLTree = pointsAVLTree;
 	}
 
-	public AVLTree<Integer, Players, Integer, Integer> getBounceAVLTree() {
+	public AVLTree<Integer, Players> getBounceAVLTree() {
 		return bounceAVLTree;
 	}
 
-	public void setBounceAVLTree(AVLTree<Integer, Players, Integer, Integer> bounceAVLTree) {
+	public void setBounceAVLTree(AVLTree<Integer, Players> bounceAVLTree) {
 		this.bounceAVLTree = bounceAVLTree;
 	}
 
-	public AVLTree<Integer, Players, Integer, Integer> getAssitanceAVLTree() {
+	public AVLTree<Integer, Players> getAssitanceAVLTree() {
 		return assistanceAVLTree;
 	}
 
-	public void setAssitanceAVLTree(AVLTree<Integer, Players, Integer, Integer> assitanceAVLTree) {
+	public void setAssitanceAVLTree(AVLTree<Integer, Players> assitanceAVLTree) {
 		this.assistanceAVLTree = assitanceAVLTree;
 	}
 
-	public AVLTree<Integer, Players, Integer, Integer> getBlockAVLTree() {
+	public AVLTree<Integer, Players> getBlockAVLTree() {
 		return blockAVLTree;
 	}
 
-	public void setBlockAVLTree(AVLTree<Integer, Players, Integer, Integer> blockAVLTree) {
+	public void setBlockAVLTree(AVLTree<Integer, Players> blockAVLTree) {
 		this.blockAVLTree = blockAVLTree;
 	}
 

@@ -2,7 +2,7 @@ package dataStructures;
 
 import java.util.ArrayList;
 
-public class AVLTree<K extends Comparable<K>, V, F, H extends Comparable<H>> implements IAVLTree<K, V, F, H>{
+public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>{
 
 	private NodeAVLTree<K, V> root;
 
