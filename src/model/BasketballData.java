@@ -52,10 +52,10 @@ public class BasketballData {
 		blockAVLTree.addNode(block, newPlayers);
 		theftTree.addNode(newPlayers, theft);
 		assistanceTree.addNode(newPlayers, assistance);
-		 */
 		if(points == 20) {
 			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot()) + "esta en baskeData linea 57");
 		}
+		*/
 		try {
 			saveData();
 		} catch (IOException e) {
@@ -70,10 +70,10 @@ public class BasketballData {
 		blockAVLTree.addNode(block, newPlayers);
 		theftTree.addNode(newPlayers, theft);
 		assistanceTree.addNode(newPlayers, assistance);
-		 */
 		if(points == 20) {
 			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot())+ "esta en baskeData linea 75");
 		}
+		*/
 		try {
 			saveData();
 		} catch (IOException e) {
@@ -114,7 +114,6 @@ public class BasketballData {
 
 	@SuppressWarnings("unchecked")
 	public boolean loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
-		/*
 		boolean loaded = false;
 
 		File lineaTheftFile = new File(SAVE_PATH_FILE_LINEAL_THEFT);
@@ -181,70 +180,6 @@ public class BasketballData {
 		}
 
 		return loaded;
-		 */
-		File f = new File(SAVE_PATH_FILE_LINEAL_THEFT);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			players = (ArrayList<Players>) ob.readObject();
-			ob.close();
-
-		}
-		f = new File(SAVE_PATH_FILE_BB_THEFT);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			theftTree =  (BinaryTree<Players, Integer>) ob.readObject();
-			ob.close();
-
-		}
-		f = new File(SAVE_PATH_FILE_BB_THEFT);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			assistanceTree =  (BinaryTree<Players, Integer>) ob.readObject();
-			ob.close();
-
-		}
-
-
-		f = new File(SAVE_PATH_FILE_AVL_BOUNCE);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			bounceAVLTree =  (AVLTree<Integer, Players>) ob.readObject();
-			ob.close();
-
-		}
-		f = new File(SAVE_PATH_FILE_AVL_ASSISTANCE);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			assistanceAVLTree =  (AVLTree<Integer, Players>) ob.readObject();
-			ob.close();
-
-		}
-
-		f = new File(SAVE_PATH_FILE_AVL_BLOCK);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			blockAVLTree =  (AVLTree<Integer, Players>) ob.readObject();
-			ob.close();
-
-		}
-
-		f = new File(SAVE_PATH_FILE_AVL_POINTS);
-
-		if (f.exists()) {
-			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
-			pointsAVLTree =  (AVLTree<Integer, Players>) ob.readObject();
-			System.out.println(pointsAVLTree+" eeeeeeeeeo");
-			ob.close();
-
-		}
-
-		return true;
 	}
 
 	public ArrayList<Players> searchArrayMin(int code) {
@@ -311,7 +246,7 @@ public class BasketballData {
 	public NodeAVLTree<Integer, Players> searchNodesBlocks(){
 		return blockAVLTree.getRoot();
 	}
-
+	
 	public ArrayList<Players> searchNodeEqualsAVL(int key, String date) {
 		ArrayList<Players> player = new ArrayList<Players>();
 
@@ -389,6 +324,7 @@ public class BasketballData {
 	}
 
 	public Players searchPlayer(String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) {
+
 		ArrayList<Players> player = pointsAVLTree.searchNode(points);
 		System.out.println(player.isEmpty()+" ola "+pointsAVLTree.getRoot()+" "+players.isEmpty());
 
