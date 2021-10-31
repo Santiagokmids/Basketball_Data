@@ -41,7 +41,7 @@ public class BasketballData {
 
 	public void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
-		players.add(newPlayers);
+		//players.add(newPlayers);
 		pointsAVLTree.addNode(points,newPlayers);
 		/*bounceAVLTree.addNode(bounce, newPlayers);
 		assistanceAVLTree.addNode(assistance, newPlayers);

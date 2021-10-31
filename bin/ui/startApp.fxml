@@ -464,7 +464,7 @@
                </cursor>
             </Button>
          </children></AnchorPane>
-      <AnchorPane fx:id="anchorBack" disable="true" layoutX="319.0" layoutY="-1.0" prefHeight="687.0" prefWidth="731.0" visible="false">
+      <AnchorPane fx:id="anchorBack" layoutX="319.0" layoutY="-1.0" prefHeight="687.0" prefWidth="731.0">
          <children>
             <ImageView fx:id="imgBack" fitHeight="329.0" fitWidth="528.0" layoutX="154.0" layoutY="182.0" opacity="0.19" pickOnBounds="true" preserveRatio="true" />
          </children>
