@@ -35,6 +35,7 @@ import javafx.stage.StageStyle;
 import model.BasketballData;
 import model.Players;
 import thread.ImportData;
+import thread.LoadData;
 
 public class BasketballDataGUI {
 	
@@ -970,23 +971,39 @@ public class BasketballDataGUI {
 	}
 	
 	@FXML
-	private void exitWaitting(ActionEvent event) {
+	private void exitWaitting(ActionEvent event) throws InterruptedException {
 
-		btnWaitting.setDisable(true);
-		btnWaitting.setVisible(false);
+		//btnWaitting.setDisable(true);
+		//btnWaitting.setVisible(false);
 		
-		lblWaitting.setText("Se están importando los datos, por favor espere...");
+		//lblWaitting.setText("Se están importando los datos, por favor espere...");
+		ImportData dt = new ImportData(this,lblWaitting, btnWaitting);
+		LoadData ld = new LoadData(this);
+		//lblWaitting.setText("Santi le gusta luna");
+		// btnWaitting.setVisible(false);
 		imgSmile.setVisible(true);
+		dt.start();
+		Thread.sleep(150);
+		ld.start();
+		
+		
+		
+		
+		
+		
+	}
+	public void loadSanti() {
 		
 		for (int i = 0; i < 200000; i++) {
-			System.out.println(i);
-		}
+		System.out.println(i);
+	}
+	}
+	public void change() throws InterruptedException {
 		
 		Stage stage = (Stage) this.imgSmile.getScene().getWindow();
 		stage.close();
 		imgSmile.setVisible(false);
 	}
-
 	private void waitting() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("importWait-pane.fxml"));
 		loader.setController(this);
