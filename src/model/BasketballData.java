@@ -100,7 +100,7 @@ public class BasketballData {
 		ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
 		avlBlock.writeObject(blockAVLTree);
 		
-		ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
+		ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_POINTS));
 		avlPoints.writeObject(pointsAVLTree);
 		
 		linealTheft.close();
@@ -233,16 +233,18 @@ public class BasketballData {
 			ob.close();
 
 		}
-		f = new File(SAVE_PATH_FILE_AVL_BLOCK);
+		
+		f = new File(SAVE_PATH_FILE_AVL_POINTS);
 
 		if (f.exists()) {
 			ObjectInputStream ob = new ObjectInputStream(new FileInputStream(f));
 			pointsAVLTree =  (AVLTree<Integer, Players>) ob.readObject();
+			System.out.println(pointsAVLTree+" eeeeeeeeeo");
 			ob.close();
 
 		}
 		
-return true;
+		return true;
 	}
 
 	public ArrayList<Players> searchArrayMin(int code) {
@@ -388,6 +390,7 @@ return true;
 
 	public Players searchPlayer(String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) {
 		ArrayList<Players> player = pointsAVLTree.searchNode(points);
+		System.out.println(player.isEmpty()+" ola "+pointsAVLTree.getRoot()+" "+players.isEmpty());
 		
 		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance, theft, block);
 		binarySearch.start();
