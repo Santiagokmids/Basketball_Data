@@ -55,9 +55,8 @@ public class BasketballData {
 	}
 	
 	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
-		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
-		players.add(newPlayers);
-		pointsAVLTree.addNode(points,newPlayers);
+		deleteInArray(name, lastName);
+		pointsAVLTree.deleteNode(new NodeAVLTree<Integer, Players>(points, new Players(name,lastName,team,age,points,bounce,assistance,theft,block)));
 		/*bounceAVLTree.addNode(bounce, newPlayers);
 		assistanceAVLTree.addNode(assistance, newPlayers);
 		blockAVLTree.addNode(block, newPlayers);
@@ -139,6 +138,16 @@ public class BasketballData {
 			}
 		}
 		return player;
+	}
+	
+	public void deleteInArray(String name, String lastName) {
+		
+		for (int i = 0; i < players.size(); i++) {
+
+			if (name.equalsIgnoreCase(players.get(i).getName()) && lastName.equalsIgnoreCase(players.get(i).getLastName())) {
+				players.remove(i);
+			}
+		}
 	}
 
 	public NodeAVLTree<Integer, Players> searchNodesPoint(){
@@ -228,10 +237,11 @@ public class BasketballData {
 		return players;
 	}
 
-	public Players searchPlayer(int point, String name, String lastName) {
-		ArrayList<NodeAVLTree<Integer, Players>> player = pointsAVLTree.searchNode(point);
+	public Players searchPlayer(String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) {
+		ArrayList<NodeAVLTree<Integer, Players>> player = pointsAVLTree.searchNode(points);
 		
-		BinarySearch binarySearch = new BinarySearch(player, name, lastName);
+		System.out.println(player.isEmpty()+" el buscar del nodo");
+		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance, theft, block);
 		binarySearch.start();
 		return binarySearch.getNewPlayer();
 	}

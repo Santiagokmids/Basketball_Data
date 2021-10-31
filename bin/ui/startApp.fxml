@@ -200,7 +200,7 @@
             </ComboBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorDelete" layoutX="314.0" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="731.0">
+      <AnchorPane fx:id="anchorDelete" disable="true" layoutX="314.0" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="731.0" visible="false">
          <children>
             <ImageView fx:id="titleDeleteP" fitHeight="106.0" fitWidth="633.0" layoutX="60.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="148.0" layoutY="187.0" text="Introduzca todos los atributos para eliminar a un jugador.">
@@ -271,7 +271,7 @@
                   <Font name="HoloLens MDL2 Assets" size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="txtDeleteTheftt" layoutX="270.0" layoutY="463.0" prefHeight="32.0" prefWidth="59.0" promptText="Robos">
+            <TextField fx:id="txtDeleteTheft" layoutX="270.0" layoutY="463.0" prefHeight="32.0" prefWidth="59.0" promptText="Robos">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="14.0" />
                </font>
@@ -464,7 +464,7 @@
                </cursor>
             </Button>
          </children></AnchorPane>
-      <AnchorPane fx:id="anchorBack" disable="true" layoutX="319.0" layoutY="-1.0" prefHeight="687.0" prefWidth="731.0" visible="false">
+      <AnchorPane fx:id="anchorBack" layoutX="319.0" layoutY="-1.0" prefHeight="687.0" prefWidth="731.0">
          <children>
             <ImageView fx:id="imgBack" fitHeight="329.0" fitWidth="528.0" layoutX="154.0" layoutY="182.0" opacity="0.19" pickOnBounds="true" preserveRatio="true" />
          </children>
