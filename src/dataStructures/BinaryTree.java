@@ -195,4 +195,15 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 	public void setRoot(NodoBinaryTree<T,K> root) {
 		this.root = root;
 	}
+	
+	public String searchInOrder(NodoBinaryTree<T, K> node) {
+		String message = "";
+
+		if(node != null) {
+			message += searchInOrder(node.getLeft());
+			message += node.getKey()+" ";
+			message += searchInOrder(node.getRight());
+		}
+		return message;
+	}
 }

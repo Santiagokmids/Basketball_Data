@@ -35,7 +35,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.BasketballData;
 import model.Players;
-import thread.ImportData;
 import thread.LoadData;
 import thread.SearchByName;
 
@@ -1002,7 +1001,7 @@ public class BasketballDataGUI {
 			try {
 				int age = Integer.parseInt(txtDeleteAge.getText());
 				int points = Integer.parseInt(txtDeletePoint.getText());
-				int bounce = Integer.parseInt(txtDeleteBounce.getText());
+				int bounce = Integer.parseInt(txtDeleteBounce.getText()); 
 				int assistance = Integer.parseInt(txtDeleteAss.getText());
 				int theft = Integer.parseInt(txtDeleteTheft.getText());
 				int block = Integer.parseInt(txtDeleteBlock.getText());
