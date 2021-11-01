@@ -52,23 +52,20 @@ public class BasketballData {
 		blockAVLTree.addNode(block, newPlayers);
 		theftTree.addNode(newPlayers, theft);
 		assistanceTree.addNode(newPlayers, assistance);
-		try {
-			saveData();
-		} catch (IOException e) {
-		}
+		saveData();
 	}
 
 	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
-		
+
 		deleteInArray(name, lastName);
-		
+
 		NodeAVLTree<Integer, Players> nodeAVLTree =  pointsAVLTree.searchNodeObject(points);
-		
+
 		if(nodeAVLTree != null) {
 			pointsAVLTree.deleteNode(nodeAVLTree);
 		}
-		
-		
+
+
 		/*bounceAVLTree.addNode(bounce, newPlayers);
 		assistanceAVLTree.addNode(assistance, newPlayers);
 		blockAVLTree.addNode(block, newPlayers);
@@ -77,43 +74,54 @@ public class BasketballData {
 		if(points == 20) {
 			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot())+ "esta en baskeData linea 75");
 		}
-		*/
-		try {
-			saveData();
-		} catch (IOException e) {
-		}
+		 */
+		saveData();
+
 	}
 
-	public void saveData() throws FileNotFoundException, IOException {
+	public void saveData(){
 
-		ObjectOutputStream linealTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_LINEAL_THEFT));
-		linealTheft.writeObject(players);
+		
+		try {
+			ObjectOutputStream linealTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_LINEAL_THEFT));
+			linealTheft.writeObject(players);
+			System.out.println("1");
 
-		ObjectOutputStream bbTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_THEFT));
-		bbTheft.writeObject(theftTree);
+			ObjectOutputStream bbTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_THEFT));
+			bbTheft.writeObject(theftTree);
+			System.out.println("2");
 
-		ObjectOutputStream bbAssistant = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_ASSISTANCE));
-		bbAssistant.writeObject(assistanceTree);
+			ObjectOutputStream bbAssistant = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_ASSISTANCE));
+			bbAssistant.writeObject(assistanceTree);
+			System.out.println("3");
 
-		ObjectOutputStream avlBounce = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BOUNCE));
-		avlBounce.writeObject(bounceAVLTree);
+			ObjectOutputStream avlBounce = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BOUNCE));
+			avlBounce.writeObject(bounceAVLTree);
+			System.out.println("4");
 
-		ObjectOutputStream avlAssistance = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_ASSISTANCE));
-		avlAssistance.writeObject(assistanceAVLTree);
+			ObjectOutputStream avlAssistance = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_ASSISTANCE));
+			avlAssistance.writeObject(assistanceAVLTree);
+			System.out.println("5");
 
-		ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
-		avlBlock.writeObject(blockAVLTree);
+			ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
+			avlBlock.writeObject(blockAVLTree);
+			System.out.println("6");
 
-		ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_POINTS));
-		avlPoints.writeObject(pointsAVLTree);
+			ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_POINTS));
+			avlPoints.writeObject(pointsAVLTree);
+			System.out.println("7");
 
-		linealTheft.close();
-		bbTheft.close();
-		bbAssistant.close();
-		avlBounce.close();
-		avlAssistance.close();
-		avlBlock.close();
-		avlPoints.close();
+			linealTheft.close();
+			bbTheft.close();
+			bbAssistant.close();
+			avlBounce.close();
+			avlAssistance.close();
+			avlBlock.close();
+			avlPoints.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -179,7 +187,7 @@ public class BasketballData {
 			loaded = true;
 			System.out.println("hola6");
 		}
-		
+
 		File avlPointsFile = new File(SAVE_PATH_FILE_AVL_POINTS);
 
 		if(avlPointsFile.exists()) {
@@ -189,7 +197,7 @@ public class BasketballData {
 			avlPoints.close();
 			loaded = true;
 		}
-	
+
 		return loaded;
 	}
 
@@ -256,7 +264,7 @@ public class BasketballData {
 	public NodeAVLTree<Integer, Players> searchNodesBlocks(){
 		return blockAVLTree.getRoot();
 	}
-	
+
 	public ArrayList<Players> searchNodeEqualsAVL(int key, String date) {
 		ArrayList<Players> player = new ArrayList<Players>();
 
