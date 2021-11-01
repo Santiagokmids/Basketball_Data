@@ -57,7 +57,13 @@ public class BasketballData {
 		} catch (IOException e) {
 		}
 	}
-
+	public void modify(Players player,String name, String lastName,  String team, int age, int points, int bounce, int assistance, int theft, int block ) {
+		
+		System.out.println(searchPlayer(player.getName(), player.getLastName(), player.getAge(),player.getTeam(), player.getPoints(), player.getBounce(), player.getAssistance(), player.getTheft(), player.getBlock()));
+		
+	
+	}
+	
 	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		
 		deleteInArray(name, lastName);
@@ -335,9 +341,8 @@ public class BasketballData {
 	}
 
 	public Players searchPlayer(String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) {
-
 		ArrayList<Players> player = pointsAVLTree.searchNode(points);
-		System.out.println(player);
+		
 		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance, theft, block);
 		binarySearch.start();
 		try {

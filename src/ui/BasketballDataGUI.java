@@ -291,6 +291,7 @@ public class BasketballDataGUI {
 	private String direction = "";
 	
 	public static ObservableList<Players> listPlayers;
+	public Players playerGlo ;
 
 	public BasketballDataGUI(BasketballData basketballData) {
 		this.basketData = basketballData;
@@ -853,13 +854,9 @@ public class BasketballDataGUI {
 			break;
 		}
 	}
-
 	@FXML
 	public void btnModify(ActionEvent event) {
-
-
 		Players players = (Players) this.tvPlayers.getSelectionModel().getSelectedItem();
-
 		if(players == null) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -868,14 +865,32 @@ public class BasketballDataGUI {
 			alert.showAndWait();
 		}else {
 			try {
+				
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
-
+				
 				loader.setController(this);
 				Parent root = loader.load();
 
 				Scene scene = new Scene(root);
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
+				lblName.setText(players.getName());
+				lblLastName.setText(players.getLastName()); 
+				lblAge.setText(players.getAge()+"");
+				lblBlock.setText(players.getBlock()+"");
+				lblAssistance.setText(players.getAssistance()+"");
+				lblTeam.setText(players.getTeam());
+				lblTheft.setText(players.getTheft()+"");
+				lblBounce.setText(players.getBounce()+"");
+				lblPoints.setText(players.getPoints()+"");
+				int age = Integer.parseInt(lblAge.getText());
+				int poinst = Integer.parseInt(lblPoints.getText());
+				int bounce = Integer.parseInt(lblBounce.getText());
+				int assistan = Integer.parseInt(lblAssistance.getText());
+				int thef = Integer.parseInt(lblTheft.getText());
+				int block = Integer.parseInt(lblBlock.getText());	
+				playerGlo = new Players(lblName.getText(), lblLastName.getText(), lblTeam.getText(),age, poinst, bounce, assistan, thef, block);				
+				
 				stage.setScene(scene);
 				stage.showAndWait();
 				
@@ -915,10 +930,25 @@ public class BasketballDataGUI {
 
 	@FXML
 	public void btnSave(ActionEvent event) {
+		int age = Integer.parseInt(lblAge.getText());
+		int poinst = Integer.parseInt(lblPoints.getText());
+		int bounce = Integer.parseInt(lblBounce.getText());
+		int assistan = Integer.parseInt(lblAssistance.getText());
+		int thef = Integer.parseInt(lblTheft.getText());
+		int block = Integer.parseInt(lblBlock.getText());	
+		System.out.println(playerGlo);
+		basketData.modify(playerGlo, lblName.getText(), lblLastName.getText(), lblTeam.getText(),age, poinst, bounce, assistan, thef, block);
 		Stage stage = (Stage) this.btnSave.getScene().getWindow();
 		stage.close();
+		
+		
+		
+		
 	}
 
+	
+	
+	
 	@FXML
 	public void btnAdd(ActionEvent event) throws InterruptedException {
 		
@@ -1127,4 +1157,5 @@ public class BasketballDataGUI {
 
 		stage.showAndWait();
 	}
+	
 }
