@@ -43,7 +43,7 @@ public class BasketballData {
 		assistanceTree = new BinaryTree<>(); 
 	}
 
-	public void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
+	public synchronized void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
 		players.add(newPlayers);
 		pointsAVLTree.addNode(points,newPlayers);
@@ -99,7 +99,7 @@ public class BasketballData {
 
 		ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
 		avlBlock.writeObject(blockAVLTree);
-		
+
 		ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_POINTS));
 		avlPoints.writeObject(pointsAVLTree);
 
@@ -114,7 +114,6 @@ public class BasketballData {
 
 	@SuppressWarnings("unchecked")
 	public boolean loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
-		
 		boolean loaded = false;
 
 		File lineaTheftFile = new File(SAVE_PATH_FILE_LINEAL_THEFT);
@@ -328,7 +327,7 @@ public class BasketballData {
 
 		ArrayList<Players> player = pointsAVLTree.searchNode(points);
 		System.out.println(player.isEmpty()+" ola "+pointsAVLTree.getRoot()+" "+players.isEmpty());
-		
+
 		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance, theft, block);
 		binarySearch.start();
 		try {
