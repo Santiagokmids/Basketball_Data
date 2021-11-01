@@ -35,7 +35,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.BasketballData;
 import model.Players;
-import thread.ImportData;
 import thread.LoadData;
 import thread.SearchByName;
 
@@ -1105,6 +1104,7 @@ public class BasketballDataGUI {
 		stage.close();
 		imgSmile.setVisible(false);
 		inicializateTableView();
+		lblImport.setText("");
 	}
 
 	private void waitting() throws IOException {
