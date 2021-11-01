@@ -1104,6 +1104,7 @@ public class BasketballDataGUI {
 		stage.close();
 		imgSmile.setVisible(false);
 		inicializateTableView();
+		lblImport.setText("");
 	}
 
 	private void waitting() throws IOException {
