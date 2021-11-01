@@ -43,7 +43,7 @@ public class BasketballData {
 		assistanceTree = new BinaryTree<>(); 
 	}
 
-	public void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
+	public synchronized void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
 		players.add(newPlayers);
 		pointsAVLTree.addNode(points,newPlayers);

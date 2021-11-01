@@ -1097,13 +1097,9 @@ public class BasketballDataGUI {
 	@FXML
 	private void exitWaitting(ActionEvent event) throws InterruptedException, FileNotFoundException {
 
-		LoadData dt = new LoadData(this, lblWaitting, btnWaitting);
-		ImportData ld = new ImportData(basketData, new BufferedReader(new FileReader(direction)));
+		LoadData loadDate = new LoadData(this, lblWaitting, btnWaitting,basketData, new BufferedReader(new FileReader(direction)));
 		imgSmile.setVisible(true);
-		dt.start();
-		Thread.sleep(150);
-		ld.start();
-		ld.join();
+		loadDate.start();
 		inicializateTableView();
 	}
 
