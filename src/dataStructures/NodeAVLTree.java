@@ -1,6 +1,10 @@
 package dataStructures;
 
-public class NodeAVLTree<K, V> {
+import java.io.Serializable;
+
+public class NodeAVLTree<K, V> implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private K key;
 	private V object;
