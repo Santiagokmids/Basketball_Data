@@ -1,6 +1,10 @@
 package dataStructures;
 
-public class NodoBinaryTree <T,K> {
+import java.io.Serializable;
+
+public class NodoBinaryTree <T,K> implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private NodoBinaryTree<T,K> left;
 	private NodoBinaryTree<T,K> right;

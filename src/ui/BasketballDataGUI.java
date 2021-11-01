@@ -971,7 +971,10 @@ public class BasketballDataGUI {
 				if(!search.getVerify()) {
 					
 					if(age > -1 && points > -1 && bounce > -1 && assistance > -1 && theft > -1 && block > -1) {
-						basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
+						try {
+							basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
+						} catch (IOException e) {
+						}
 						inicializateTableView();
 
 						alert.setTitle("EXCELENTE");
@@ -1041,7 +1044,10 @@ public class BasketballDataGUI {
 				if (player != null) {
 
 					if(age > -1 && points > -1 && bounce > -1 && assistance > -1 && theft > -1 && block > -1) {
-						basketData.deletePlayer(txtDeleteName.getText(), txtDeleteLast.getText(), txtDeleteTeam.getText(), age, points, bounce, assistance, theft, block);
+						try {
+							basketData.deletePlayer(txtDeleteName.getText(), txtDeleteLast.getText(), txtDeleteTeam.getText(), age, points, bounce, assistance, theft, block);
+						} catch (IOException e) {
+						}
 						inicializateTableView();
 
 						alert.setTitle("EXCELENTE");

@@ -270,11 +270,11 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 		if(assistaNodeAVLTree == null) {
 			return players;
 			
-		}else if(assistaNodeAVLTree.getKey() == key) {
+		}else if(assistaNodeAVLTree.getKey().equals(key)) {
 			stop = true;
 			players.add(assistaNodeAVLTree.getObject());
 
-		}if(assistaNodeAVLTree.getKey() != key && stop) {
+		}if(!assistaNodeAVLTree.getKey().equals(key) && stop) {
 			return players;
 		}
 		else {
