@@ -2,10 +2,12 @@ package dataStructures;
 
 import java.io.Serializable;
 
+import model.Players;
+
 public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>, Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private NodoBinaryTree<T,K> root;
 
 	public BinaryTree() {
@@ -50,7 +52,7 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 			if(current.getRight() == null) {
 				current.setRight(newNode);
 				newNode.setParent(current);
-				
+
 			}else {
 				addNode(current.getRight(), newNode);
 			}
@@ -63,29 +65,31 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 		boolean verify = false;
 
 		NodoBinaryTree<T,K> node = searchNode(key);
+		if(node!= null) {
+			deleteNode(node);
 
-		deleteNode(node);
-
-		if (searchNode(key) == null) {
-			verify = true;
+			if (searchNode(key) == null) {
+				verify = true;
+			}
 		}
-
 		return verify;
 	}
 
-	private void deleteNode(NodoBinaryTree<T,K> node) {
+	public void deleteNode(NodoBinaryTree<T,K> node) {
 
 		if (node.getLeft() == null && node.getRight() == null) {
 
 			if (node == root) {
 				root = null;
 
-			} else if (node == node.getParent().getLeft()) {
-				node.getParent().setLeft(null);
+			} else if (node.getParent()  != null  ) {
+				if(node == node.getParent().getLeft()) {
+					node.getParent().setLeft(null);
+				}else {
+					node.getParent().setRight(null);
+				}
 
-			} else {
-				node.getParent().setRight(null);
-			}
+			} 
 			node.setParent(null);
 
 		} else if (node.getLeft() == null || node.getRight() == null) {
@@ -159,10 +163,9 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 
 		} else {
 
-			int value = (int) key;
-			int valueAux = (int) current.getValue();
 
-			if ( value <= valueAux) {
+
+			if ( key.compareTo(current.getKey())<= 0) {
 				newN = searchNode(current.getLeft(), key);
 
 			} else {
@@ -195,7 +198,7 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 	public void setRoot(NodoBinaryTree<T,K> root) {
 		this.root = root;
 	}
-	
+
 	public String searchInOrder(NodoBinaryTree<T, K> node) {
 		String message = "";
 
@@ -205,5 +208,21 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 			message += searchInOrder(node.getRight());
 		}
 		return message;
+	}
+	public NodoBinaryTree<T,K> searchNodeObject(K key){
+		return searchNodeObject(root, key);
+	}
+	
+	public NodoBinaryTree<T,K> searchNodeObject(NodoBinaryTree<T,K> current, K key) {
+		
+		if(current == null || current.getKey() == key) {
+			return current;
+		}else {
+			if(key.compareTo(current.getKey()) <= 0) {
+				return searchNodeObject(current.getLeft(), key);
+			}else {
+				return searchNodeObject(current.getRight(), key);
+			}
+		}
 	}
 }
