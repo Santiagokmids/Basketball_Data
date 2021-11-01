@@ -81,9 +81,10 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 	public boolean deleteNode(NodeAVLTree<K, V> node) {
 
 		boolean verify = false;
-
+		
 		if (node.getLeft() == null && node.getRight() == null) {
-
+			
+			
 			if (node == root) {
 				root = null;
 				updateHeight(node);
@@ -94,9 +95,8 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 				node.getDad().setLeft(null);
 				verify = true;
 
-			} else {
+			} else if(node.getDad() != null){
 				updateHeight(node);
-				System.out.println("Nodo a eliminar "+node.getDad());
 				node.getDad().setRight(null);
 				verify = true;
 			}
@@ -263,18 +263,15 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 	public ArrayList<V> searchNode(K key) {
 		ArrayList<V> players = new ArrayList<V>();
 		boolean stop = false;
-		System.out.println(root+" root?");
 		return searchNode(key, root,players, stop);
 	}
 
 	public ArrayList<V> searchNode(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<V> players, boolean stop) {
 		
 		if(assistaNodeAVLTree == null) {
-			System.out.println("lalala");
 			return players;
 			
 		}else if(assistaNodeAVLTree.getKey() == key) {
-			System.out.println("acpet");
 			stop = true;
 			players.add(assistaNodeAVLTree.getObject());
 
@@ -288,6 +285,23 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 
 			}else {
 				return searchNode(key, assistaNodeAVLTree.getRight(),players,stop);
+			}
+		}
+	}
+	
+	public NodeAVLTree<K, V> searchNodeObject(K key){
+		return searchNodeObject(root, key);
+	}
+	
+	public NodeAVLTree<K, V> searchNodeObject(NodeAVLTree<K, V> current, K key) {
+		
+		if(current == null || current.getKey() == key) {
+			return current;
+		}else {
+			if(key.compareTo(current.getKey()) <= 0) {
+				return searchNodeObject(current.getLeft(), key);
+			}else {
+				return searchNodeObject(current.getRight(), key);
 			}
 		}
 	}

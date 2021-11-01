@@ -63,8 +63,10 @@ public class BasketballData {
 	}
 
 	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
+		
 		deleteInArray(name, lastName);
-		pointsAVLTree.deleteNode(new NodeAVLTree<Integer, Players>(points, new Players(name,lastName,team,age,points,bounce,assistance,theft,block)));
+		pointsAVLTree.deleteNode(pointsAVLTree.searchNodeObject(points));
+		
 		/*bounceAVLTree.addNode(bounce, newPlayers);
 		assistanceAVLTree.addNode(assistance, newPlayers);
 		blockAVLTree.addNode(block, newPlayers);
@@ -224,7 +226,6 @@ public class BasketballData {
 	public void deleteInArray(String name, String lastName) {
 
 		for (int i = 0; i < players.size(); i++) {
-
 			if (name.equalsIgnoreCase(players.get(i).getName()) && lastName.equalsIgnoreCase(players.get(i).getLastName())) {
 				players.remove(i);
 			}
@@ -326,8 +327,7 @@ public class BasketballData {
 	public Players searchPlayer(String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) {
 
 		ArrayList<Players> player = pointsAVLTree.searchNode(points);
-		System.out.println(player.isEmpty()+" ola "+pointsAVLTree.getRoot()+" "+players.isEmpty());
-
+		System.out.println(player);
 		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance, theft, block);
 		binarySearch.start();
 		try {

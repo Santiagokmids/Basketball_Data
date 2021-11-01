@@ -1018,6 +1018,16 @@ public class BasketballDataGUI {
 						alert.setHeaderText("Se ha eliminado exitosamente");
 						alert.setContentText("Se ha eliminado a "+txtDeleteName.getText()+" "+txtDeleteLast.getText()+" de la base de datos");
 						alert.showAndWait();
+						
+						txtDeleteName.setText("");
+						txtDeleteLast.setText("");
+						txtDeleteAge.setText("");
+						txtDeleteTeam.setText("");
+						txtDeletePoint.setText("");
+						txtDeleteBounce.setText("");
+						txtDeleteAss.setText("");
+						txtDeleteTheft.setText("");
+						txtDeleteBlock.setText("");
 					}
 
 				}else {
@@ -1026,16 +1036,6 @@ public class BasketballDataGUI {
 					alert.setContentText("En la base de datos no se encuentran jugadores registrados con esa información");
 					alert.showAndWait();
 				}
-
-				txtDeleteName.setText("");
-				txtDeleteLast.setText("");
-				txtDeleteAge.setText("");
-				txtDeleteTeam.setText("");
-				txtDeletePoint.setText("");
-				txtDeleteBounce.setText("");
-				txtDeleteAss.setText("");
-				txtDeleteTheft.setText("");
-				txtDeleteBlock.setText("");
 
 			} catch (NumberFormatException nfe) {
 
