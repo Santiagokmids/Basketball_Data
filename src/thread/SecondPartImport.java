@@ -20,8 +20,7 @@ public class SecondPartImport extends Thread{
 	}
 
 	public void run() {
-		for (int i = initial; i < newList.size()-1 && i < finall; i++) {
-			System.out.println(i);
+		for (int i = initial; i < newList.size() && i < finall; i++) {
 			basketballData.addPlayer(newList.get(i).getName(), newList.get(i).getLastName(), newList.get(i).getTeam(), newList.get(i).getAge(), newList.get(i).getPoints(), newList.get(i).getBounce(), newList.get(i).getAssistance(), newList.get(i).getTheft(), newList.get(i).getBlock());
 		}
 	}

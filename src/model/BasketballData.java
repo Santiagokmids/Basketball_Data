@@ -47,15 +47,11 @@ public class BasketballData {
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
 		players.add(newPlayers);
 		pointsAVLTree.addNode(points,newPlayers);
-		/*bounceAVLTree.addNode(bounce, newPlayers);
+		bounceAVLTree.addNode(bounce, newPlayers);
 		assistanceAVLTree.addNode(assistance, newPlayers);
 		blockAVLTree.addNode(block, newPlayers);
 		theftTree.addNode(newPlayers, theft);
 		assistanceTree.addNode(newPlayers, assistance);
-		if(points == 20) {
-			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot()) + "esta en baskeData linea 57");
-		}
-		*/
 		try {
 			saveData();
 		} catch (IOException e) {
@@ -117,7 +113,7 @@ public class BasketballData {
 	@SuppressWarnings("unchecked")
 	public boolean loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
 		boolean loaded = false;
-
+		System.out.println("hola");
 		File lineaTheftFile = new File(SAVE_PATH_FILE_LINEAL_THEFT);
 
 		if(lineaTheftFile.exists()) {
@@ -125,6 +121,7 @@ public class BasketballData {
 			players = (ArrayList<Players>) linealTheft.readObject();
 			linealTheft.close();
 			loaded = true;
+			System.out.println("hola1");
 		}
 
 		File bbTheftFile = new File(SAVE_PATH_FILE_BB_THEFT);
@@ -134,6 +131,7 @@ public class BasketballData {
 			theftTree = (BinaryTree<Players, Integer>) bbTheft.readObject();
 			bbTheft.close();
 			loaded = true;
+			System.out.println("hola2");
 		}
 
 		File bbAssistantFile = new File(SAVE_PATH_FILE_BB_ASSISTANCE);
@@ -143,6 +141,7 @@ public class BasketballData {
 			assistanceTree = (BinaryTree<Players, Integer>) bbAssistant.readObject();
 			bbAssistant.close();
 			loaded = true;
+			System.out.println("hola3");
 		}
 
 		File avlBounceFile = new File(SAVE_PATH_FILE_AVL_BOUNCE);
@@ -152,6 +151,7 @@ public class BasketballData {
 			bounceAVLTree = (AVLTree<Integer, Players>) avlBounce.readObject();
 			avlBounce.close();
 			loaded = true;
+			System.out.println("hola4");
 		}
 
 		File avlAssistanceFile = new File(SAVE_PATH_FILE_AVL_ASSISTANCE);
@@ -161,6 +161,7 @@ public class BasketballData {
 			assistanceAVLTree = (AVLTree<Integer, Players>) avlAssistance.readObject();
 			avlAssistance.close();
 			loaded = true;
+			System.out.println("hola5");
 		}
 
 		File avlBlockFile = new File(SAVE_PATH_FILE_AVL_BLOCK);
@@ -170,17 +171,19 @@ public class BasketballData {
 			blockAVLTree = (AVLTree<Integer, Players>) avlBlock.readObject();
 			avlBlock.close();
 			loaded = true;
+			System.out.println("hola6");
 		}
-
+		
 		File avlPointsFile = new File(SAVE_PATH_FILE_AVL_POINTS);
 
 		if(avlPointsFile.exists()) {
 			ObjectInputStream avlPoints = new ObjectInputStream(new FileInputStream(avlPointsFile));
+			System.out.println("hola6as");
 			pointsAVLTree = (AVLTree<Integer, Players>) avlPoints.readObject();
 			avlPoints.close();
 			loaded = true;
 		}
-
+	
 		return loaded;
 	}
 

@@ -24,8 +24,8 @@ public class Main extends Application{
 		basketData = new BasketballData();
 		basketDataGUI = new BasketballDataGUI(basketData); 
 		try {
-			loadInformation = basketData.loadData();
 			System.out.println("Entra");
+			loadInformation = basketData.loadData();
 		} catch (ClassNotFoundException | IOException e) {
 			if (!loadInformation) {
 				Alert alert = new Alert(AlertType.INFORMATION);
