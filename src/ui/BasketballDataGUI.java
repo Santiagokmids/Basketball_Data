@@ -348,15 +348,12 @@ public class BasketballDataGUI {
 		changeVisibilityMainAnchor();
 	}
 
-
 	private void changeVisibilityMainAnchor() {
 		anchorBack.setVisible(true);
 		anchorBack.setDisable(false);
 		imgBack.setVisible(true);
 		imgBack.setDisable(false);
 	}
-	
-
 	 
 	private void changeVisibilityAnchor() {
 		anchorBack.setVisible(false);

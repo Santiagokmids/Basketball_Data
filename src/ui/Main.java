@@ -60,33 +60,4 @@ public class Main extends Application{
 		primaryStage.show();
 		basketDataGUI.loadApp();
 	}
-
-/*Clase arbol AVL
-public class ArbolAVL {
-	private NodoArbolAVL raiz;
-
-	public ArbolAVL() {
-		raiz = null;
-	}
-
-	public NodoArbolAVL buscar(int dato, NodoArbolAVL r) {
-		if(r == null) return null;
-
-		if(r.dato == dato) {
-			return r;
-		}else if(r.dato < dato) {
-			return buscar(dato, r.izdo);
-		}else {
-			return buscar(dato, r.izdo);
-		}
-	}
-
-	public int obtenerFE(NodoArbolAVL r) {
-		if(r == null) return -1;
-		else return r.fe;
-	}
-
-	
-}
-	 */	
 }
