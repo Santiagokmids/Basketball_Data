@@ -84,7 +84,6 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 		
 		if (node.getLeft() == null && node.getRight() == null) {
 			
-			
 			if (node == root) {
 				root = null;
 				updateHeight(node);

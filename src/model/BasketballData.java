@@ -61,7 +61,13 @@ public class BasketballData {
 	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
 		
 		deleteInArray(name, lastName);
-		pointsAVLTree.deleteNode(pointsAVLTree.searchNodeObject(points));
+		
+		NodeAVLTree<Integer, Players> nodeAVLTree =  pointsAVLTree.searchNodeObject(points);
+		
+		if(nodeAVLTree != null) {
+			pointsAVLTree.deleteNode(nodeAVLTree);
+		}
+		
 		
 		/*bounceAVLTree.addNode(bounce, newPlayers);
 		assistanceAVLTree.addNode(assistance, newPlayers);

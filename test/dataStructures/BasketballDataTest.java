@@ -1,6 +1,5 @@
 package dataStructures;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -9,10 +8,7 @@ import model.BasketballData;
 import model.Players;
 
 class BasketballDataTest {
-		private AVLTree<Integer, Players> avlTree;
 		private BinaryTree<Players, Integer> binaryTree;
-		private NodeAVLTree<Integer, Players> nodeAvl;
-		private NodoBinaryTree<Players, Integer> nodeBinary;
 		private BasketballData bt;
 		public void setupScenary1() {
 			binaryTree = new BinaryTree<Players, Integer>();
@@ -20,7 +16,7 @@ class BasketballDataTest {
 		}
 
 		public void setupScenary2() {
-			avlTree = new AVLTree<Integer, Players>();
+			bt = new BasketballData();
 		}
 
 		public void setupScenary3() {
@@ -38,19 +34,14 @@ class BasketballDataTest {
 
 		public void setupScenary5() {
 			setupScenary2();
-			Players player1 = new Players("Juan","Angulo","Reds",19,26,7,4,1,2);
-			avlTree.addNode(26,player1);
+			bt.addPlayer("Juan","Angulo","Reds",19,26,7,4,1,2);
 		}
 
 		public void setupScenary6() {
 			setupScenary5();
-			Players player = new Players("Sebastian","Rojas","Neds",17,24,6,3,0,1);
-			avlTree.addNode(24, player);
-			Players player1 = new Players("Juan","Reyes","Bulls",20,28,9,6,2,3);
-			avlTree.addNode(28, player1);
-			Players player2 = new Players("Luis","Diaz","Lw",21,29,10,7,3,4);
-			avlTree.addNode(29, player2);
-			bt = new BasketballData();
+			bt.addPlayer("Sebastian","Rojas","Neds",17,24,6,3,0,1);
+			bt.addPlayer("Juan","Reyes","Bulls",20,28,9,6,2,3);
+			bt.addPlayer("Luis","Diaz","Lw",21,29,10,7,3,4);
 		}
 
 		@Test
@@ -83,19 +74,16 @@ class BasketballDataTest {
 		@Test
 		void testAddNodeAvl() {
 			setupScenary5();
-			Players player = new Players("Sebastian","Rojas","Neds",17,24,6,3,0,1);
-			avlTree.addNode(24, player);
-			Players player1 = new Players("Juan","Reyes","Bulls",20,28,9,6,2,3);
-			avlTree.addNode(28, player1);
-			Players player2 = new Players("Luis","Diaz","Lw",21,29,10,7,3,4);
-			avlTree.addNode(29, player2);
-			assertEquals("24 26 28 29 ",avlTree.searchInOrder(avlTree.getRoot()));
+			bt.addPlayer("Sebastian","Rojas","Neds",17,24,6,3,0,1);
+			bt.addPlayer("Juan","Reyes","Bulls",20,28,9,6,2,3);
+			bt.addPlayer("Luis","Diaz","Lw",21,29,10,7,3,4);
+			assertEquals("24 26 28 29 ",bt.getPointsAVLTree().searchInOrder(bt.getPointsAVLTree().getRoot()));
 		}
 		@Test
 		void testDeleteAvl() {
 			setupScenary6();	
 			bt.deletePlayer("Juan","Reyes","Bulls",20,28,9,6,2,3);
-			assertEquals("24 26 29 ",avlTree.searchInOrder(avlTree.getRoot()));
+			assertEquals("24 26 29 ",bt.getPointsAVLTree().searchInOrder(bt.getPointsAVLTree().getRoot()));
 		}
 	}
 
