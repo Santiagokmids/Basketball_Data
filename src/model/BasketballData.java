@@ -63,21 +63,22 @@ public class BasketballData {
 		deleteInArray(name, lastName);
 		
 		NodeAVLTree<Integer, Players> nodeAVLTree =  pointsAVLTree.searchNodeObject(points);
-		
-		if(nodeAVLTree != null) {
+		NodoBinaryTree< Players,Integer> nodeTree =  assistanceTree.searchNodeObject(assistance);
+		if(nodeAVLTree != null && nodeTree != null) {
 			pointsAVLTree.deleteNode(nodeAVLTree);
+			bounceAVLTree.deleteNode( nodeAVLTree);
+			assistanceAVLTree.deleteNode( nodeAVLTree);
+			blockAVLTree.deleteNode( nodeAVLTree);
+			theftTree.deleteNode( nodeTree);
+			assistanceTree.deleteNode( nodeTree);
 		}
 		
 		
-		/*bounceAVLTree.addNode(bounce, newPlayers);
-		assistanceAVLTree.addNode(assistance, newPlayers);
-		blockAVLTree.addNode(block, newPlayers);
-		theftTree.addNode(newPlayers, theft);
-		assistanceTree.addNode(newPlayers, assistance);
+	
 		if(points == 20) {
 			System.out.println(pointsAVLTree.searchInOrder(pointsAVLTree.getRoot())+ "esta en baskeData linea 75");
 		}
-		*/
+		
 		try {
 			saveData();
 		} catch (IOException e) {

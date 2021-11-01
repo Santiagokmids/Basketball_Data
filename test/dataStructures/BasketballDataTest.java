@@ -11,8 +11,7 @@ class BasketballDataTest {
 		private BinaryTree<Players, Integer> binaryTree;
 		private BasketballData bt;
 		public void setupScenary1() {
-			binaryTree = new BinaryTree<Players, Integer>();
-			
+			bt = new BasketballData();
 		}
 
 		public void setupScenary2() {
@@ -21,15 +20,12 @@ class BasketballDataTest {
 
 		public void setupScenary3() {
 			setupScenary1();
-			Players player = new Players("Santiago", "Trochez", "Nwy", 19, 40, 15, 12, 6, 12);
-			binaryTree.addNode(player, 12);
-			
+			bt.addPlayer("Santiago", "Trochez", "Nwy", 19, 40, 15, 12, 6, 12);
 		}
 
 		public void setupScenary4() {
 			setupScenary3();		
-			Players player1 = new Players("Luis","Ossa","Spurs",22,32,13,10,4,10);
-			binaryTree.addNode(player1, 10);
+			bt.addPlayer("Luis","Ossa","Spurs",22,32,13,10,4,10);
 		}
 
 		public void setupScenary5() {
@@ -47,28 +43,17 @@ class BasketballDataTest {
 		@Test
 		void testCreateNode() {
 			setupScenary3();		
-			Players player1 = new Players("Luis","Ossa","Spurs",22,32,13,10,4,10);
-			binaryTree.addNode(player1, 10);
-			assertEquals(10, binaryTree.getRoot().getLeft().getKey());
-			//metodo para borrar
+			bt.addPlayer("Luis","Ossa","Spurs",22,32,13,10,4,10);
+			assertEquals(10, bt.getAssistanceTree().getRoot().getLeft().getKey());
 			
-			//Añadir objeto al arbol Avl
-			//scenary5
-			//Players player1 = new Players("Juan","Angulo","Reds",19,26,7,4,1,2);
-			
-			//scenary6
-			Players player2 = new Players("Sebastian","Rojas","Neds",17,24,6,3,0,1);
-			Players player3 = new Players("Juan","Reyes","Bulls",20,28,9,6,2,3);
-			Players player4 = new Players("Luis","Diaz","Lw",21,29,10,7,3,4);
-			//debo borrar uno 
 			
 		}
 		@Test
-		void testDeleateNode() {
+		void testDeleteNode() {
 			setupScenary4();
-			assertEquals(10, binaryTree.getRoot().getLeft().getKey());
-			//binaryTree.deleteNode(10);
-		//	assertNull(binaryTree.getRoot().getLeft());
+			bt.deletePlayer("Luis","Ossa","Spurs",22,32,13,10,4,10);
+			assertEquals("12 ",bt.getAssistanceTree().searchInOrder(bt.getAssistanceTree().getRoot()));
+			
 			
 		}
 		@Test
