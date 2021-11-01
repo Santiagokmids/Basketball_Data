@@ -2,12 +2,11 @@ package thread;
 
 import java.util.ArrayList;
 
-import dataStructures.NodeAVLTree;
 import model.Players;
 
 public class BinarySearch extends Thread{
-	
-	private ArrayList<NodeAVLTree<Integer, Players>> player;
+
+	private ArrayList<Players> player;
 	private Players newPlayer;
 	private String name;
 	private String lastName;
@@ -18,8 +17,8 @@ public class BinarySearch extends Thread{
 	private int assistance;
 	private int block;
 	private int theft;
-	
-	public BinarySearch(ArrayList<NodeAVLTree<Integer, Players>> player, String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) {
+
+	public BinarySearch(ArrayList<Players> player, String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) {
 		this.player = player;
 		this.name = name;
 		this.lastName = lastName;
@@ -31,26 +30,24 @@ public class BinarySearch extends Thread{
 		this.block = block;
 		this.theft = theft;
 	}
-	
+
 	public void run() {
 		for (int i = 1; i < player.size(); i++) {
-			for (int j = i; j > 0 && player.get(j-1).getObject().compareTo(player.get(j).getObject().getName()+" "+player.get(j).getObject().getLastName()) > 0; j--) {
-				System.out.println("entrooo");
-				NodeAVLTree<Integer, Players> tempAvlTree = player.get(j);
-				
+			for (int j = i; j > 0 && player.get(j-1).compareTo(player.get(j).getName()+" "+player.get(j).getLastName()+" "+player.get(j).getTeam()+" "+player.get(j).getAge()+
+					" "+player.get(j).getPoints()+" "+player.get(j).getBounce()+" "+player.get(j).getAssistance()+" "+player.get(j).getTheft()+" "+player.get(j).getBlock()) > 0; j--) {
+				Players tempAvlTree = player.get(j);
+
 				player.set(j, player.get(j-1));
 				player.set(j-1, tempAvlTree);
 			}
 		}
-		newPlayer = binarySearch(player, name+" "+lastName+" "+team+" "+age+" "+points+" "+bounce+" "+assistance+" "+theft+" "+block);
+		newPlayer = binarySearchDel(player, name+" "+lastName+" "+team+" "+age+" "+points+" "+bounce+" "+assistance+" "+theft+" "+block);
 	}
-	
-	public Players binarySearch(ArrayList<NodeAVLTree<Integer, Players>> newList, String toSearch) {
-		
-		System.out.println(newList.isEmpty()+" vacio");
-		
-		ArrayList<NodeAVLTree<Integer, Players>> listPlayersArrayList = newList;
-		
+
+	public Players binarySearchDel(ArrayList<Players> newList, String toSearch) {
+
+		ArrayList<Players> listPlayersArrayList = newList;
+
 		int pos = -1;
 		int i = 0;
 		int j = listPlayersArrayList.size()-1;
@@ -58,19 +55,19 @@ public class BinarySearch extends Thread{
 		
 		while (i <= j && pos < 0) {
 			int m = (i+j)/2;
-			if(listPlayersArrayList.get(m).getObject().compareTo(toSearch) == 0) {
+			if(listPlayersArrayList.get(m).compareTo(toSearch) == 0) {
 				pos = m;
-				playerFindPlayers = listPlayersArrayList.get(pos).getObject();
-			}else if (listPlayersArrayList.get(m).getObject().compareTo(toSearch) > 0) {
+				playerFindPlayers = listPlayersArrayList.get(pos);
+			}else if (listPlayersArrayList.get(m).compareTo(toSearch) > 0) {
 				j = m-1;
 			}else {
 				i = m+1;
 			}
 		}
-		
+
 		return playerFindPlayers;
 	}
-	
+
 	public Players getNewPlayer() {
 		return newPlayer;
 	}
@@ -82,12 +79,12 @@ public class BinarySearch extends Thread{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
-	public ArrayList<NodeAVLTree<Integer, Players>> getPlayer() {
+
+	public ArrayList<Players> getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(ArrayList<NodeAVLTree<Integer, Players>> player) {
+	public void setPlayer(ArrayList<Players> player) {
 		this.player = player;
 	}
 

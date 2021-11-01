@@ -33,6 +33,12 @@ public class Players implements Serializable{
 		int verify = messagePlayer1.compareTo(player2);
 		return verify;
 	}
+	
+	public int compareToName(String player2) {
+		String messagePlayer1 = getName()+" "+getLastName();
+		int verify = messagePlayer1.compareTo(player2);
+		return verify;
+	}
 
 	public String getName() {
 		return name;
