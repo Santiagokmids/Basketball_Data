@@ -2,8 +2,6 @@ package dataStructures;
 
 import java.io.Serializable;
 
-import model.Players;
-
 public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>, Serializable{
 
 	private static final long serialVersionUID = 1L;

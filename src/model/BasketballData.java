@@ -43,7 +43,7 @@ public class BasketballData {
 		assistanceTree = new BinaryTree<>(); 
 	}
 
-	public synchronized void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
+	public synchronized void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) throws IOException {
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
 		players.add(newPlayers);
 		pointsAVLTree.addNode(points,newPlayers);
@@ -55,7 +55,7 @@ public class BasketballData {
 		saveData();
 	}
 
-	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) {
+	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) throws IOException {
 
 		deleteInArray(name, lastName);
 
@@ -73,41 +73,36 @@ public class BasketballData {
 		saveData();
 	}
 
-	public void saveData(){
+	public void saveData() throws IOException{
 
-		try {
-			ObjectOutputStream linealTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_LINEAL_THEFT));
-			linealTheft.writeObject(players);
+		ObjectOutputStream linealTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_LINEAL_THEFT));
+		linealTheft.writeObject(players);
 
-			ObjectOutputStream bbTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_THEFT));
-			bbTheft.writeObject(theftTree);
+		ObjectOutputStream bbTheft = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_THEFT));
+		bbTheft.writeObject(theftTree);
 
-			ObjectOutputStream bbAssistant = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_ASSISTANCE));
-			bbAssistant.writeObject(assistanceTree);
+		ObjectOutputStream bbAssistant = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_BB_ASSISTANCE));
+		bbAssistant.writeObject(assistanceTree);
 
-			ObjectOutputStream avlBounce = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BOUNCE));
-			avlBounce.writeObject(bounceAVLTree);
+		ObjectOutputStream avlBounce = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BOUNCE));
+		avlBounce.writeObject(bounceAVLTree);
 
-			ObjectOutputStream avlAssistance = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_ASSISTANCE));
-			avlAssistance.writeObject(assistanceAVLTree);
+		ObjectOutputStream avlAssistance = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_ASSISTANCE));
+		avlAssistance.writeObject(assistanceAVLTree);
 
-			ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
-			avlBlock.writeObject(blockAVLTree);
+		ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
+		avlBlock.writeObject(blockAVLTree);
 
-			ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_POINTS));
-			avlPoints.writeObject(pointsAVLTree);
+		ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_POINTS));
+		avlPoints.writeObject(pointsAVLTree);
 
-			linealTheft.close();
-			bbTheft.close();
-			bbAssistant.close();
-			avlBounce.close();
-			avlAssistance.close();
-			avlBlock.close();
-			avlPoints.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		linealTheft.close();
+		bbTheft.close();
+		bbAssistant.close();
+		avlBounce.close();
+		avlAssistance.close();
+		avlBlock.close();
+		avlPoints.close();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -126,8 +121,7 @@ public class BasketballData {
 
 		if(bbTheftFile.exists()) {
 			ObjectInputStream bbTheft = new ObjectInputStream(new FileInputStream(bbTheftFile));
-			
-			theftTree.setRoot((NodoBinaryTree<Players, Integer>) bbTheft.readObject());
+			theftTree = (BinaryTree<Players, Integer>) bbTheft.readObject();
 			bbTheft.close();
 			loaded = true;
 		}
