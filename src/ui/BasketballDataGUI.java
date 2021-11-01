@@ -1100,7 +1100,6 @@ public class BasketballDataGUI {
 		LoadData loadDate = new LoadData(this, lblWaitting, btnWaitting,basketData, new BufferedReader(new FileReader(direction)));
 		imgSmile.setVisible(true);
 		loadDate.start();
-		inicializateTableView();
 	}
 
 	public void change() throws InterruptedException {
@@ -1108,6 +1107,7 @@ public class BasketballDataGUI {
 		Stage stage = (Stage) this.imgSmile.getScene().getWindow();
 		stage.close();
 		imgSmile.setVisible(false);
+		inicializateTableView();
 	}
 
 	private void waitting() throws IOException {
