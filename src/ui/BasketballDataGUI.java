@@ -651,9 +651,8 @@ public class BasketballDataGUI {
 		} else if (method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
 
 			if (criter == 0) {
-				boolean stop = false;
 				start = System.nanoTime();
-				player = basketData.searchNodeEqualsTree(date, basketData.searchNodesAssitenceTree(), player, stop);
+				player = basketData.searchNodeEqualsTree(date, basketData.searchNodesAssitenceTree(), player);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 
@@ -703,9 +702,8 @@ public class BasketballDataGUI {
 		} else if (method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
 
 			if (criter == 0) {
-				boolean stop = false;
 				start = System.nanoTime();
-				player = basketData.searchNodeEqualsTree(date, basketData.searchNodesTheftTree(date), player, stop);
+				player = basketData.searchNodeEqualsTree(date, basketData.searchNodesTheftTree(date), player);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 

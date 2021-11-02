@@ -416,24 +416,24 @@ public class BasketballData {
 		return assistanceTree.getRoot();
 	}
 
-	public ArrayList<Players> searchNodeEqualsTree(int key, NodoBinaryTree<Players, Integer> assistaNodeTree,
-			ArrayList<Players> players, boolean stop) {
+	public ArrayList<Players> searchNodeEqualsTree(int key, NodoBinaryTree<Players, Integer> assistaNodeTree,ArrayList<Players> players) {
 
 		if (assistaNodeTree == null) {
 			return players;
 		}
 		if (assistaNodeTree != null && assistaNodeTree.getKey() == key) {
-			stop = true;
 			players.add(assistaNodeTree.getValue());
-
-		}
-		if (assistaNodeTree.getKey() != key && stop) {
-			return players;
-		} else {
 			if ((Integer) key <= (Integer) assistaNodeTree.getKey()) {
-				return searchNodeEqualsTree(key, assistaNodeTree.getLeft(), players, stop);
+				return searchNodeEqualsTree(key, assistaNodeTree.getLeft(), players);
 			} else {
-				return searchNodeEqualsTree(key, assistaNodeTree.getRight(), players, stop);
+				return searchNodeEqualsTree(key, assistaNodeTree.getRight(), players);
+			}
+		}
+		else {
+			if ((Integer) key <= (Integer) assistaNodeTree.getKey()) {
+				return searchNodeEqualsTree(key, assistaNodeTree.getLeft(), players);
+			} else {
+				return searchNodeEqualsTree(key, assistaNodeTree.getRight(), players);
 			}
 		}
 	}
