@@ -14,6 +14,7 @@ import dataStructures.BinaryTree;
 import dataStructures.NodeAVLTree;
 import dataStructures.NodoBinaryTree;
 import thread.BinarySearch;
+import thread.BinarySearchBinary;
 import thread.BinarySearchNode;
 
 public class BasketballData {
@@ -64,7 +65,7 @@ public class BasketballData {
 		
 		ArrayList<NodeAVLTree<Integer, Players>> nodeAVLTreePoints = pointsAVLTree.searchNodeObject(points);
 		NodeAVLTree<Integer, Players> nodeAvlPoint = startThreads(nodeAVLTreePoints, name, lastName, age, team, points, bounce, assistance, theft, block);
-		System.out.println(nodeAvlPoint);
+		
 		ArrayList<NodeAVLTree<Integer, Players>> nodeAVLTreeBounce = bounceAVLTree.searchNodeObject(bounce);
 		NodeAVLTree<Integer, Players> nodeAvlBounce = startThreads(nodeAVLTreeBounce, name, lastName, age, team, points, bounce, assistance, theft, block);
 		
@@ -74,23 +75,32 @@ public class BasketballData {
 		ArrayList<NodeAVLTree<Integer, Players>> nodeAVLTreeBlock = blockAVLTree.searchNodeObject(block);
 		NodeAVLTree<Integer, Players> nodeAvlBlock = startThreads(nodeAVLTreeBlock, name, lastName, age, team, points, bounce, assistance, theft, block);
 		
-		NodoBinaryTree<Players, Integer> nodeTreeAssistence = assistanceTree.searchNodeObject(assistance);
-		NodoBinaryTree<Players, Integer> nodeTreeTheft = theftTree.searchNodeObject(theft);
-
-		if (nodeAvlPoint != null && nodeAvlBounce != null && nodeAvlAssistence != null && nodeAvlBlock != null) {
+		ArrayList <NodoBinaryTree<Players, Integer>> nodeTreeAssistence = assistanceTree.searchNode(assistance);
+		NodoBinaryTree<Players, Integer> treeAssistence = startThreadsBb(nodeTreeAssistence, name, lastName, age, team, points, bounce, assistance, theft, block);
+		
+		ArrayList <NodoBinaryTree<Players, Integer>> nodeTheftTree = theftTree.searchNode(theft);
+		NodoBinaryTree<Players, Integer> treeTheft = startThreadsBb(nodeTheftTree, name, lastName, age, team, points, bounce, assistance, theft, block);
+		
+		if (nodeAvlPoint != null && nodeAvlBounce != null && nodeAvlAssistence != null && nodeAvlBlock != null && treeAssistence != null && treeTheft != null) {
 			pointsAVLTree.deleteNode(nodeAvlPoint);
 			bounceAVLTree.deleteNode(nodeAvlBounce);
 			assistanceAVLTree.deleteNode(nodeAvlAssistence);
 			blockAVLTree.deleteNode(nodeAvlBlock);
-			theftTree.deleteNode(nodeTreeTheft);
-			assistanceTree.deleteNode(nodeTreeAssistence);
+			theftTree.deleteNode(treeAssistence);
+			assistanceTree.deleteNode(treeTheft);
 		}
-		
 		saveData();
 	}
 	
 	public NodeAVLTree<Integer, Players> startThreads(ArrayList<NodeAVLTree<Integer, Players>> nodes, String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) throws InterruptedException {
 		BinarySearchNode binary = new BinarySearchNode(nodes, name, lastName, age, team, points, bounce, assistance, theft, block);
+		binary.start();
+		binary.join();
+		return binary.getNewPlayer();
+	}
+	
+	public NodoBinaryTree<Players, Integer> startThreadsBb(ArrayList<NodoBinaryTree<Players, Integer>> nodes, String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) throws InterruptedException {
+		BinarySearchBinary binary = new BinarySearchBinary(nodes, name, lastName, age, team, points, bounce, assistance, theft, block);
 		binary.start();
 		binary.join();
 		return binary.getNewPlayer();
@@ -473,6 +483,6 @@ public class BasketballData {
 	}
 
 	public NodoBinaryTree<Players, Integer> searchNodesTheftTree(int key) {
-		return theftTree.searchNode(key);
+		return theftTree.getRoot();
 	}
 }

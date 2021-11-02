@@ -1,6 +1,7 @@
 package dataStructures;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>, Serializable{
 
@@ -61,21 +62,6 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 	}
 
 	@Override
-	public boolean deleteNode(K key) {
-
-		boolean verify = false;
-
-		NodoBinaryTree<T,K> node = searchNode(key);
-		if(node!= null) {
-			deleteNode(node);
-
-			if (searchNode(key) == null) {
-				verify = true;
-			}
-		}
-		return verify;
-	}
-
 	public void deleteNode(NodoBinaryTree<T,K> node) {
 
 		if (node.getLeft() == null && node.getRight() == null) {
@@ -150,29 +136,34 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 	}
 
 	@Override
-	public NodoBinaryTree<T, K> searchNode(K key) {
-		return searchNode(root, key);
+	public ArrayList<NodoBinaryTree<T,K>> searchNode(K key) {
+		ArrayList<NodoBinaryTree<T,K>> players = new ArrayList<NodoBinaryTree<T,K>>();
+		return searchNode(root, key, players);
 	}
 
-	private NodoBinaryTree<T,K> searchNode(NodoBinaryTree<T,K> current, K key) {
+	private ArrayList<NodoBinaryTree<T,K>> searchNode(NodoBinaryTree<T,K> current, K key, ArrayList<NodoBinaryTree<T,K>> players) {
+		
+		if(current == null) {
+			return players;
 
-		NodoBinaryTree<T,K> newN = new NodoBinaryTree<T,K>();
+		}else if(current.getKey().equals(key)) {
+			players.add(current);
+			if(key.compareTo(current.getKey()) <= 0) {
+				return searchNode(current.getLeft(),key,players);
 
-		if (current == null || current.getValue() == key) {
-			newN = current;
-
-		} else {
-
-			if (current.getLeft() != null && key.compareTo(current.getKey())<= 0) {
-				
-				newN = searchNode(current.getLeft(), key);
-
-			} else if(current.getRight() != null){
-				newN = searchNode(current.getRight(), key);
+			}else {
+				return searchNode(current.getRight(),key,players);
 			}
 		}
+		else {
 
-		return newN;
+			if(key.compareTo(current.getKey()) <= 0) {
+				return searchNode(current.getLeft(),key,players);
+
+			}else {
+				return searchNode(current.getRight(),key,players);
+			}
+		}
 	}
 
 	@Override
