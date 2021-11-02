@@ -51,8 +51,7 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 
 	public boolean addNode(NodeAVLTree<K, V> assistaNodeAVLTree, NodeAVLTree<K, V> newNodeAVLTree) {
 		boolean verify = false;
-
-		if(newNodeAVLTree.getKey().compareTo(assistaNodeAVLTree.getKey()) <= 0) { //significa que el nuevo nodo es menor al que ya estaba
+		if(newNodeAVLTree.getKey()!= null && assistaNodeAVLTree.getKey()!= null && newNodeAVLTree.getKey().compareTo(assistaNodeAVLTree.getKey()) <= 0) { //significa que el nuevo nodo es menor al que ya estaba
 
 			if(assistaNodeAVLTree.getLeft() == null) {
 				assistaNodeAVLTree.setLeft(newNodeAVLTree);
@@ -70,6 +69,7 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 				addNode(assistaNodeAVLTree.getRight(), newNodeAVLTree);//AQUI SE REPITE
 			}
 		}
+		
 		
 		updateHeight(newNodeAVLTree.getDad());
 		balanceTree(root);
@@ -270,11 +270,11 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 		if(assistaNodeAVLTree == null) {
 			return players;
 			
-		}else if(assistaNodeAVLTree.getKey() == key) {
+		}else if(assistaNodeAVLTree.getKey().equals(key)) {
 			stop = true;
 			players.add(assistaNodeAVLTree.getObject());
 
-		}if(assistaNodeAVLTree.getKey() != key && stop) {
+		}if(!assistaNodeAVLTree.getKey().equals(key) && stop) {
 			return players;
 		}
 		else {

@@ -149,6 +149,7 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 
 	@Override
 	public NodoBinaryTree<T, K> searchNode(K key) {
+		System.out.println(root + "  binarytree 152");
 		return searchNode(root, key);
 	}
 
@@ -163,10 +164,11 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 
 
 
-			if ( key.compareTo(current.getKey())<= 0) {
+			if (current.getLeft() != null && key.compareTo(current.getKey())<= 0) {
+				
 				newN = searchNode(current.getLeft(), key);
 
-			} else {
+			} else if(current.getRight() != null){
 				newN = searchNode(current.getRight(), key);
 			}
 		}
