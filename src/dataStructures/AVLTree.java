@@ -288,6 +288,61 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 			}
 		}
 	}
+	
+	public ArrayList<V> searchNodeMax(K key) {
+		ArrayList<V> players = new ArrayList<V>();
+		return searchNodeMax(key, root,players);
+	}
+
+	public ArrayList<V> searchNodeMax(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<V> players) {
+
+		if(assistaNodeAVLTree == null) {
+			return players;
+
+		}else if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
+			
+			players.add(assistaNodeAVLTree.getObject());
+			players = searchNodeMax(key, assistaNodeAVLTree.getRight(),players);
+			players = searchNodeMax(key, assistaNodeAVLTree.getLeft(),players);
+			return players;
+		}
+		else {
+
+			if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
+				return searchNodeMax(key, assistaNodeAVLTree.getRight(),players);
+
+			}else {
+				return searchNodeMax(key, assistaNodeAVLTree.getLeft(),players);
+			}
+		}
+	}
+	
+	public ArrayList<V> searchNodeMin(K key) {
+		ArrayList<V> players = new ArrayList<V>();
+		return searchNodeMin(key, root,players);
+	}
+
+	public ArrayList<V> searchNodeMin(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<V> players) {
+
+		if(assistaNodeAVLTree == null) {
+			return players;
+
+		}else if(key.compareTo(assistaNodeAVLTree.getKey()) >= 0) {
+			players.add(assistaNodeAVLTree.getObject());
+			players = searchNodeMin(key, assistaNodeAVLTree.getRight(),players);
+			players = searchNodeMin(key, assistaNodeAVLTree.getLeft(),players);
+			return players;
+		}
+		else {
+
+			if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
+				return searchNodeMin(key, assistaNodeAVLTree.getLeft(),players);
+
+			}else {
+				return searchNodeMin(key, assistaNodeAVLTree.getRight(),players);
+			}
+		}
+	}
 
 	public ArrayList<NodeAVLTree<K, V>> searchNodeObject(K key){
 		ArrayList<NodeAVLTree<K, V>> players = new ArrayList<NodeAVLTree<K,V>>();

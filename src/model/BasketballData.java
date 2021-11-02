@@ -299,43 +299,55 @@ public class BasketballData {
 		return player;
 	}
 
-	public ArrayList<Players> searchNodeMinAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree,
-			ArrayList<Players> players) {
-		ArrayList<Players> pl = new ArrayList<Players>();
+	public ArrayList<Players> searchNodeMinAVL(int key, String date) {
+		ArrayList<Players> player = new ArrayList<Players>();
 
-		if (assistaNodeAVLTree == null) {
-			pl = players;
+		switch (date) {
+		case "points":
+			player = pointsAVLTree.searchNodeMin(key);
+			break;
 
+		case "bounces":
+			player = bounceAVLTree.searchNodeMin(key);
+			break;
+
+		case "assistence":
+			player = assistanceAVLTree.searchNodeMin(key);
+			break;
+
+		case "blocks":
+			player = blockAVLTree.searchNodeMin(key);
+			break;
+
+		default:
+			break;
 		}
-		if (assistaNodeAVLTree.getKey() <= key) {
-			players.add(assistaNodeAVLTree.getObject());
-
-		} else {
-			if ((Integer) key <= (Integer) assistaNodeAVLTree.getKey()) {
-				pl = searchNodeMinAVL(key, assistaNodeAVLTree.getLeft(), players);
-
-			} else {
-				pl = searchNodeMinAVL(key, assistaNodeAVLTree.getRight(), players);
-			}
-		}
-		return pl;
+		
+		return player;
 	}
 
-	public ArrayList<Players> searchNodeMaxAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree, ArrayList<Players> player) {
+	public ArrayList<Players> searchNodeMaxAVL(int key, String date) {
+		ArrayList<Players> player = new ArrayList<Players>();
 
-		if(assistaNodeAVLTree != null) {
-			if(assistaNodeAVLTree.getLeft() != null && assistaNodeAVLTree.getLeft().getKey() > key) {
-				player.add(assistaNodeAVLTree.getLeft().getObject());
-				searchNodeMaxAVL(key, assistaNodeAVLTree.getLeft(), player);
-				
-			}if(assistaNodeAVLTree.getRight() != null && assistaNodeAVLTree.getRight().getKey() > key) {
-				player.add(assistaNodeAVLTree.getRight().getObject());
-				searchNodeMaxAVL(key, assistaNodeAVLTree.getRight(), player);
-			}
-			if(assistaNodeAVLTree.getDad() != null && assistaNodeAVLTree.getDad().getKey() > key) {
-				player.add(assistaNodeAVLTree.getDad().getObject());
-				searchNodeMaxAVL(key, assistaNodeAVLTree.getDad(), player);
-			}
+		switch (date) {
+		case "points":
+			player = pointsAVLTree.searchNodeMax(key);
+			break;
+
+		case "bounces":
+			player = bounceAVLTree.searchNodeMax(key);
+			break;
+
+		case "assistence":
+			player = assistanceAVLTree.searchNodeMax(key);
+			break;
+
+		case "blocks":
+			player = blockAVLTree.searchNodeMax(key);
+			break;
+
+		default:
+			break;
 		}
 		return player;
 	}
@@ -438,48 +450,40 @@ public class BasketballData {
 		}
 	}
 
-	public ArrayList<Players> searchNodeMinTree(int key, NodoBinaryTree<Players, Integer> assistaNodeTree,
-			ArrayList<Players> players) {
-		ArrayList<Players> pl = new ArrayList<Players>();
+	public ArrayList<Players> searchNodeMaxTree(int key, String date) {
+		ArrayList<Players> player = new ArrayList<Players>();
 
-		if (assistaNodeTree == null) {
-			pl = players;
+		switch (date) {
+		case "assistances":
+			player = assistanceTree.searchNodeMax(key);
+			break;
 
+		case "theft":
+			player = theftTree.searchNodeMax(key);
+			break;
+
+		default:
+			break;
 		}
-		if (assistaNodeTree.getKey() <= key) {
-			players.add(assistaNodeTree.getValue());
-
-		} else {
-			if ((Integer) key <= (Integer) assistaNodeTree.getKey()) {
-				pl = searchNodeMinTree(key, assistaNodeTree.getLeft(), players);
-
-			} else {
-				pl = searchNodeMinTree(key, assistaNodeTree.getRight(), players);
-			}
-		}
-		return pl;
+		return player;
 	}
 
-	public ArrayList<Players> searchNodeMaxTree(int key, NodoBinaryTree<Players, Integer> assistaNodeTree,
-			ArrayList<Players> players) {
-		ArrayList<Players> pl = new ArrayList<Players>();
+	public ArrayList<Players> searchNodeMinTree(int key, String date) {
+		ArrayList<Players> player = new ArrayList<Players>();
 
-		if (assistaNodeTree == null) {
-			pl = players;
+		switch (date) {
+		case "assistances":
+			player = assistanceTree.searchNodeMin(key);
+			break;
 
+		case "theft":
+			player = theftTree.searchNodeMin(key);
+			break;
+
+		default:
+			break;
 		}
-		if (assistaNodeTree.getKey() >= key) {
-			players.add(assistaNodeTree.getValue());
-
-		} else {
-			if ((Integer) key <= (Integer) assistaNodeTree.getKey()) {
-				pl = searchNodeMaxTree(key, assistaNodeTree.getLeft(), players);
-
-			} else {
-				pl = searchNodeMaxTree(key, assistaNodeTree.getRight(), players);
-			}
-		}
-		return pl;
+		return player;
 	}
 
 	public NodoBinaryTree<Players, Integer> searchNodesTheftTree(int key) {

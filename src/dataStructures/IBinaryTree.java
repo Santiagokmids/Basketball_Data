@@ -2,7 +2,7 @@ package dataStructures;
 
 import java.util.ArrayList;
 
-public interface IBinaryTree  <T,K>{
+public interface IBinaryTree<T,K>{
 	
 	public void createTree();
 	public boolean addNode(T value ,K key);
