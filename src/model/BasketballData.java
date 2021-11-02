@@ -105,24 +105,8 @@ public class BasketballData {
 		ObjectOutputStream avlBlock = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_BLOCK));
 		avlBlock.writeObject(blockAVLTree);
 
-<<<<<<< HEAD
-			ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_POINTS));
-			avlPoints.writeObject(pointsAVLTree);
-			System.out.println("7");
-
-			linealTheft.close();
-			bbTheft.close();
-			bbAssistant.close();
-			avlBounce.close();
-			avlAssistance.close();
-			avlBlock.close();
-			avlPoints.close();
-		} catch (IOException e) {
-		}
-=======
 		ObjectOutputStream avlPoints = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_AVL_POINTS));
 		avlPoints.writeObject(pointsAVLTree);
->>>>>>> bf28291b6533331b2d1352ab15238b242c10be5b
 
 		linealTheft.close();
 		bbTheft.close();
