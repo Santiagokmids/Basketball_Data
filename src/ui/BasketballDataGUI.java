@@ -345,6 +345,7 @@ public class BasketballDataGUI {
 		changeAllButton();
 		changeVisibilityAnchor();
 		changeVisibilityMainAnchor();
+		System.out.println(basketData.getPointsAVLTree().getRoot().getObject().getName());
 	}
 
 	private void changeVisibilityMainAnchor() {
@@ -567,11 +568,12 @@ public class BasketballDataGUI {
 				showPlayers(player, message);
 
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesPoint(),player);
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesPoint(),player);
+				System.out.println("sale o que "+player.isEmpty());
 				showPlayers(player, message);
 
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesPoint(),player);
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesPoint(),player);
 				showPlayers(player, message);
 			}
 		} else {
@@ -591,11 +593,11 @@ public class BasketballDataGUI {
 				showPlayers(player, message);
 
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBounce(),player);
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBounce(),player);
 				showPlayers(player, message);
 
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBounce(),player);
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBounce(),player);
 				showPlayers(player, message);
 			}
 		} else {
@@ -616,11 +618,11 @@ public class BasketballDataGUI {
 				showPlayers(player, message);
 
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesAssitence(),player);
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesAssitence(),player);
 				showPlayers(player, message);
 
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesAssitence(),player);
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesAssitence(),player);
 				showPlayers(player, message);
 			}
 		}else if(method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
@@ -631,11 +633,11 @@ public class BasketballDataGUI {
 				showPlayers(player, message);
 
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinTree(date,basketData.searchNodesAssitenceTree(),player);
+				player = basketData.searchNodeMaxTree(date,basketData.searchNodesAssitenceTree(),player);
 				showPlayers(player, message);
 
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxTree(date,basketData.searchNodesAssitenceTree(),player);
+				player = basketData.searchNodeMinTree(date,basketData.searchNodesAssitenceTree(),player);
 				showPlayers(player, message);
 			}
 		}
@@ -670,11 +672,11 @@ public class BasketballDataGUI {
 				showPlayers(player, message);
 
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinTree(date,basketData.searchNodesTheftTree(date),player);
+				player = basketData.searchNodeMaxTree(date,basketData.searchNodesTheftTree(date),player);
 				showPlayers(player, message);
 
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxTree(date,basketData.searchNodesTheftTree(date),player);
+				player = basketData.searchNodeMinTree(date,basketData.searchNodesTheftTree(date),player);
 				showPlayers(player, message);
 			}
 		} 
@@ -696,11 +698,11 @@ public class BasketballDataGUI {
 				showPlayers(player, message);
 
 			}else if(criter == 1) {
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBlocks(),player);
+				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBlocks(),player);
 				showPlayers(player, message);
 
 			}else if(criter == -1) {
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBlocks(),player);
+				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBlocks(),player);
 				showPlayers(player, message);
 			}
 		} else {

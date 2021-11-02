@@ -246,15 +246,15 @@ public class BasketballData {
 			break;
 
 		case "bounces":
-			player = pointsAVLTree.searchNode(key);
+			player = bounceAVLTree.searchNode(key);
 			break;
 
 		case "assistence":
-			player = pointsAVLTree.searchNode(key);
+			player = assistanceAVLTree.searchNode(key);
 			break;
 
 		case "blocks":
-			player = pointsAVLTree.searchNode(key);
+			player = blockAVLTree.searchNode(key);
 			break;
 
 		default:
@@ -284,25 +284,24 @@ public class BasketballData {
 		return pl;
 	}
 
-	public ArrayList<Players> searchNodeMaxAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree, ArrayList<Players> players) {
-		ArrayList<Players> pl = new ArrayList<Players>();
+	public ArrayList<Players> searchNodeMaxAVL(int key, NodeAVLTree<Integer, Players> assistaNodeAVLTree, ArrayList<Players> player) {
 
-		if(assistaNodeAVLTree == null) {
-			pl = players;
-
-		}if(assistaNodeAVLTree.getKey() >= key) {
-			players.add(assistaNodeAVLTree.getObject());
-
-		}
-		else {
-			if((Integer)key <= (Integer)assistaNodeAVLTree.getKey()) {
-				pl = searchNodeMaxAVL(key, assistaNodeAVLTree.getLeft(),players);
-
-			}else {
-				pl = searchNodeMaxAVL(key, assistaNodeAVLTree.getRight(),players);
+		if(assistaNodeAVLTree != null) {
+			if(assistaNodeAVLTree.getLeft() != null && assistaNodeAVLTree.getLeft().getKey() > key) {
+				player.add(assistaNodeAVLTree.getLeft().getObject());
+				searchNodeMaxAVL(key, assistaNodeAVLTree.getLeft(), player);
+				
+			}if(assistaNodeAVLTree.getRight() != null && assistaNodeAVLTree.getRight().getKey() > key) {
+				player.add(assistaNodeAVLTree.getRight().getObject());
+				searchNodeMaxAVL(key, assistaNodeAVLTree.getRight(), player);
+			}
+			if(assistaNodeAVLTree.getDad() != null && assistaNodeAVLTree.getDad().getKey() > key) {
+				player.add(assistaNodeAVLTree.getDad().getObject());
+				searchNodeMaxAVL(key, assistaNodeAVLTree.getDad(), player);
 			}
 		}
-		return pl;
+		return player;
+		
 	}
 
 	public void setPlayers(ArrayList<Players> players) {
