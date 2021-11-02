@@ -14,6 +14,7 @@ import dataStructures.BinaryTree;
 import dataStructures.NodeAVLTree;
 import dataStructures.NodoBinaryTree;
 import thread.BinarySearch;
+import thread.BinarySearchNode;
 
 public class BasketballData {
 
@@ -43,9 +44,10 @@ public class BasketballData {
 		assistanceTree = new BinaryTree<>();
 	}
 
-	public synchronized void addPlayer(String name, String lastName, String team, int age, int points, int bounce,
-			int assistance, int theft, int block) throws IOException {
+	public synchronized void addPlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance, int theft, int block) throws IOException {
+		
 		Players newPlayers = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
+		
 		players.add(newPlayers);
 		pointsAVLTree.addNode(points, newPlayers);
 		bounceAVLTree.addNode(bounce, newPlayers);
@@ -56,33 +58,42 @@ public class BasketballData {
 		saveData();
 	}
 
-	public void modify(Players player, String name, String lastName, String team, int age, int points, int bounce,
-			int assistance, int theft, int block) throws IOException, ClassNotFoundException {
-		loadData();
-		Players nwPlayer = new Players(name, lastName, team, age, points, bounce, assistance, theft, block);
-		System.out.println(player.getAssistance() + "   data 63");
-	searchPlayers(nwPlayer,player.getName(), player.getLastName(), player.getAge(), player.getTeam(),
-				player.getPoints(), player.getBounce(), player.getAssistance(), player.getTheft(), player.getBlock());
-		
-	}
-
-	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance,
-			int theft, int block) throws IOException {
+	public void deletePlayer(String name, String lastName, String team, int age, int points, int bounce, int assistance,int theft, int block) throws IOException, InterruptedException {
 
 		deleteInArray(name, lastName);
+		
+		ArrayList<NodeAVLTree<Integer, Players>> nodeAVLTreePoints = pointsAVLTree.searchNodeObject(points);
+		NodeAVLTree<Integer, Players> nodeAvlPoint = startThreads(nodeAVLTreePoints, name, lastName, age, team, points, bounce, assistance, theft, block);
+		System.out.println(nodeAvlPoint);
+		ArrayList<NodeAVLTree<Integer, Players>> nodeAVLTreeBounce = bounceAVLTree.searchNodeObject(bounce);
+		NodeAVLTree<Integer, Players> nodeAvlBounce = startThreads(nodeAVLTreeBounce, name, lastName, age, team, points, bounce, assistance, theft, block);
+		
+		ArrayList<NodeAVLTree<Integer, Players>> nodeAVLTreeAssistance = assistanceAVLTree.searchNodeObject(assistance);
+		NodeAVLTree<Integer, Players> nodeAvlAssistence = startThreads(nodeAVLTreeAssistance, name, lastName, age, team, points, bounce, assistance, theft, block);
+		
+		ArrayList<NodeAVLTree<Integer, Players>> nodeAVLTreeBlock = blockAVLTree.searchNodeObject(block);
+		NodeAVLTree<Integer, Players> nodeAvlBlock = startThreads(nodeAVLTreeBlock, name, lastName, age, team, points, bounce, assistance, theft, block);
+		
+		NodoBinaryTree<Players, Integer> nodeTreeAssistence = assistanceTree.searchNodeObject(assistance);
+		NodoBinaryTree<Players, Integer> nodeTreeTheft = theftTree.searchNodeObject(theft);
 
-		NodeAVLTree<Integer, Players> nodeAVLTree = pointsAVLTree.searchNodeObject(points);
-		NodoBinaryTree<Players, Integer> nodeTree = assistanceTree.searchNodeObject(assistance);
-
-		if (nodeAVLTree != null && nodeTree != null) {
-			pointsAVLTree.deleteNode(nodeAVLTree);
-			bounceAVLTree.deleteNode(nodeAVLTree);
-			assistanceAVLTree.deleteNode(nodeAVLTree);
-			blockAVLTree.deleteNode(nodeAVLTree);
-			theftTree.deleteNode(nodeTree);
-			assistanceTree.deleteNode(nodeTree);
+		if (nodeAvlPoint != null && nodeAvlBounce != null && nodeAvlAssistence != null && nodeAvlBlock != null) {
+			pointsAVLTree.deleteNode(nodeAvlPoint);
+			bounceAVLTree.deleteNode(nodeAvlBounce);
+			assistanceAVLTree.deleteNode(nodeAvlAssistence);
+			blockAVLTree.deleteNode(nodeAvlBlock);
+			theftTree.deleteNode(nodeTreeTheft);
+			assistanceTree.deleteNode(nodeTreeAssistence);
 		}
+		
 		saveData();
+	}
+	
+	public NodeAVLTree<Integer, Players> startThreads(ArrayList<NodeAVLTree<Integer, Players>> nodes, String name, String lastName, int age, String team, int points, int bounce, int assistance, int theft, int block) throws InterruptedException {
+		BinarySearchNode binary = new BinarySearchNode(nodes, name, lastName, age, team, points, bounce, assistance, theft, block);
+		binary.start();
+		binary.join();
+		return binary.getNewPlayer();
 	}
 
 	public void saveData() throws IOException {
@@ -225,13 +236,15 @@ public class BasketballData {
 		return player;
 	}
 
-	public void deleteInArray(String name, String lastName) {
+	public void deleteInArray(String name, String lastName) throws IOException {
+		
 		for (int i = 0; i < players.size(); i++) {
-			if (name.equalsIgnoreCase(players.get(i).getName())
-					&& lastName.equalsIgnoreCase(players.get(i).getLastName())) {
+			
+			if (name.equalsIgnoreCase(players.get(i).getName()) && lastName.equalsIgnoreCase(players.get(i).getLastName())) {
 				players.remove(i);
 			}
 		}
+		saveData();
 	}
 
 	public NodeAVLTree<Integer, Players> searchNodesPoint() {
@@ -325,86 +338,20 @@ public class BasketballData {
 		return players;
 	}
 
-	public Players searchPlayer(String name, String lastName, int age, String team, int points, int bounce,
-			int assistance, int theft, int block) {
+	public Players searchPlayer(String name, String lastName, int age, String team, int points, int bounce,int assistance, int theft, int block) {
 		ArrayList<Players> player;
-		Players newPlayers = null;
 
 		player = pointsAVLTree.searchNode(points);
 
-		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance,
-				theft, block);
+		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance,	theft, block);
 		binarySearch.start();
-		try {
-			binarySearch.join();
-		} catch (InterruptedException e) {
-		}
-		newPlayers = binarySearch.getNewPlayer();
-
-		return newPlayers;
-	}
-
-	public void searchPlayers(Players newPlayer, String name, String lastName, int age, String team, int points,
-			int bounce, int assistance, int theft, int block) throws IOException {
-		ArrayList<Players> player = pointsAVLTree.searchNode(points);
-		ArrayList<Players> player1 = bounceAVLTree.searchNode(bounce);
-		ArrayList<Players> player2 = assistanceAVLTree.searchNode(assistance);
-		ArrayList<Players> player3 = blockAVLTree.searchNode(block);
-		NodoBinaryTree<Players, Integer> p = assistanceTree.searchNode(assistance);
 		
-		System.out.println(p + " aaaa 357 data" );
-		p.setKey(newPlayer.getAssistance());
-		p.setValue(newPlayer);
-		p = theftTree.searchNode(theft);
-		p.setKey(newPlayer.getAssistance());
-		p.setValue(newPlayer);
-		BinarySearch binarySearch = new BinarySearch(player, name, lastName, age, team, points, bounce, assistance,
-				theft, block);
-		binarySearch.start();
-
-		BinarySearch binarySearch1 = new BinarySearch(player1, name, lastName, age, team, points, bounce, assistance,
-				theft, block);
-		binarySearch1.start();
-		BinarySearch binarySearch2 = new BinarySearch(player2, name, lastName, age, team, points, bounce, assistance,
-				theft, block);
-		binarySearch2.start();
-		BinarySearch binarySearch3 = new BinarySearch(player3, name, lastName, age, team, points, bounce, assistance,
-				theft, block);
-		binarySearch3.start();
-		BinarySearch binarySearch4 = new BinarySearch(getPlayers(), name, lastName, age, team, points, bounce,
-				assistance, theft, block);
-		binarySearch4.start();
 		try {
 			binarySearch.join();
-			binarySearch1.join();
-			binarySearch2.join();
-			binarySearch3.join();
-			binarySearch4.join();
 		} catch (InterruptedException e) {
 		}
-		Players p1 = binarySearch.getNewPlayer();
-		setDates(p1, newPlayer);
-		p1 = binarySearch1.getNewPlayer();
-		setDates(p1, newPlayer);
-		p1 = binarySearch2.getNewPlayer();
-		setDates(p1, newPlayer);
-		p1 = binarySearch3.getNewPlayer();
-		setDates(p1, newPlayer);
-		p1 = binarySearch4.getNewPlayer();
-		setDates(p1, newPlayer);
-	}
-	
-	public void setDates(Players player1 , Players p2) throws IOException {
-		System.out.println("aa  "+  player1 + "  "+ p2);
-		player1.setAge(p2.getAge());
-		player1.setName(p2.getName());
-		player1.setAssistance(p2.getAssistance());
-		player1.setLastName(p2.getLastName());
-		player1.setBlock(p2.getBlock());
-		player1.setBounce(p2.getBounce());
-		player1.setPoints(p2.getPoints());
-		player1.setTeam(p2.getTeam());
-		saveData();
+
+		return binarySearch.getNewPlayer();
 	}
 
 	public AVLTree<Integer, Players> getPointsAVLTree() {
@@ -464,9 +411,8 @@ public class BasketballData {
 
 		if (assistaNodeTree == null) {
 			return players;
-
 		}
-		if (assistaNodeTree.getKey() == key) {
+		if (assistaNodeTree != null && assistaNodeTree.getKey() == key) {
 			stop = true;
 			players.add(assistaNodeTree.getValue());
 

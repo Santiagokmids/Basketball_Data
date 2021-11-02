@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private NodeAVLTree<K, V> root;
 
 	public AVLTree() {
@@ -69,11 +69,10 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 				addNode(assistaNodeAVLTree.getRight(), newNodeAVLTree);//AQUI SE REPITE
 			}
 		}
-		
-		
+
 		updateHeight(newNodeAVLTree.getDad());
 		balanceTree(root);
-		
+
 		return verify;
 	}
 
@@ -81,9 +80,9 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 	public boolean deleteNode(NodeAVLTree<K, V> node) {
 
 		boolean verify = false;
-		
+
 		if (node.getLeft() == null && node.getRight() == null) {
-			
+
 			if (node == root) {
 				root = null;
 				updateHeight(node);
@@ -139,7 +138,7 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 				deleteNode(successor);
 
 			}else {
-				NodeAVLTree<K, V> predecessor = successor(node.getRight());
+				NodeAVLTree<K, V> predecessor = predecessor(node.getLeft());
 				node.setObject(predecessor.getObject());
 				node.setKey(predecessor.getKey());
 				deleteNode(predecessor);
@@ -184,7 +183,7 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 		case 2: 
 			if(node.getLeft() != null && node.getLeft().getBalanced() != 1) {
 				rigthTraslate(node);
-				
+
 			}else if(node.getLeft() != null && node.getLeft().getBalanced() == 1){
 				doubleRightTranslate(node);
 			}
@@ -266,10 +265,10 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 	}
 
 	public ArrayList<V> searchNode(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<V> players, boolean stop) {
-		
+
 		if(assistaNodeAVLTree == null) {
 			return players;
-			
+
 		}else if(assistaNodeAVLTree.getKey().equals(key)) {
 			stop = true;
 			players.add(assistaNodeAVLTree.getObject());
@@ -287,20 +286,33 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 			}
 		}
 	}
-	
-	public NodeAVLTree<K, V> searchNodeObject(K key){
-		return searchNodeObject(root, key);
+
+	public ArrayList<NodeAVLTree<K, V>> searchNodeObject(K key){
+		ArrayList<NodeAVLTree<K, V>> players = new ArrayList<NodeAVLTree<K,V>>();
+		boolean stop = false;
+		return searchNodeObject(root, key, players, stop);
 	}
-	
-	public NodeAVLTree<K, V> searchNodeObject(NodeAVLTree<K, V> current, K key) {
-		
-		if(current == null || current.getKey() == key) {
-			return current;
-		}else {
+
+	public ArrayList<NodeAVLTree<K, V>> searchNodeObject(NodeAVLTree<K, V> current, K key, ArrayList<NodeAVLTree<K, V>> players, boolean stop) {
+
+
+		if(current == null) {
+			return players;
+
+		}else if(current.getKey().equals(key)) {
+			stop = true;
+			players.add(current);
+
+		}if(!current.getKey().equals(key) && stop) {
+			return players;
+		}
+		else {
+
 			if(key.compareTo(current.getKey()) <= 0) {
-				return searchNodeObject(current.getLeft(), key);
+				return searchNodeObject(current.getLeft(),key,players,stop);
+
 			}else {
-				return searchNodeObject(current.getRight(), key);
+				return searchNodeObject(current.getRight(),key,players,stop);
 			}
 		}
 	}
@@ -350,4 +362,5 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 		}
 		return message;
 	}
+
 }

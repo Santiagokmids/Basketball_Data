@@ -7,6 +7,8 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import model.BasketballData;
+import thread.BinarySearch;
+import thread.BinarySearchNode;
 import thread.SearchByName;
 
 class BasketballDataTest<K extends Comparable<K>, V> {
@@ -15,23 +17,8 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 		private AVLTree<K, V> treeAvl;
 		private BinaryTree<V,K> biTree;
 		private BasketballData bt;
-		public void setupScenaryL() {
-			treeAvl = new AVLTree<K,V>();
-		}
-			
-		public void setupScenary() {
-			setupScenaryL();
-			treeAvl.addNode(k, v);		
-			treeAvl.addNode(k, v);
-		}
-		public void setupScenaryt() {
-			biTree = new BinaryTree<V,K>();
-		}
-		public void setupScenaryBt() {
-			setupScenaryt();
-			biTree.addNode(v, k);
-			biTree.addNode(v, k);
-		}
+		private BinarySearchNode bns;
+		
 		public void setupScenary1() {
 			bt = new BasketballData();
 		}
@@ -63,12 +50,30 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 			bt.addPlayer("Juan","Reyes","Bulls",20,28,9,6,2,3);
 			bt.addPlayer("Luis","Diaz","Lw",21,29,10,7,3,4);
 		}
-
-		
-		@Test
-		void testAddPlayerAVL() {
+		public void setupScenary7() {
+			biTree = new BinaryTree<V,K>();
+		}
+		public void septupScenary8() {
+			setupScenary7();
+			biTree.addNode(v, k);
 			
 		}
+		
+		public void setupScenary9() {
+			setupScenary7();
+			biTree.addNode(v, k);
+			biTree.addNode(v, k);
+		}
+		public void setupScenary10() {
+			treeAvl = new AVLTree<K,V>();
+		}
+			
+		public void setupScenary11() {
+			setupScenary10();
+			treeAvl.addNode(k, v);		
+			treeAvl.addNode(k, v);
+		}
+		
 		@Test
 		void testCreateNode() throws IOException {
 			setupScenary3();		
@@ -78,7 +83,7 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 			
 		}
 		@Test
-		void testDeleteNode() throws IOException  {
+		void testDeleteNode() throws IOException, InterruptedException  {
 			setupScenary4();
 			bt.deletePlayer("Luis","Ossa","Spurs",22,32,13,10,4,10);
 			assertEquals("12 ",bt.getAssistanceTree().searchInOrder(bt.getAssistanceTree().getRoot()));
@@ -94,7 +99,7 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 			assertEquals("24 26 28 29 ",bt.getPointsAVLTree().searchInOrder(bt.getPointsAVLTree().getRoot()));
 		}
 		@Test
-		void testDeleteAvl() throws IOException {
+		void testDeleteAvl() throws IOException, InterruptedException {
 			setupScenary6();	
 			bt.deletePlayer("Juan","Reyes","Bulls",20,28,9,6,2,3);
 			assertEquals("24 26 29 ",bt.getPointsAVLTree().searchInOrder(bt.getPointsAVLTree().getRoot()));
@@ -121,24 +126,25 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 		}
 		@Test
 		void testAddObjectAVl() {
-			setupScenary();
+			setupScenary11();
 			assertEquals(2, treeAvl.height(treeAvl.getRoot()));
 		}
 		@Test
 		void testAddObjectBinary() {
-			setupScenaryt();
+			setupScenary7();
 			assertTrue(biTree.addNode(v, k));
 		}
 		@Test
 		void testDeleteAVl() {
-			setupScenary();
-			treeAvl.deleteNode(treeAvl.searchNodeObject(k));
+			setupScenary11();			
+			treeAvl.deleteNode(treeAvl.getRoot());
 			assertEquals(1, treeAvl.height(treeAvl.getRoot()));
 		}
 		@Test
 		void testDeleteBinary() {
-			setupScenaryt();
-			biTree.addNode(v, k);
+			septupScenary8();
+			biTree.deleteNode(k);
+			assertNull(biTree.getRoot());
 		}
 	}
 

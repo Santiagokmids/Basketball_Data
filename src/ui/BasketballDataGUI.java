@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -291,7 +290,7 @@ public class BasketballDataGUI {
 	private String direction = "";
 
 	public static ObservableList<Players> listPlayers;
-	public Players playerGlo;
+	public Players current;
 
 	public BasketballDataGUI(BasketballData basketballData) {
 		this.basketData = basketballData;
@@ -911,6 +910,7 @@ public class BasketballDataGUI {
 	@FXML
 	public void btnModify(ActionEvent event) {
 		Players players = (Players) this.tvPlayers.getSelectionModel().getSelectedItem();
+		
 		if (players == null) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -928,24 +928,18 @@ public class BasketballDataGUI {
 				Scene scene = new Scene(root);
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
-				lblName.setText(players.getName());
-				lblLastName.setText(players.getLastName());
-				lblAge.setText(players.getAge() + "");
-				lblBlock.setText(players.getBlock() + "");
-				lblAssistance.setText(players.getAssistance() + "");
-				lblTeam.setText(players.getTeam());
-				lblTheft.setText(players.getTheft() + "");
-				lblBounce.setText(players.getBounce() + "");
-				lblPoints.setText(players.getPoints() + "");
+				
+				putDatesInTextFields(players);
+				
 				int age = Integer.parseInt(lblAge.getText());
-				int poinst = Integer.parseInt(lblPoints.getText());
+				int points = Integer.parseInt(lblPoints.getText());
 				int bounce = Integer.parseInt(lblBounce.getText());
 				int assistan = Integer.parseInt(lblAssistance.getText());
-				int thef = Integer.parseInt(lblTheft.getText());
+				int theft = Integer.parseInt(lblTheft.getText());
 				int block = Integer.parseInt(lblBlock.getText());
-				playerGlo = new Players(lblName.getText(), lblLastName.getText(), lblTeam.getText(), age, poinst,
-						bounce, assistan, thef, block);
-
+				
+				current = new Players(lblName.getText(), lblLastName.getText(), lblTeam.getText(), age, points, bounce, assistan, theft, block);
+				
 				stage.setScene(scene);
 				stage.showAndWait();
 
@@ -954,6 +948,20 @@ public class BasketballDataGUI {
 			} catch (IOException e) {
 			}
 		}
+	}
+	
+	public void putDatesInTextFields(Players player) {
+		
+		lblName.setText(player.getName());
+		lblLastName.setText(player.getLastName());
+		lblTeam.setText(player.getTeam());
+		lblAge.setText(player.getAge()+"");
+		
+		lblPoints.setText(player.getPoints()+"");
+		lblBounce.setText(player.getBounce()+"");
+		lblAssistance.setText(player.getAssistance()+"");
+		lblTheft.setText(player.getTheft()+"");
+		lblBlock.setText(player.getBlock()+"");
 	}
 
 	@FXML
@@ -984,31 +992,43 @@ public class BasketballDataGUI {
 	}
 
 	@FXML
-	public void btnSave(ActionEvent event) throws IOException, ClassNotFoundException {
+	public void btnSave(ActionEvent event) throws InterruptedException, IOException {
+		
 		int age = Integer.parseInt(lblAge.getText());
-		int poinst = Integer.parseInt(lblPoints.getText());
+		int points = Integer.parseInt(lblPoints.getText());
 		int bounce = Integer.parseInt(lblBounce.getText());
-		int assistan = Integer.parseInt(lblAssistance.getText());
-		int thef = Integer.parseInt(lblTheft.getText());
+		int assistances = Integer.parseInt(lblAssistance.getText());
+		int theft = Integer.parseInt(lblTheft.getText());
 		int block = Integer.parseInt(lblBlock.getText());
-		basketData.modify(playerGlo, lblName.getText(), lblLastName.getText(), lblTeam.getText(), age, poinst, bounce,
-				assistan, thef, block);
-
-		new Thread() {
-			public void run() {
-
-				Platform.runLater(new Thread() {
-					public void run() {
-						inicializateTableView();
-					}
-				});
-
-			}
-		}.start();
+		
+		SearchByName search = new SearchByName(basketData.getPlayers(), tfName.getText(), tfLastName.getText(),age);
+		search.start();
+		search.join();
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		
+		if(!search.getVerify()) {
+			
+			basketData.deleteInArray(current.getName(), current.getLastName());
+			basketData.deletePlayer(current.getName(), current.getLastName(), current.getTeam(), current.getAge(), current.getPoints(), current.getBounce(), current.getAssistance(), current.getTheft(), current.getBlock());
+			
+			basketData.addPlayer(lblName.getText(), lblLastName.getText(), lblTeam.getText(), age, points, bounce, assistances, theft, block);
+			
+			alert.setTitle("EXCELENTE");
+			alert.setHeaderText("Se ha modificado exitosamente");
+			alert.showAndWait();
+			inicializateTableView();
+			
+		}else {
+			alert.setAlertType(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setHeaderText("NO se ha modificado a este jugador");
+			alert.setContentText("Ya existe un jugador en la base de datos con ese nombre y edad");
+			alert.showAndWait();
+		}
 
 		Stage stage = (Stage) this.btnSave.getScene().getWindow();
 		stage.close();
-
 	}
 
 	@FXML
@@ -1029,8 +1049,7 @@ public class BasketballDataGUI {
 				int theft = Integer.parseInt(tfTheft.getText());
 				int block = Integer.parseInt(tfBlock.getText());
 
-				SearchByName search = new SearchByName(basketData.getPlayers(), tfName.getText(), tfLastName.getText(),
-						age);
+				SearchByName search = new SearchByName(basketData.getPlayers(), tfName.getText(), tfLastName.getText(),age);
 				search.start();
 				search.join();
 
@@ -1043,8 +1062,7 @@ public class BasketballDataGUI {
 
 						alert.setTitle("EXCELENTE");
 						alert.setHeaderText("Se ha registrado exitosamente");
-						alert.setContentText("Se ha registrado a " + tfName.getText() + " " + tfLastName.getText()
-								+ " exitosamente");
+						alert.setContentText("Se ha registrado a " + tfName.getText() + " " + tfLastName.getText()+" exitosamente");
 						alert.showAndWait();
 						players = 0;
 					} else {
@@ -1090,7 +1108,7 @@ public class BasketballDataGUI {
 	}
 
 	@FXML
-	public void btnDelete(ActionEvent event) throws IOException {
+	public void btnDelete(ActionEvent event) throws IOException, InterruptedException {
 
 		Alert alert = new Alert(AlertType.INFORMATION);
 

@@ -35,13 +35,14 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 		return verify;
 	}
 
-	private void addNode(NodoBinaryTree<T,K> current, NodoBinaryTree<T,K> newNode) {
+	private boolean addNode(NodoBinaryTree<T,K> current, NodoBinaryTree<T,K> newNode) {
 
-		if((newNode.getKey()).compareTo(current.getKey()) <= 0) {
+		if(current != null && newNode != null && (newNode.getKey()).compareTo(current.getKey()) <= 0) {
 
 			if(current.getLeft() == null) {
 				current.setLeft(newNode);
 				newNode.setParent(current);
+				return true;
 
 			}else {
 				addNode(current.getLeft(), newNode);
@@ -50,11 +51,13 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 			if(current.getRight() == null) {
 				current.setRight(newNode);
 				newNode.setParent(current);
+				return true;
 
 			}else {
 				addNode(current.getRight(), newNode);
 			}
 		}
+		return false;
 	}
 
 	@Override
@@ -123,7 +126,7 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 				deleteNode(successor);
 
 			}else {
-				NodoBinaryTree<T,K> predecessor = successor(node.getRight());
+				NodoBinaryTree<T,K> predecessor = predecessor(node.getLeft());
 				node.setValue(predecessor.getValue());
 				node.setKey(predecessor.getKey());
 				deleteNode(predecessor);
@@ -143,13 +146,11 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 		} else {
 			newNode = current;
 		}
-
 		return newNode;
 	}
 
 	@Override
 	public NodoBinaryTree<T, K> searchNode(K key) {
-		System.out.println(root + "  binarytree 152");
 		return searchNode(root, key);
 	}
 
@@ -161,8 +162,6 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 			newN = current;
 
 		} else {
-
-
 
 			if (current.getLeft() != null && key.compareTo(current.getKey())<= 0) {
 				
