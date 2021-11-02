@@ -144,5 +144,3 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 			assertNull(biTree.getRoot());
 		}
 	}
-
-
