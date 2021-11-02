@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import model.BasketballData;
 import thread.BinarySearch;
+import thread.BinarySearchNode;
 import thread.SearchByName;
 
 class BasketballDataTest<K extends Comparable<K>, V> {
@@ -16,7 +17,7 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 		private AVLTree<K, V> treeAvl;
 		private BinaryTree<V,K> biTree;
 		private BasketballData bt;
-		private BinarySearch bns;
+		private BinarySearchNode bns;
 		
 		public void setupScenary1() {
 			bt = new BasketballData();
@@ -135,9 +136,9 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 		}
 		@Test
 		void testDeleteAVl() {
-			setupScenary11();
-			//treeAvl.deleteNode(bns.sear);
-			assertEquals(2, treeAvl.height(treeAvl.getRoot()));
+			setupScenary11();			
+			treeAvl.deleteNode(treeAvl.getRoot());
+			assertEquals(1, treeAvl.height(treeAvl.getRoot()));
 		}
 		@Test
 		void testDeleteBinary() {
