@@ -957,7 +957,6 @@ public class BasketballDataGUI {
 		
 		if(!search.getVerify()) {
 			
-			basketData.deleteInArray(current.getName(), current.getLastName());
 			basketData.deletePlayer(current.getName(), current.getLastName(), current.getTeam(), current.getAge(), current.getPoints(), current.getBounce(), current.getAssistance(), current.getTheft(), current.getBlock());
 			
 			basketData.addPlayer(lblName.getText(), lblLastName.getText(), lblTeam.getText(), age, points, bounce, assistances, theft, block);

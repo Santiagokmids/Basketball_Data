@@ -260,59 +260,61 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 	@Override
 	public ArrayList<V> searchNode(K key) {
 		ArrayList<V> players = new ArrayList<V>();
-		boolean stop = false;
-		return searchNode(key, root,players, stop);
+		return searchNode(key, root,players);
 	}
 
-	public ArrayList<V> searchNode(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<V> players, boolean stop) {
+	public ArrayList<V> searchNode(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<V> players) {
 
 		if(assistaNodeAVLTree == null) {
 			return players;
 
 		}else if(assistaNodeAVLTree.getKey().equals(key)) {
-			stop = true;
 			players.add(assistaNodeAVLTree.getObject());
+			
+			if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
+				return searchNode(key, assistaNodeAVLTree.getLeft(),players);
 
-		}if(!assistaNodeAVLTree.getKey().equals(key) && stop) {
-			return players;
+			}else {
+				return searchNode(key, assistaNodeAVLTree.getRight(),players);
+			}
 		}
 		else {
 
 			if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
-				return searchNode(key, assistaNodeAVLTree.getLeft(),players,stop);
+				return searchNode(key, assistaNodeAVLTree.getLeft(),players);
 
 			}else {
-				return searchNode(key, assistaNodeAVLTree.getRight(),players,stop);
+				return searchNode(key, assistaNodeAVLTree.getRight(),players);
 			}
 		}
 	}
 
 	public ArrayList<NodeAVLTree<K, V>> searchNodeObject(K key){
 		ArrayList<NodeAVLTree<K, V>> players = new ArrayList<NodeAVLTree<K,V>>();
-		boolean stop = false;
-		return searchNodeObject(root, key, players, stop);
+		return searchNodeObject(root, key, players);
 	}
 
-	public ArrayList<NodeAVLTree<K, V>> searchNodeObject(NodeAVLTree<K, V> current, K key, ArrayList<NodeAVLTree<K, V>> players, boolean stop) {
-
+	public ArrayList<NodeAVLTree<K, V>> searchNodeObject(NodeAVLTree<K, V> current, K key, ArrayList<NodeAVLTree<K, V>> players) {
 
 		if(current == null) {
 			return players;
 
 		}else if(current.getKey().equals(key)) {
-			stop = true;
 			players.add(current);
-
-		}if(!current.getKey().equals(key) && stop) {
-			return players;
-		}
-		else {
-
 			if(key.compareTo(current.getKey()) <= 0) {
-				return searchNodeObject(current.getLeft(),key,players,stop);
+				return searchNodeObject(current.getLeft(),key,players);
 
 			}else {
-				return searchNodeObject(current.getRight(),key,players,stop);
+				return searchNodeObject(current.getRight(),key,players);
+			}
+
+		}
+		else {
+			if(key.compareTo(current.getKey()) <= 0) {
+				return searchNodeObject(current.getLeft(),key,players);
+
+			}else {
+				return searchNodeObject(current.getRight(),key,players);
 			}
 		}
 	}
