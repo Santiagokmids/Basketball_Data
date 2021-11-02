@@ -13,6 +13,7 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 		private K k;
 		private V v;
 		private AVLTree<K, V> treeAvl;
+		private BinaryTree<V,K> biTree;
 		private BasketballData bt;
 		public void setupScenaryL() {
 			treeAvl = new AVLTree<K,V>();
@@ -23,8 +24,14 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 			treeAvl.addNode(k, v);		
 			treeAvl.addNode(k, v);
 		}
-		
-
+		public void setupScenaryt() {
+			biTree = new BinaryTree<V,K>();
+		}
+		public void setupScenaryBt() {
+			setupScenaryt();
+			biTree.addNode(v, k);
+			biTree.addNode(v, k);
+		}
 		public void setupScenary1() {
 			bt = new BasketballData();
 		}
@@ -44,8 +51,10 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 		}
 
 		public void setupScenary5() throws IOException {
+			
 			setupScenary2();
 			bt.addPlayer("Juan","Angulo","Reds",19,26,7,4,1,2);
+			
 		}
 
 		public void setupScenary6() throws IOException  {
@@ -114,6 +123,22 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 		void testAddObjectAVl() {
 			setupScenary();
 			assertEquals(2, treeAvl.height(treeAvl.getRoot()));
+		}
+		@Test
+		void testAddObjectBinary() {
+			setupScenaryt();
+			assertTrue(biTree.addNode(v, k));
+		}
+		@Test
+		void testDeleteAVl() {
+			setupScenary();
+			treeAvl.deleteNode(treeAvl.searchNodeObject(k));
+			assertEquals(1, treeAvl.height(treeAvl.getRoot()));
+		}
+		@Test
+		void testDeleteBinary() {
+			setupScenaryt();
+			biTree.addNode(v, k);
 		}
 	}
 
