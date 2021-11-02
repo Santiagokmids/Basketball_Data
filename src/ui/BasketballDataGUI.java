@@ -694,7 +694,6 @@ public class BasketballDataGUI {
 			if(criter == 0) {
 				player = basketData.searchNodeEqualsAVL(date, type);
 				showPlayers(player, message);
-
 			}else if(criter == 1) {
 				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBlocks(),player);
 				showPlayers(player, message);

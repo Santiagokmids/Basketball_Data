@@ -112,7 +112,6 @@ public class BasketballData {
 			avlBlock.close();
 			avlPoints.close();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 	}
