@@ -63,7 +63,11 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 			bt.addPlayer("Juan","Reyes","Bulls",20,28,9,6,2,3);
 			bt.addPlayer("Luis","Diaz","Lw",21,29,10,7,3,4);
 		}
-
+		public void septupScenary7() {
+			setupScenaryt();
+			biTree.addNode(v, k);
+			
+		}
 		
 		@Test
 		void testAddPlayerAVL() {
@@ -137,8 +141,9 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 		}
 		@Test
 		void testDeleteBinary() {
-			setupScenaryt();
-			biTree.addNode(v, k);
+			septupScenary7();
+			biTree.deleteNode(k);
+			assertNull(biTree.getRoot());
 		}
 	}
 
