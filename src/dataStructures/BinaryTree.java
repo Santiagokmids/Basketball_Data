@@ -188,6 +188,62 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 	public void setRoot(NodoBinaryTree<T,K> root) {
 		this.root = root;
 	}
+	
+	public ArrayList<T> searchNodeMax(K key) {
+		ArrayList<T> players = new ArrayList<T>();
+		return searchNodeMax(key, root, players);
+	}
+
+	public ArrayList<T> searchNodeMax(K key, NodoBinaryTree<T, K> assistaNode, ArrayList<T> players) {
+		
+		if(assistaNode == null) {
+			return players;
+
+		}else if(key.compareTo(assistaNode.getKey()) <= 0) {
+			
+			players.add(assistaNode.getValue());
+			players = searchNodeMax(key, assistaNode.getRight(),players);
+			players = searchNodeMax(key, assistaNode.getLeft(),players);
+			return players;
+		}
+		else {
+
+			if(key.compareTo(assistaNode.getKey()) <= 0) {
+				return searchNodeMax(key, assistaNode.getRight(),players);
+
+			}else {
+				return searchNodeMax(key, assistaNode.getLeft(),players);
+			}
+		}
+	}
+	
+	public ArrayList<T> searchNodeMin(K key) {
+		ArrayList<T> players = new ArrayList<T>();
+		return searchNodeMin(key, root, players);
+	}
+
+	public ArrayList<T> searchNodeMin(K key, NodoBinaryTree<T, K> assistaNode, ArrayList<T> players) {
+		
+		if(assistaNode == null) {
+			return players;
+
+		}else if(key.compareTo(assistaNode.getKey()) >= 0) {
+			
+			players.add(assistaNode.getValue());
+			players = searchNodeMin(key, assistaNode.getRight(),players);
+			players = searchNodeMin(key, assistaNode.getLeft(),players);
+			return players;
+		}
+		else {
+
+			if(key.compareTo(assistaNode.getKey()) <= 0) {
+				return searchNodeMin(key, assistaNode.getLeft(),players);
+
+			}else {
+				return searchNodeMin(key, assistaNode.getRight(),players);
+			}
+		}
+	}
 
 	public String searchInOrder(NodoBinaryTree<T, K> node) {
 		String message = "";

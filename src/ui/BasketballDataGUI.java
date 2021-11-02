@@ -572,13 +572,13 @@ public class BasketballDataGUI {
 
 			}else if(criter == 1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesPoint(),player);
+				player = basketData.searchNodeMaxAVL(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 
 			}else if(criter == -1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesPoint(),player);
+				player = basketData.searchNodeMinAVL(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 			} 
@@ -605,13 +605,13 @@ public class BasketballDataGUI {
 
 			}else if(criter == 1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBounce(),player);
+				player = basketData.searchNodeMaxAVL(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 
 			}else if(criter == -1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBounce(),player);
+				player = basketData.searchNodeMinAVL(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 			} 
@@ -623,12 +623,11 @@ public class BasketballDataGUI {
 	public void searchAssistence(String method, int criter, int date) {
 		String message = "El o los jugadores encontrados son: \n";
 		ArrayList<Players> player = new ArrayList<Players>();
+		String type = "assistence";
 		long start;
 		long end;
 
 		if (method.equalsIgnoreCase("Árbol Binario Balanceado")) {
-
-			String type = "assistence";
 
 			if (criter == 0) {
 				start = System.nanoTime();
@@ -638,13 +637,13 @@ public class BasketballDataGUI {
 
 			}else if(criter == 1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesAssitence(),player);
+				player = basketData.searchNodeMaxAVL(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 
 			}else if(criter == -1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesAssitence(),player);
+				player = basketData.searchNodeMinAVL(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 			} 
@@ -659,13 +658,13 @@ public class BasketballDataGUI {
 
 			}else if(criter == 1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMaxTree(date,basketData.searchNodesAssitenceTree(),player);
+				player = basketData.searchNodeMaxTree(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 
 			}else if(criter == -1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMinTree(date,basketData.searchNodesAssitenceTree(),player);
+				player = basketData.searchNodeMinTree(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 			}
@@ -701,7 +700,9 @@ public class BasketballDataGUI {
 				showPlayers(player, message, (end-start));
 			}
 		} else if (method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
-
+			
+			String type = "theft";
+			
 			if (criter == 0) {
 				boolean stop = false;
 				start = System.nanoTime();
@@ -711,13 +712,13 @@ public class BasketballDataGUI {
 
 			}else if(criter == 1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMaxTree(date,basketData.searchNodesTheftTree(date),player);
+				player = basketData.searchNodeMaxTree(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 
 			}else if(criter == -1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMinTree(date,basketData.searchNodesTheftTree(date),player);
+				player = basketData.searchNodeMinTree(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 			}
@@ -743,13 +744,13 @@ public class BasketballDataGUI {
 				showPlayers(player, message, (end-start));
 			}else if(criter == 1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMaxAVL(date,basketData.searchNodesBlocks(),player);
+				player = basketData.searchNodeMaxAVL(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 
 			}else if(criter == -1) {
 				start = System.nanoTime();
-				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBlocks(),player);
+				player = basketData.searchNodeMinAVL(date, type);
 				end = System.nanoTime();
 				showPlayers(player, message, (end-start));
 			}
