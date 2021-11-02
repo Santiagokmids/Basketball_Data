@@ -345,7 +345,6 @@ public class BasketballDataGUI {
 		changeAllButton();
 		changeVisibilityAnchor();
 		changeVisibilityMainAnchor();
-		System.out.println(basketData.getPointsAVLTree().getRoot().getObject().getName());
 	}
 
 	private void changeVisibilityMainAnchor() {

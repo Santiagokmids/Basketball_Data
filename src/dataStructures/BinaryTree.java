@@ -209,10 +209,10 @@ public class BinaryTree <T,K extends Comparable <K>>implements  IBinaryTree<T,K>
 		else {
 
 			if(key.compareTo(assistaNode.getKey()) <= 0) {
-				return searchNodeMax(key, assistaNode.getRight(),players);
+				return searchNodeMax(key, assistaNode.getLeft(),players);
 
 			}else {
-				return searchNodeMax(key, assistaNode.getLeft(),players);
+				return searchNodeMax(key, assistaNode.getRight(),players);
 			}
 		}
 	}

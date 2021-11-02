@@ -295,7 +295,7 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 	}
 
 	public ArrayList<V> searchNodeMax(K key, NodeAVLTree<K, V> assistaNodeAVLTree, ArrayList<V> players) {
-
+		
 		if(assistaNodeAVLTree == null) {
 			return players;
 
@@ -309,10 +309,10 @@ public class AVLTree<K extends Comparable<K>, V >implements IAVLTree<K, V>, Seri
 		else {
 
 			if(key.compareTo(assistaNodeAVLTree.getKey()) <= 0) {
-				return searchNodeMax(key, assistaNodeAVLTree.getRight(),players);
+				return searchNodeMax(key, assistaNodeAVLTree.getLeft(),players);
 
 			}else {
-				return searchNodeMax(key, assistaNodeAVLTree.getLeft(),players);
+				return searchNodeMax(key, assistaNodeAVLTree.getRight(),players);
 			}
 		}
 	}

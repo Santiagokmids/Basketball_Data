@@ -454,7 +454,7 @@ public class BasketballData {
 		ArrayList<Players> player = new ArrayList<Players>();
 
 		switch (date) {
-		case "assistances":
+		case "assistence":
 			player = assistanceTree.searchNodeMax(key);
 			break;
 
@@ -472,7 +472,7 @@ public class BasketballData {
 		ArrayList<Players> player = new ArrayList<Players>();
 
 		switch (date) {
-		case "assistances":
+		case "assistence":
 			player = assistanceTree.searchNodeMin(key);
 			break;
 
