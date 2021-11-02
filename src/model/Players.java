@@ -113,6 +113,6 @@ public class Players implements Serializable{
 	}
 	
 	public String toString() {
-		return getName()+" - "+getLastName()+" - "+getAge()+" - "+getTeam()+" - "+getPoints()+" - "+getBounce()+" - "+getAssistance()+" - "+getTheft()+" - "+getBlock()+" - "+getBlock();
+		return getName()+" - "+getLastName()+" - "+getAge()+" - "+getTeam()+" - "+getPoints()+" - "+getBounce()+" - "+getAssistance()+" - "+getTheft()+" - "+getBlock();
 	}
 }
