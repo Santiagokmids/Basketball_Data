@@ -143,7 +143,7 @@ class BasketballDataTest<K extends Comparable<K>, V> {
 		@Test
 		void testDeleteBinary() {
 			septupScenary8();
-			biTree.deleteNode(k);
+			biTree.deleteNode(biTree.getRoot());
 			assertNull(biTree.getRoot());
 		}
 	}
