@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,7 +42,7 @@ import thread.SearchByName;
 public class BasketballDataGUI {
 
 	@FXML
-    private TextField lblImport;
+	private TextField lblImport;
 
 	@FXML
 	private Button btnWaitting;
@@ -202,7 +203,6 @@ public class BasketballDataGUI {
 	@FXML
 	private TextField txtDeleteTeam;
 
-
 	@FXML
 	private Button btnImport;
 
@@ -289,8 +289,9 @@ public class BasketballDataGUI {
 	public int players;
 
 	private String direction = "";
-	
+
 	public static ObservableList<Players> listPlayers;
+	public Players playerGlo;
 
 	public BasketballDataGUI(BasketballData basketballData) {
 		this.basketData = basketballData;
@@ -312,7 +313,7 @@ public class BasketballDataGUI {
 	}
 
 	@FXML
-	public void loadApp() throws IOException, InterruptedException{
+	public void loadApp() throws IOException, InterruptedException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("startApp.fxml"));
 		loader.setController(this);
 		Parent load = loader.load();
@@ -354,7 +355,7 @@ public class BasketballDataGUI {
 		imgBack.setVisible(true);
 		imgBack.setDisable(false);
 	}
-	 
+
 	private void changeVisibilityAnchor() {
 		anchorBack.setVisible(false);
 		anchorBack.setDisable(true);
@@ -400,7 +401,7 @@ public class BasketballDataGUI {
 
 			Image title = new Image("/images/listPlayersT.png");
 			titleAnchPlayers.setImage(title);
-			//inicializateTableView();
+			// inicializateTableView();
 			break;
 		case "  Agregar":
 
@@ -489,28 +490,27 @@ public class BasketballDataGUI {
 		String criter = comboBCriters.getValue();
 		String txt = txtDatesSearch.getText();
 
-		if(criter != null && date != null && method != null && !txt.equals("") ) {
+		if (criter != null && date != null && method != null && !txt.equals("")) {
 
 			int value = putCriter(criter);
-			int dates = getDateToSearch(txtDatesSearch.getText());	
+			int dates = getDateToSearch(txtDatesSearch.getText());
 
-			if(date.equalsIgnoreCase("Puntos por partido") && dates != -1) {
+			if (date.equalsIgnoreCase("Puntos por partido") && dates != -1) {
 				searchPoints(method, value, dates);
 
-			}else if(date.equalsIgnoreCase("Rebotes por partido") && dates != -1) {
+			} else if (date.equalsIgnoreCase("Rebotes por partido") && dates != -1) {
 				searchBounces(method, value, dates);
 
-			}else if(date.equalsIgnoreCase("Asistencias por partido") && dates != -1) {
+			} else if (date.equalsIgnoreCase("Asistencias por partido") && dates != -1) {
 				searchAssistence(method, value, dates);
 
-			}else if(date.equalsIgnoreCase("Robos por partido") && dates != -1) {
+			} else if (date.equalsIgnoreCase("Robos por partido") && dates != -1) {
 				searchTheft(method, value, dates);
 
-			}else if(date.equalsIgnoreCase("Bloqueos por partido") && dates != -1) {
+			} else if (date.equalsIgnoreCase("Bloqueos por partido") && dates != -1) {
 				searchBlock(method, value, dates);
 			}
-		}
-		else {
+		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("ERROR");
 			alert.setHeaderText("Datos inválidos");
@@ -528,7 +528,7 @@ public class BasketballDataGUI {
 
 			date = Integer.parseInt(dates);
 
-		}catch(NumberFormatException nfe){
+		} catch (NumberFormatException nfe) {
 
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("ERROR");
@@ -543,13 +543,13 @@ public class BasketballDataGUI {
 	public int putCriter(String criter) {
 		int value = 0;
 
-		if(criter.equalsIgnoreCase("Igual")) {
+		if (criter.equalsIgnoreCase("Igual")) {
 			value = 0;
 
-		}else if(criter.equalsIgnoreCase("Menor o igual")) {
+		} else if (criter.equalsIgnoreCase("Menor o igual")) {
 			value = -1;
 
-		}else if(criter.equalsIgnoreCase("Mayor o igual")) {
+		} else if (criter.equalsIgnoreCase("Mayor o igual")) {
 			value = 1;
 		}
 
@@ -558,12 +558,12 @@ public class BasketballDataGUI {
 
 	public void searchPoints(String method, int criter, int date) {
 
-		if(method.equalsIgnoreCase("Árbol Binario Balanceado")) {
+		if (method.equalsIgnoreCase("Árbol Binario Balanceado")) {
 			String message = "El o los jugadores encontrados son: \n";
 			ArrayList<Players> player = new ArrayList<Players>();
 			String type = "points";
 
-			if(criter == 0) {
+			if (criter == 0) {
 				player = basketData.searchNodeEqualsAVL(date, type);
 				showPlayers(player, message);
 
@@ -575,7 +575,7 @@ public class BasketballDataGUI {
 			}else if(criter == -1) {
 				player = basketData.searchNodeMinAVL(date,basketData.searchNodesPoint(),player);
 				showPlayers(player, message);
-			}
+			} 
 		} else {
 			showAlert();
 		}
@@ -583,12 +583,12 @@ public class BasketballDataGUI {
 
 	public void searchBounces(String method, int criter, int date) {
 
-		if(method.equalsIgnoreCase("Árbol Binario Balanceado")) {
+		if (method.equalsIgnoreCase("Árbol Binario Balanceado")) {
 			String message = "El o los jugadores encontrados son: \n";
 			ArrayList<Players> player = new ArrayList<Players>();
 			String type = "bounces";
 
-			if(criter == 0) {
+			if (criter == 0) {
 				player = basketData.searchNodeEqualsAVL(date, type);
 				showPlayers(player, message);
 
@@ -599,7 +599,7 @@ public class BasketballDataGUI {
 			}else if(criter == -1) {
 				player = basketData.searchNodeMinAVL(date,basketData.searchNodesBounce(),player);
 				showPlayers(player, message);
-			}
+			} 
 		} else {
 			showAlert();
 		}
@@ -609,11 +609,11 @@ public class BasketballDataGUI {
 		String message = "El o los jugadores encontrados son: \n";
 		ArrayList<Players> player = new ArrayList<Players>();
 
-		if(method.equalsIgnoreCase("Árbol Binario Balanceado")) {
+		if (method.equalsIgnoreCase("Árbol Binario Balanceado")) {
 
 			String type = "assistence";
 
-			if(criter == 0) {
+			if (criter == 0) {
 				player = basketData.searchNodeEqualsAVL(date, type);
 				showPlayers(player, message);
 
@@ -624,12 +624,12 @@ public class BasketballDataGUI {
 			}else if(criter == -1) {
 				player = basketData.searchNodeMinAVL(date,basketData.searchNodesAssitence(),player);
 				showPlayers(player, message);
-			}
-		}else if(method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
+			} 
+		} else if (method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
 
-			if(criter == 0) {
+			if (criter == 0) {
 				boolean stop = false;
-				player = basketData.searchNodeEqualsTree(date,basketData.searchNodesAssitenceTree(),player,stop);
+				player = basketData.searchNodeEqualsTree(date, basketData.searchNodesAssitenceTree(), player, stop);
 				showPlayers(player, message);
 
 			}else if(criter == 1) {
@@ -640,35 +640,35 @@ public class BasketballDataGUI {
 				player = basketData.searchNodeMinTree(date,basketData.searchNodesAssitenceTree(),player);
 				showPlayers(player, message);
 			}
-		}
-		else {
+		} else {
 			showAlert();
 		}
 	}
 
 	public void searchTheft(String method, int criter, int date) {
 		String message = "El o los jugadores encontrados son: \n";
-		ArrayList<Players> player = new ArrayList<Players>();;
+		ArrayList<Players> player = new ArrayList<Players>();
+		;
 
-		if(method.equalsIgnoreCase("Búsqueda lineal")) {
+		if (method.equalsIgnoreCase("Búsqueda lineal")) {
 
-			if(criter == 0) {
+			if (criter == 0) {
 				player = basketData.searchArrayEquals(date);
 				showPlayers(player, message);
 
-			}else if(criter == 1) {
+			} else if (criter == 1) {
 				player = basketData.searchArrayMax(date);
 				showPlayers(player, message);
 
-			}else if(criter == -1) {
+			} else if (criter == -1) {
 				player = basketData.searchArrayMin(date);
 				showPlayers(player, message);
 			}
-		}else if(method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
+		} else if (method.equalsIgnoreCase("Árbol Binario de búsqueda")) {
 
-			if(criter == 0) {
+			if (criter == 0) {
 				boolean stop = false;
-				player = basketData.searchNodeEqualsTree(date,basketData.searchNodesTheftTree(date),player,stop);
+				player = basketData.searchNodeEqualsTree(date, basketData.searchNodesTheftTree(date), player, stop);
 				showPlayers(player, message);
 
 			}else if(criter == 1) {
@@ -679,21 +679,20 @@ public class BasketballDataGUI {
 				player = basketData.searchNodeMinTree(date,basketData.searchNodesTheftTree(date),player);
 				showPlayers(player, message);
 			}
-		} 
-		else {
+		} else {
 			showAlert();
 		}
 	}
 
 	public void searchBlock(String method, int criter, int date) {
 
-		if(method.equalsIgnoreCase("Árbol Binario Balanceado")) {
+		if (method.equalsIgnoreCase("Árbol Binario Balanceado")) {
 			String message = "El o los jugadores encontrados son: \n";
 			ArrayList<Players> player = new ArrayList<Players>();
 
 			String type = "blocks";
 
-			if(criter == 0) {
+			if (criter == 0) {
 				player = basketData.searchNodeEqualsAVL(date, type);
 				showPlayers(player, message);
 
@@ -716,16 +715,17 @@ public class BasketballDataGUI {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("INFORMACIÓN");
 
-		if(player.isEmpty()) {
+		if (player.isEmpty()) {
 			ms = "No se encontraron jugadores con ese dato estadístico";
 			alert.setHeaderText("VACÍO");
 
-		}else {
+		} else {
 
-			alert.setHeaderText("Los atributos a mostrar serán mostrados de la siguiente forma: \nNombre - Apellido - Edad - Equipo - Puntos - Rebotes - Asistencias - Robos - Bloqueos");
+			alert.setHeaderText(
+					"Los atributos a mostrar serán mostrados de la siguiente forma: \nNombre - Apellido - Edad - Equipo - Puntos - Rebotes - Asistencias - Robos - Bloqueos");
 
 			for (int i = 0; i < player.size(); i++) {
-				ms += player.get(i).toString()+"\n";
+				ms += player.get(i).toString() + "\n";
 			}
 		}
 
@@ -747,9 +747,10 @@ public class BasketballDataGUI {
 		comboBMethods.getItems().clear();
 		comboBCriters.getItems().clear();
 
-		comboBDates.getItems().addAll("Puntos por partido","Rebotes por partido","Asistencias por partido","Robos por partido","Bloqueos por partido");
-		comboBMethods.getItems().addAll("Árbol Binario de búsqueda","Árbol Binario Balanceado","Búsqueda lineal");
-		comboBCriters.getItems().addAll("Igual","Menor o igual","Mayor o igual");
+		comboBDates.getItems().addAll("Puntos por partido", "Rebotes por partido", "Asistencias por partido",
+				"Robos por partido", "Bloqueos por partido");
+		comboBMethods.getItems().addAll("Árbol Binario de búsqueda", "Árbol Binario Balanceado", "Búsqueda lineal");
+		comboBCriters.getItems().addAll("Igual", "Menor o igual", "Mayor o igual");
 	}
 
 	private void changeAllButton() {
@@ -776,33 +777,33 @@ public class BasketballDataGUI {
 
 		switch (s) {
 		case "     Jugadores":
-			if(btnPlayersVerify) {
+			if (btnPlayersVerify) {
 				btnPlayers.setStyle(style);
 				btnPlayers.setEffect(dropShadow);
 			}
 			break;
 		case "  Agregar":
-			if(btnAddVerify) {
+			if (btnAddVerify) {
 				btnAdd.setStyle(style);
 				btnAdd.setEffect(dropShadow);
 			}
 			break;
 		case "  Eliminar":
-			if(btnDeleteVerify) {
+			if (btnDeleteVerify) {
 				btnDelete.setStyle(style);
 				btnDelete.setEffect(dropShadow);
 			}
 			break;
 		case "Buscar":
-			if(btnSearchVerify) {
+			if (btnSearchVerify) {
 				btnSearch.setStyle(style);
 				btnSearch.setEffect(dropShadow);
 			}
 			break;
 		case "   Importar":
-			if(btnImportVerify) {
+			if (btnImportVerify) {
 				btnImport.setStyle(style);
-				btnImport.setEffect(dropShadow);	
+				btnImport.setEffect(dropShadow);
 			}
 			break;
 		default:
@@ -822,33 +823,33 @@ public class BasketballDataGUI {
 		String style = "-fx-background-color: #D54939;";
 		switch (s) {
 		case "     Jugadores":
-			if(btnPlayersVerify) {
+			if (btnPlayersVerify) {
 				btnPlayers.setStyle(style);
 				btnPlayers.setEffect(null);
 			}
 			break;
 		case "  Agregar":
-			if(btnAddVerify) {
+			if (btnAddVerify) {
 				btnAdd.setStyle(style);
 				btnAdd.setEffect(null);
 			}
 			break;
 		case "  Eliminar":
-			if(btnDeleteVerify) {
+			if (btnDeleteVerify) {
 				btnDelete.setStyle(style);
-				btnDelete.setEffect(null);	
+				btnDelete.setEffect(null);
 			}
 			break;
 		case "Buscar":
-			if(btnSearchVerify) {
+			if (btnSearchVerify) {
 				btnSearch.setStyle(style);
-				btnSearch.setEffect(null);	
+				btnSearch.setEffect(null);
 			}
 			break;
 		case "   Importar":
-			if(btnImportVerify) {
+			if (btnImportVerify) {
 				btnImport.setStyle(style);
-				btnImport.setEffect(null);	
+				btnImport.setEffect(null);
 			}
 			break;
 		default:
@@ -858,18 +859,16 @@ public class BasketballDataGUI {
 
 	@FXML
 	public void btnModify(ActionEvent event) {
-
-
 		Players players = (Players) this.tvPlayers.getSelectionModel().getSelectedItem();
-
-		if(players == null) {
+		if (players == null) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
 			alert.setContentText("Es necesario seleccionar un jugador");
 			alert.showAndWait();
-		}else {
+		} else {
 			try {
+
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-pane.fxml"));
 
 				loader.setController(this);
@@ -878,11 +877,29 @@ public class BasketballDataGUI {
 				Scene scene = new Scene(root);
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
+				lblName.setText(players.getName());
+				lblLastName.setText(players.getLastName());
+				lblAge.setText(players.getAge() + "");
+				lblBlock.setText(players.getBlock() + "");
+				lblAssistance.setText(players.getAssistance() + "");
+				lblTeam.setText(players.getTeam());
+				lblTheft.setText(players.getTheft() + "");
+				lblBounce.setText(players.getBounce() + "");
+				lblPoints.setText(players.getPoints() + "");
+				int age = Integer.parseInt(lblAge.getText());
+				int poinst = Integer.parseInt(lblPoints.getText());
+				int bounce = Integer.parseInt(lblBounce.getText());
+				int assistan = Integer.parseInt(lblAssistance.getText());
+				int thef = Integer.parseInt(lblTheft.getText());
+				int block = Integer.parseInt(lblBlock.getText());
+				playerGlo = new Players(lblName.getText(), lblLastName.getText(), lblTeam.getText(), age, poinst,
+						bounce, assistan, thef, block);
+
 				stage.setScene(scene);
 				stage.showAndWait();
-				
+
 				basketData.saveData();
-				
+
 			} catch (IOException e) {
 			}
 		}
@@ -916,17 +933,42 @@ public class BasketballDataGUI {
 	}
 
 	@FXML
-	public void btnSave(ActionEvent event) {
+	public void btnSave(ActionEvent event) throws IOException, ClassNotFoundException {
+		int age = Integer.parseInt(lblAge.getText());
+		int poinst = Integer.parseInt(lblPoints.getText());
+		int bounce = Integer.parseInt(lblBounce.getText());
+		int assistan = Integer.parseInt(lblAssistance.getText());
+		int thef = Integer.parseInt(lblTheft.getText());
+		int block = Integer.parseInt(lblBlock.getText());
+		basketData.modify(playerGlo, lblName.getText(), lblLastName.getText(), lblTeam.getText(), age, poinst, bounce,
+				assistan, thef, block);
+
+		new Thread() {
+			public void run() {
+
+				Platform.runLater(new Thread() {
+					public void run() {
+						inicializateTableView();
+					}
+				});
+
+			}
+		}.start();
+
 		Stage stage = (Stage) this.btnSave.getScene().getWindow();
 		stage.close();
+
 	}
 
 	@FXML
-	public void btnAdd(ActionEvent event) throws InterruptedException {
-		
+	public void btnAdd(ActionEvent event) throws InterruptedException, IOException {
+
 		Alert alert = new Alert(AlertType.INFORMATION);
 
-		if(!tfName.getText().equals("") && !tfLastName.getText().equals("") && !tfTeam.getText().equals("") && !tfAge.getText().equals("") && !tfPoints.getText().equals("") && !tfBounces.getText().equals("") && !tfAssistances.getText().equals("") && !tfTheft.getText().equals("") && !tfBlock.getText().equals("")) {
+		if (!tfName.getText().equals("") && !tfLastName.getText().equals("") && !tfTeam.getText().equals("")
+				&& !tfAge.getText().equals("") && !tfPoints.getText().equals("") && !tfBounces.getText().equals("")
+				&& !tfAssistances.getText().equals("") && !tfTheft.getText().equals("")
+				&& !tfBlock.getText().equals("")) {
 
 			try {
 				int age = Integer.parseInt(tfAge.getText());
@@ -936,31 +978,31 @@ public class BasketballDataGUI {
 				int theft = Integer.parseInt(tfTheft.getText());
 				int block = Integer.parseInt(tfBlock.getText());
 
-				SearchByName search = new SearchByName(basketData.getPlayers(), tfName.getText(), tfLastName.getText(),age);
+				SearchByName search = new SearchByName(basketData.getPlayers(), tfName.getText(), tfLastName.getText(),
+						age);
 				search.start();
 				search.join();
-				
-				if(!search.getVerify()) {
-					
-					if(age > -1 && points > -1 && bounce > -1 && assistance > -1 && theft > -1 && block > -1) {
-						try {
-							basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points, bounce, assistance, theft, block);
-						} catch (IOException e) {
-						}
+
+				if (!search.getVerify()) {
+
+					if (age > -1 && points > -1 && bounce > -1 && assistance > -1 && theft > -1 && block > -1) {
+						basketData.addPlayer(tfName.getText(), tfLastName.getText(), tfTeam.getText(), age, points,
+								bounce, assistance, theft, block);
 						inicializateTableView();
 
 						alert.setTitle("EXCELENTE");
 						alert.setHeaderText("Se ha registrado exitosamente");
-						alert.setContentText("Se ha registrado a "+tfName.getText()+" "+tfLastName.getText()+" exitosamente");
+						alert.setContentText("Se ha registrado a " + tfName.getText() + " " + tfLastName.getText()
+								+ " exitosamente");
 						alert.showAndWait();
 						players = 0;
-					}else {
+					} else {
 						alert.setHeaderText("No se pudo agregar el jugador");
 						alert.setContentText("Debe ingresar números mayores o iguales a 0");
 						alert.showAndWait();
 					}
 
-				}else {
+				} else {
 					alert.setAlertType(AlertType.ERROR);
 					alert.setHeaderText("No se pudo agregar el jugador");
 					alert.setContentText("Ya hay jugadores en la base de datos con esa información");
@@ -987,7 +1029,7 @@ public class BasketballDataGUI {
 				alert.showAndWait();
 			}
 
-		}else {
+		} else {
 			alert.setAlertType(AlertType.ERROR);
 			alert.setTitle("ERROR");
 			alert.setHeaderText("No se pudo agregar el jugador");
@@ -997,36 +1039,40 @@ public class BasketballDataGUI {
 	}
 
 	@FXML
-	public void btnDelete(ActionEvent event) {
+	public void btnDelete(ActionEvent event) throws IOException {
 
 		Alert alert = new Alert(AlertType.INFORMATION);
 
-		if(!txtDeleteName.getText().equals("") && !txtDeleteLast.getText().equals("") && !txtDeleteTeam.getText().equals("") && !txtDeleteAge.getText().equals("") && !txtDeletePoint.getText().equals("") && !txtDeleteBounce.getText().equals("") && !txtDeleteAss.getText().equals("") && !txtDeleteTheft.getText().equals("") && !txtDeleteBlock.getText().equals("")) {
+		if (!txtDeleteName.getText().equals("") && !txtDeleteLast.getText().equals("")
+				&& !txtDeleteTeam.getText().equals("") && !txtDeleteAge.getText().equals("")
+				&& !txtDeletePoint.getText().equals("") && !txtDeleteBounce.getText().equals("")
+				&& !txtDeleteAss.getText().equals("") && !txtDeleteTheft.getText().equals("")
+				&& !txtDeleteBlock.getText().equals("")) {
 
 			try {
 				int age = Integer.parseInt(txtDeleteAge.getText());
 				int points = Integer.parseInt(txtDeletePoint.getText());
-				int bounce = Integer.parseInt(txtDeleteBounce.getText()); 
+				int bounce = Integer.parseInt(txtDeleteBounce.getText());
 				int assistance = Integer.parseInt(txtDeleteAss.getText());
 				int theft = Integer.parseInt(txtDeleteTheft.getText());
 				int block = Integer.parseInt(txtDeleteBlock.getText());
 
-				Players player = basketData.searchPlayer(txtDeleteName.getText(), txtDeleteLast.getText(),age,txtDeleteTeam.getText(),points,bounce,assistance,theft,block);
+				Players player = basketData.searchPlayer(txtDeleteName.getText(), txtDeleteLast.getText(), age,
+						txtDeleteTeam.getText(), points, bounce, assistance, theft, block);
 
 				if (player != null) {
 
-					if(age > -1 && points > -1 && bounce > -1 && assistance > -1 && theft > -1 && block > -1) {
-						try {
-							basketData.deletePlayer(txtDeleteName.getText(), txtDeleteLast.getText(), txtDeleteTeam.getText(), age, points, bounce, assistance, theft, block);
-						} catch (IOException e) {
-						}
+					if (age > -1 && points > -1 && bounce > -1 && assistance > -1 && theft > -1 && block > -1) {
+						basketData.deletePlayer(txtDeleteName.getText(), txtDeleteLast.getText(),
+								txtDeleteTeam.getText(), age, points, bounce, assistance, theft, block);
 						inicializateTableView();
 
 						alert.setTitle("EXCELENTE");
 						alert.setHeaderText("Se ha eliminado exitosamente");
-						alert.setContentText("Se ha eliminado a "+txtDeleteName.getText()+" "+txtDeleteLast.getText()+" de la base de datos");
+						alert.setContentText("Se ha eliminado a " + txtDeleteName.getText() + " "
+								+ txtDeleteLast.getText() + " de la base de datos");
 						alert.showAndWait();
-						
+
 						txtDeleteName.setText("");
 						txtDeleteLast.setText("");
 						txtDeleteAge.setText("");
@@ -1038,10 +1084,11 @@ public class BasketballDataGUI {
 						txtDeleteBlock.setText("");
 					}
 
-				}else {
+				} else {
 					alert.setAlertType(AlertType.ERROR);
 					alert.setHeaderText("No se pudo eliminar el jugador");
-					alert.setContentText("En la base de datos no se encuentran jugadores registrados con esa información");
+					alert.setContentText(
+							"En la base de datos no se encuentran jugadores registrados con esa información");
 					alert.showAndWait();
 				}
 
@@ -1054,7 +1101,7 @@ public class BasketballDataGUI {
 				alert.showAndWait();
 			}
 
-		}else {
+		} else {
 			alert.setTitle("ERROR");
 			alert.setHeaderText("No se pudo eliminar el jugador");
 			alert.setContentText("Debe llenar todos los campos para eliminar al jugador");
@@ -1069,7 +1116,7 @@ public class BasketballDataGUI {
 		fileChooser.setTitle("Abrir un archivo");
 		File file = fileChooser.showOpenDialog(mainPane.getScene().getWindow());
 
-		if(file != null) {
+		if (file != null) {
 			lblImport.setText(file.getAbsolutePath());
 			direction = file.getAbsolutePath();
 		}
@@ -1077,20 +1124,20 @@ public class BasketballDataGUI {
 
 	@FXML
 	public void btnGoImport(ActionEvent event) {
-		
+
 		Alert alert = new Alert(AlertType.INFORMATION);
-		
+
 		if (!lblImport.getText().equals(direction)) {
 			alert.setTitle("ERROR");
 			alert.setHeaderText("No se pudo importar");
 			alert.setContentText("El campo debe contener una dirección válida");
 			alert.showAndWait();
-		}else if(lblImport.getText().isEmpty()){
+		} else if (lblImport.getText().isEmpty()) {
 			alert.setTitle("ERROR");
 			alert.setHeaderText("No se pudo importar");
 			alert.setContentText("El campo debe contener una dirección de documento");
 			alert.showAndWait();
-		}else if(!lblImport.getText().isEmpty()) {
+		} else if (!lblImport.getText().isEmpty()) {
 			try {
 				waitting();
 			} catch (IOException e) {
@@ -1101,7 +1148,8 @@ public class BasketballDataGUI {
 	@FXML
 	private void exitWaitting(ActionEvent event) throws InterruptedException, FileNotFoundException {
 
-		LoadData loadDate = new LoadData(this, lblWaitting, btnWaitting,basketData, new BufferedReader(new FileReader(direction)));
+		LoadData loadDate = new LoadData(this, lblWaitting, btnWaitting, basketData,
+				new BufferedReader(new FileReader(direction)));
 		imgSmile.setVisible(true);
 		loadDate.start();
 	}
@@ -1135,4 +1183,5 @@ public class BasketballDataGUI {
 
 		stage.showAndWait();
 	}
+
 }

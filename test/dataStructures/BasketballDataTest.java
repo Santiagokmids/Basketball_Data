@@ -7,10 +7,24 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import model.BasketballData;
+import thread.SearchByName;
 
-class BasketballDataTest {
+class BasketballDataTest<K extends Comparable<K>, V> {
+		private K k;
+		private V v;
+		private AVLTree<K, V> treeAvl;
+		private BasketballData bt;
+		public void setupScenaryL() {
+			treeAvl = new AVLTree<K,V>();
+		}
+			
+		public void setupScenary() {
+			setupScenaryL();
+			treeAvl.addNode(k, v);		
+			treeAvl.addNode(k, v);
+		}
+		
 
-	private BasketballData bt;
 		public void setupScenary1() {
 			bt = new BasketballData();
 		}
@@ -41,6 +55,11 @@ class BasketballDataTest {
 			bt.addPlayer("Luis","Diaz","Lw",21,29,10,7,3,4);
 		}
 
+		
+		@Test
+		void testAddPlayerAVL() {
+			
+		}
 		@Test
 		void testCreateNode() throws IOException {
 			setupScenary3();		
@@ -70,6 +89,31 @@ class BasketballDataTest {
 			setupScenary6();	
 			bt.deletePlayer("Juan","Reyes","Bulls",20,28,9,6,2,3);
 			assertEquals("24 26 29 ",bt.getPointsAVLTree().searchInOrder(bt.getPointsAVLTree().getRoot()));
+		}
+		@Test
+		void testAddPlayer() throws IOException {
+			bt = new BasketballData();
+			bt.addPlayer("Juan","Reyes","Bulls",20,28,9,6,2,3);
+			assertEquals(6, bt.getAssistanceTree().getRoot().getKey());
+			assertEquals(6,bt.getAssitanceAVLTree().getRoot().getKey());
+			assertEquals(3,bt.getBlockAVLTree().getRoot().getKey());
+			assertEquals(9,bt.getBounceAVLTree().getRoot().getKey());
+			assertEquals(28,bt.getPointsAVLTree().getRoot().getKey());
+			assertEquals(2,bt.getTheftTree().getRoot().getKey());
+		}
+		@Test
+		void testAddPlayerEqual() throws InterruptedException, IOException {
+			setupScenary4();		
+			SearchByName search = new SearchByName(bt.getPlayers(),"Luis","Ossa" ,22);
+			search.start();
+			search.join();
+			assertTrue(search.getVerify());
+			
+		}
+		@Test
+		void testAddObjectAVl() {
+			setupScenary();
+			assertEquals(2, treeAvl.height(treeAvl.getRoot()));
 		}
 	}
 
